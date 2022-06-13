@@ -1,0 +1,38 @@
+.top-navbar {
+    width: 100%;
+    z-index: 9;
+    position: relative;
+    box-shadow: $bg-shadow;
+    border-radius: 10px;
+
+    .navbar {
+        padding: 10px;
+        border-radius: 10px;
+
+        &.bg-navbar {
+            background-color: $gray-900 !important;
+        }
+
+        ul {
+            li {
+                a {
+                    color: $white !important;
+                }
+            }
+        }
+
+        .navbar-dropdown-menu {
+
+            .dropdown-menu {
+                background-color: $gray-800 !important;
+
+                .dropdown-item {
+                    transition: background-color 0.5s ease;
+                    &:hover {
+                        background-color: $gray-600 !important;
+                    }
+                }
+            }
+        }
+    }
+}

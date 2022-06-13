@@ -1,0 +1,143 @@
+#sidebar {
+    position: fixed;
+    height: calc(100vh - 18px) !important;
+    top: 0.5rem;
+    left: 0.5rem;
+    bottom: 0;
+    z-index: 11;
+    width: 240px;
+    overflow: auto;
+    box-shadow: $bg-shadow;
+    background: $gray-900;
+    border-radius: 10px;
+    transition: all 0.3s;
+
+    .sidebar-header {
+        padding: 10px;
+        background-color: #ffffff;
+        border-bottom: 1px solid #eee;
+
+        h3 {
+            color: #333;
+            font-size: 17px;
+            margin: 0;
+            text-transform: uppercase;
+            transition: all 0.5s ease;
+            font-weight: $font-width-600;
+
+            img {
+                width: 175px;
+                margin-right: 10px;
+            }
+        }
+    }
+
+    ul {
+        &.components {
+            padding: 20px 0;
+        }
+
+        li {
+            padding: 2px 7px;
+            margin-top: 8px;
+
+            a {
+                padding: 10px;
+                line-height: 30px;
+                border-radius: 5px;
+                font-size: 15px;
+                position: relative;
+                font-weight: 400;
+                display: block;
+                text-decoration: none;
+
+                svg {
+                    position: relative;
+                    margin-right: 6px;
+                    top: 0;
+                    font-size: 22px;
+                    color: $gray-50;
+                    margin-left: 10px;
+                }
+
+                span {
+                    text-transform: capitalize;
+                    display: inline-block;
+                }
+            }
+        }
+    }
+
+    .custom-dropdown-btn {
+        padding: 10px;
+        line-height: 30px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 15px;
+        display: block;
+        border: none;
+        background: none;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+        outline: none;
+        transition: background-color 0.5s ease;
+
+        .fa-caret-down {
+            font-size: 18px;
+            margin-left: 4rem;
+        }
+
+        &:hover {
+            background-color: $gray-600;
+        }
+
+        &:active:focus,
+        &:focus {
+            outline: 0 !important;
+            box-shadow: none !important;
+            background-color: $gray-600 !important;
+            border: none !important;
+        }
+
+        svg {
+            position: relative;
+            margin-right: 6px;
+            top: 0;
+            font-size: 22px;
+            color: $gray-50;
+            margin-left: 10px;
+        }
+    }
+
+    .dropdown-container {
+        background-color: $gray-800;
+        margin-top: 4px;
+        border-radius: 5px;
+
+        li {
+            padding: 0;
+            transition: background-color 0.5s ease;
+
+            a {
+                padding: 6px;
+                color: $white;
+                margin-left: 20px;
+            }
+
+            &:hover {
+                background-color: $gray-600 !important;
+            }
+
+            &:first-child {
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+            }
+
+            &:last-child {
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+        }
+    }
+}

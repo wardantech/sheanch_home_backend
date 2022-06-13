@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  padding: 0;
+  line-height: 1.8;
+  color: $font-color;
+  background: $gray-100;
+}
+
+.wrapper {
+  text-transform: capitalize;
+  text-rendering: optimizeLegibility !important;
+  font-weight: 400;
+}
+
+.active > a{
+  font-weight: 600;
+  color: #fff;
+  background-color: $active;
+  box-shadow: $bg-active-shadow;
+  transition: all 0.3s;
+}

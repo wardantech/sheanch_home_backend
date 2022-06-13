@@ -1,0 +1,31 @@
+.login-section {
+    padding: 7em 0;
+
+    .heading-section {
+        font-size: 28px;
+        color: #000;
+    }
+
+    .main-wrap {
+        width: 100%;
+        overflow: hidden;
+        background: #ffffff;
+        border-radius: 5px;
+        box-shadow: 0 10px 34px -15px rgb(0 0 0 / 24%);
+
+        .login-img {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+        .login-img,
+        .login-wrap {
+            width: 50%;
+        }
+
+        .login-wrap {
+            position: relative;
+        }
+    }
+}
