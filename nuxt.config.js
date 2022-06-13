@@ -58,7 +58,7 @@ export default {
   },
   axios: {
     //proxy: true,
-    baseURL: 'http://localhost/sheanch/sheanch-home-api/public/api/v1/admin/',
+    baseURL: 'http://localhost/sheanch/sheanch-home-api-v1/public/api/v1/admin/',
   },
   auth: {
     strategies: {
