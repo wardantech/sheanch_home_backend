@@ -41,9 +41,6 @@ export default {
   buildModules: [
 
   ],
-
-
-
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/bootstrap
@@ -58,7 +55,7 @@ export default {
   },
   axios: {
     //proxy: true,
-    baseURL: 'http://127.0.0.1:8000/api/',
+    baseURL: 'http://sheanch-home-api-v1.test/api/v1/admin/',
   },
   auth: {
     strategies: {
@@ -74,9 +71,9 @@ export default {
           // autoFetch: true
         },
         endpoints: {
-          login: { url: 'login', method: 'post' },
-          logout: { url: 'logout', method: 'post' },
-          user: { url: 'me', method: 'post' }
+          login: { url: 'auth/login', method: 'post' },
+          logout: { url: 'auth/logout', method: 'post' },
+          user: { url: 'auth/me', method: 'post' }
         }
       }
     }

@@ -42,7 +42,7 @@
           async logout (){
             await this.$auth.logout()
             this.$toast.error('Logged In successfully!');
-            this.$nuxt.$options.router.push({path:'login'})
+            this.$nuxt.$options.router.push({name:'login'})
           }
       }
     }
