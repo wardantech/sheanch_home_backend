@@ -58,7 +58,7 @@ export default {
   },
   axios: {
     //proxy: true,
-    baseURL: 'http://sheanch-home-api-v1.test/api/',
+    baseURL: 'http://127.0.0.1:8000/api/',
   },
   auth: {
     strategies: {

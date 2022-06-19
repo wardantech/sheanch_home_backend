@@ -1,10 +1,13 @@
 <template>
   <div>
     <b-card border-variant="light" class="card-stats">
-      <div class="card-header card-header-accent">
+      <div class="card-header card-header-accent d-flex justify-content-between align-items-center">
         <p class="card-title">
-          <span>Asif</span>
+          <span>Landlords</span>
         </p>
+        <nuxt-link :to="{ name: 'users-landlords-create' }" class="btn btn-dark">
+          Add Landlord
+        </nuxt-link>
       </div>
       <div class="card-body">
         <DataTable id="dataTable" :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy" class="">
@@ -15,8 +18,6 @@
         </DataTable>
       </div>
     </b-card>
-
-
   </div>
 </template>
 
