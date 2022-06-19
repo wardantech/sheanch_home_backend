@@ -58,7 +58,7 @@ export default {
   },
   axios: {
     //proxy: true,
-    baseURL: 'http://localhost/sheanch/sheanch-home-api/public/api/v1/admin/',
+    baseURL: 'http://sheanch-home-api-v1.test/api/',
   },
   auth: {
     strategies: {
@@ -74,9 +74,9 @@ export default {
           // autoFetch: true
         },
         endpoints: {
-          login: { url: 'auth/login', method: 'post' },
-          logout: { url: 'auth/logout', method: 'post' },
-          user: { url: 'auth/me', method: 'post' }
+          login: { url: 'login', method: 'post' },
+          logout: { url: 'logout', method: 'post' },
+          user: { url: 'me', method: 'post' }
         }
       }
     }
