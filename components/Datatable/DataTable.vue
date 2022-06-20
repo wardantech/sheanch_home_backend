@@ -28,7 +28,19 @@ export default {
 </script>
 
 <style scoped>
-.sorting_asc{
-
+.sorting {
+  background-image: url('assets/images/sort_both.png');
+  background-repeat: no-repeat;
+  background-position: center right;
+}
+.sorting_asc {
+  background-image: url('assets/images/sort_asc.png');
+  background-repeat: no-repeat;
+  background-position: center right;
+}
+.sorting_desc {
+  background-image: url('assets/images/sort_desc.png');
+  background-repeat: no-repeat;
+  background-position: center right;
 }
 </style>

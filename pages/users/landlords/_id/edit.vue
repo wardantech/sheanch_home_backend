@@ -36,7 +36,7 @@
                     </option>
                   </select>
                   <strong class="text-danger" style="font-size: 12px" v-if="errors.division_id" >{{errors.division_id[0]}}</strong>
-               </b-form-group>
+                </b-form-group>
               </b-col>
               <b-col lg="4" md="4" sm="12">
                 <b-form-group label="District">
@@ -106,7 +106,7 @@
             </b-form-group>
 
             <b-form-group>
-                <b-button type="submit" variant="dark">Save</b-button>
+              <b-button type="submit" variant="dark">Save</b-button>
             </b-form-group>
 
           </b-form>
@@ -117,59 +117,64 @@
 </template>
 
 <script>
-  export default {
-    name: "create",
+export default {
+  name: "edit",
 
-    data() {
-      return {
-        form:{
-          name:'',
-          mobile:'',
-          nid:'',
-          thana_id:'',
-          district_id:'',
-          division_id:'',
-          postal_address:'',
-          residential_address:'',
-          email:'',
-          password:'',
-          password_confirmation:'',
-        },
-        landlord:'',
-        divisions: '',
-        districts: '',
-        thanas: '',
-        errors:{}
-      }
-    },
-    async created() {
-      let divisions = await this.$axios.$get('settings/divisions')
-      this.divisions = divisions.data
-    },
-
-    methods:{
-      async getDistricts(division_id){
-        this.thanas = '';
-        let district = await this.$axios.$post('settings/districts',{divisionId: division_id});
-        this.districts = district.data;
+  data() {
+    return {
+      form:{
+        name:'',
+        mobile:'',
+        nid:'',
+        thana_id:'',
+        district_id:'',
+        division_id:'',
+        postal_address:'',
+        residential_address:'',
+        email:'',
+        password:'',
+        password_confirmation:'',
       },
+      landlord:'',
+      divisions: '',
+      districts: '',
+      thanas: '',
+      errors:{}
+    }
+  },
 
-      async getThanas(district_id){
-        let thanas = await this.$axios.$post('settings/thanas',{districtId: district_id});
-        this.thanas = thanas.data;
-      },
+  mounted() {
 
-      async store(){
-        await this.$axios.$post('landlord',this.form)
-          .then(response=>{
-            this.$toast.success('Landlord create successfully!');
-            this.errors = ''
-            this.$router.push({name: 'users-landlords'});
-          })
-          .catch(error=>this.errors = error.response.data.errors)
-      }
+  },
+
+  async created() {
+    let divisions = await this.$axios.$get('settings/divisions')
+    this.divisions = divisions.data
+  },
+
+  methods:{
+    async getDistricts(division_id){
+      this.thanas = '';
+      let district = await this.$axios.$post('settings/districts',{divisionId: division_id});
+      this.districts = district.data;
+    },
+
+    async getThanas(district_id){
+      let thanas = await this.$axios.$post('settings/thanas',{districtId: district_id});
+      this.thanas = thanas.data;
+    },
+
+    async store(){
+      await this.$axios.$post('landlord',this.form)
+        .then(response=>{
+          this.$toast.success('Landlord create successfully!');
+          this.errors = ''
+          this.$router.push({name: 'users-landlords'});
+        })
+        .catch(error=>this.errors = error.response.data.errors)
     }
   }
+}
 </script>
 
 <style scoped>
