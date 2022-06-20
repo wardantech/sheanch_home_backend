@@ -10,12 +10,46 @@
         </nuxt-link>
       </div>
       <div class="card-body">
+
+        <div class="row form-group">
+          <div class="col-md-4">
+            <input class="form-control " type="text" v-model="tableData.search" placeholder="Search Table" @input="getData()">
+          </div>
+          <div class="col-md-6"></div>
+
+          <div class="col-md-2">
+            <select class="form-control" v-model="tableData.length" @change="getData()">
+              <option v-for="(records, index) in perPage" :key="index" :value="records">{{records}}</option>
+            </select>
+          </div>
+        </div>
+
         <DataTable id="dataTable" :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy" class="">
           <tbody v-for="(value,i) in values" :key="value.id">
           <tr >
+            <td>{{i+1}}</td>
+            <td>{{value.name}}</td>
+            <td  >
+              <nuxt-link :to="{name:'users-landlords-id-edit',params: { id: value.id }}"
+                           rel="tooltip" class="btn btn-success btn-simple"
+                           title="Edit">
+                <i class="material-icons">edit</i>
+              </nuxt-link>
+<!--              <a @click="deleteCategory(value.id)"-->
+<!--                 rel="tooltip" class="btn btn-danger btn-simple"-->
+<!--                 style="color: white"-->
+<!--                 title="Delete">-->
+<!--                <i class="material-icons">close</i>-->
+<!--              </a>-->
+            </td>
           </tr>
           </tbody>
         </DataTable>
+
+        <pagination :pagination="pagination"
+                    @prev="getData(pagination.prevPageUrl)"
+                    @next="getData(pagination.nextPageUrl)">
+        </pagination>
       </div>
     </b-card>
   </div>
@@ -23,9 +57,11 @@
 
 <script>
 import DataTable from "@/components/Datatable/DataTable";
+import Pagination from "@/components/Datatable/Pagination";
+
 export default {
   name: "index",
-  components: {DataTable},
+  components: {Pagination, DataTable},
   created() {
     this.getData();
   },
@@ -34,7 +70,6 @@ export default {
     let columns = [
       {width: '', label: 'Sl', name: 'id' },
       {width: '', label: 'Name', name: 'name'},
-      {width: '', label: 'Email', name: 'email'},
       {width: '', label: 'Action', name: ''},
     ];
     columns.forEach((column) => {
@@ -49,7 +84,7 @@ export default {
       perPage: ['10', '25', '50','100','500','2000','all'],
       tableData: {
         draw: 0,
-        length: 10,
+        length: '',
         search: '',
         column: 0,
         dir: 'desc',
@@ -62,25 +97,27 @@ export default {
         nextPageUrl: '',
         prevPageUrl: '',
         from: '',
-        to: ''
+        to: '',
       },
     }
   },
   methods: {
-    getData() {
-      this.loading = true;
+    getData(url = '/landlord/list') {
       this.tableData.draw++;
-      //this.$axios.setToken(this.$auth.strategy.token.get(), 'Bearer');
-      // this.$axios.post('/all-admin?page=2', {lim:3})
-      //   .then(response => {
-      //     console.log(response.data)
-      //
-      //   })
-      //   .catch(errors => {
-      //     //console.log(errors);
-      //   }).finally(() => {
-      //
-      // });
+      this.$axios.post(url, {params: this.tableData})
+        .then(response => {
+          let data = response.data;
+          if (this.tableData.draw == data.draw) {
+            this.values = data.data.data;
+            console.log(this.values);
+            this.configPagination(data.data);
+          }
+        })
+        .catch(errors => {
+          //console.log(errors);
+        }).finally(() => {
+
+      });
     },
     configPagination(data) {
       this.pagination.lastPage = data.last_page;
@@ -92,6 +129,7 @@ export default {
       this.pagination.from = data.from;
       this.pagination.to = data.to;
     },
+
     sortBy(key) {
       this.sortKey = key;
       this.sortOrders[key] = this.sortOrders[key] * -1;
