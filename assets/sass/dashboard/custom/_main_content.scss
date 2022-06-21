@@ -1,4 +1,26 @@
-.main-content {
-    position: relative;
-    width: 100%;
+.sidebar-toggle-btn {
+  position: fixed;
+  top: 17px;
+  left: 18px;
+  background: transparent;
+  color: black;
+  border: none;
+  z-index: 999999;
+
+  &:focus,
+  &:active,
+  &:hover {
+    background: transparent !important;
+    color: black !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+main {
+  transition: padding-left .5s;
+}
+
+.add-padding {
+  padding-left: 260px;
 }
