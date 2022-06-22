@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div style="padding: 68px 15px;">
+    <div>
       <b-row>
         <b-col>
-          <b-card border-variant="light" class="card-stats">
-            <div class="card-header card-header-accent">
+          <b-card border-variant="light">
+            <div class="card-header">
               <p class="card-title"><span>asd: {{ loggedInUser }}</span></p>
             </div>
             <div class="card-footer">
