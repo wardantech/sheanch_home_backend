@@ -23,20 +23,6 @@
         </div>
       </main>
     </div>
-
-    <!--<div class="wrapper" v-if="$route.path === '/login' ? false : true">-->
-      <!--<div class="body-overlay"></div>-->
-      <!--<Sidebar />-->
-      <!--&lt;!&ndash; Start Content &ndash;&gt;-->
-      <!--<div id="content">-->
-        <!--<Navbar  />-->
-        <!--<div class="main-content" >-->
-
-          <!--<Nuxt/>-->
-        <!--</div>-->
-      <!--</div>-->
-      <!-- End Content -->
-    <!--</div>-->
   </div>
 </template>
 

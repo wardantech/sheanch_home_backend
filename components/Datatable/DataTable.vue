@@ -4,8 +4,8 @@
 
 <template>
 
-  <table class="table">
-    <thead class="">
+  <table class="table table-bordered table-hover table-border">
+    <thead>
     <tr>
       <th class="font-weight-bold" v-for="column in columns" :key="column.name" @click="$emit('sort', column.name)"
           :class="sortKey === column.name ? (sortOrders[column.name] > 0 ? 'sorting_asc' : 'sorting_desc') : 'sorting'"

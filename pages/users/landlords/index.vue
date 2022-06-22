@@ -1,57 +1,58 @@
 <template>
   <div>
-    <b-card border-variant="light" class="card-stats">
-      <div class="card-header card-header-accent d-flex justify-content-between align-items-center">
-        <p class="card-title">
-          <span>Landlords</span>
-        </p>
-        <nuxt-link :to="{ name: 'users-landlords-create' }" class="btn btn-dark">
+
+
+
+
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="card-title m-0">Landlord List</h5>
+
+        <nuxt-link :to="{ name: 'users-landlords-create' }" class="btn btn-info">
+          <font-awesome-icon icon="fa-solid fa-plus" />
           Add Landlord
         </nuxt-link>
       </div>
+
       <div class="card-body">
-
-        <div class="row form-group">
-          <div class="col-md-4">
-            <input class="form-control " type="text" v-model="tableData.search" placeholder="Search Table" @input="getData()">
-          </div>
-          <div class="col-md-6"></div>
-
-          <div class="col-md-2">
-            <select class="form-control" v-model="tableData.length" @change="getData()">
-              <option v-for="(records, index) in perPage" :key="index" :value="records">{{records}}</option>
-            </select>
-          </div>
+        <div class="search d-flex justify-content-between align-items-center">
+            <div class="form-group">
+              <input class="form-control custom-form-control" type="text" v-model="tableData.search" placeholder="Search Table" @input="getData()">
+            </div>
+            <div class="form-group">
+              <select class="form-control custom-select-form-control" v-model="tableData.length" @change="getData()">
+                <option v-for="(records, index) in perPage" :key="index" :value="records">{{records}}</option>
+              </select>
+            </div>
         </div>
-
         <DataTable id="dataTable" :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy" class="">
-          <tbody v-for="(value,i) in values" :key="value.id">
-          <tr >
-            <td>{{i+1}}</td>
-            <td>{{value.name}}</td>
-            <td  >
-              <nuxt-link :to="{name:'users-landlords-id-edit',params: { id: value.id }}"
-                           rel="tooltip" class="btn btn-success btn-simple"
-                           title="Edit">
-                <i class="material-icons">edit</i>
-              </nuxt-link>
-<!--              <a @click="deleteCategory(value.id)"-->
-<!--                 rel="tooltip" class="btn btn-danger btn-simple"-->
-<!--                 style="color: white"-->
-<!--                 title="Delete">-->
-<!--                <i class="material-icons">close</i>-->
-<!--              </a>-->
-            </td>
-          </tr>
+          <tbody>
+            <tr v-for="(value,i) in values" :key="value.id">
+              <td>{{i+1}}</td>
+              <td>{{value.name}}</td>
+              <td>
+                <nuxt-link :to="{name:'users-landlords-id-edit',params: { id: value.id }}" rel="tooltip" class="btn btn-sm btn-success btn-simple"
+                  title="Edit">
+                  <font-awesome-icon icon="fa-solid fa-pen-to-square" />
+                  </nuxt-link>
+                  <!--<a @click="deleteCategory(value.id)"-->
+                     <!--rel="tooltip" class="btn btn-danger btn-simple"-->
+                     <!--style="color: white"-->
+                     <!--title="Delete">-->
+                    <!--<i class="material-icons">close</i>-->
+                  <!--</a>-->
+              </td>
+            </tr>
           </tbody>
         </DataTable>
 
         <pagination :pagination="pagination"
-                    @prev="getData(pagination.prevPageUrl)"
-                    @next="getData(pagination.nextPageUrl)">
+          @prev="getData(pagination.prevPageUrl)"
+          @next="getData(pagination.nextPageUrl)">
         </pagination>
+
       </div>
-    </b-card>
+    </div>
   </div>
 </template>
 

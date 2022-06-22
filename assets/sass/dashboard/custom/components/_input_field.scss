@@ -1,0 +1,29 @@
+.custom-form-control {
+  background-color: transparent;
+  border-color: #2b3553;
+  border-radius: 0.4285rem;
+  font-size: 1rem;
+  transition: color .3s ease-in-out,border-color .3s ease-in-out,background-color .3s ease-in-out;
+
+  &:focus {
+    border-color: #e14eca;
+    background-color: transparent;
+    box-shadow: none;
+    outline: 0;
+  }
+}
+
+.custom-select-form-control {
+  background-color: transparent;
+  border-width: 1px;
+  border-color: #2b3553;
+  color: #e14eca;
+
+  &:focus {
+    border-color: #e14eca;
+    background-color: transparent;
+    box-shadow: none;
+    outline: 0;
+  }
+
+}
