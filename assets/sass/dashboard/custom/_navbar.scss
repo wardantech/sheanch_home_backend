@@ -1,5 +1,27 @@
 .top-navbar {
   background: $white;
-  border-bottom: 1px solid $gray-200;
   z-index: 10000;
+
+  .navbar-nav {
+    li {
+      a {
+        color: $gray-800 !important;
+      }
+    }
+  }
 }
+
+.user-setting {
+  .dropdown-menu {
+    background-color: $white !important;
+
+    li {
+      a {
+        &:hover {
+          background-color: $gray-50 !important;
+        }
+      }
+    }
+  }
+}
+

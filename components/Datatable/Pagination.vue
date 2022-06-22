@@ -23,22 +23,22 @@
     <span class="page-stats">{{pagination.from}} - {{pagination.to}} of {{pagination.total}}</span>
     <a title="previous" class=""
        style="cursor: pointer" v-if="pagination.prevPageUrl" @click="$emit('prev');">
-      <i class="tim-icons icon-minimal-left">prev</i>
+      <font-awesome-icon icon="fa-solid fa-arrow-left-long" />
     </a>
     <a rel="tooltip" class="btn-link"
        title="previous" style="cursor: pointer"
        v-else :disabled="true">
-      <i class="tim-icons icon-minimal-left">prev</i>
+      <font-awesome-icon icon="fa-solid fa-arrow-left-long" />
     </a>
 
     <a title="next" style="cursor: pointer;" v-if="pagination.nextPageUrl"
        rel="tooltip" class="btn-link"
        @click="$emit('next');">
-      <i class="tim-icons icon-minimal-right">next</i>
+      <font-awesome-icon icon="fa-solid fa-arrow-right-long" />
     </a>
     <a title="next" style="cursor: pointer"
        rel="tooltip" class="btn-link " v-else :disabled="true">
-      <i class="tim-icons icon-minimal-right">next</i>
+      <font-awesome-icon icon="fa-solid fa-arrow-right-long" />
     </a>
   </nav>
 
