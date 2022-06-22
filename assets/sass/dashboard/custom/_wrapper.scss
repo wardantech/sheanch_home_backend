@@ -15,7 +15,7 @@ body {
 .active > a{
   font-weight: 600;
   color: #fff;
-  background-color: $active;
+  background-color: $gray-900;
   box-shadow: $bg-active-shadow;
   transition: all 0.3s;
 }

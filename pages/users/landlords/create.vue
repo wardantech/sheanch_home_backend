@@ -1,9 +1,9 @@
 <template>
   <div>
     <!--Body Card-->
-    <b-row class="mt-2">
+    <b-row>
       <b-col>
-        <b-card class="mt-3" header="Create Landlord">
+        <b-card header="Create Landlord">
           <b-form @submit.prevent="store">
             <b-row>
               <b-col lg="4" md="4" sm="12">
