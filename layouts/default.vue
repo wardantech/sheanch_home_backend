@@ -17,7 +17,7 @@
         @click="addPadding">
         <font-awesome-icon icon="fa-solid fa-bars" />
       </b-button>
-      <main class="pt-3" :class="(isPadding) ? 'add-padding': ''" style="margin-top: 65px">
+      <main class="pt-3" :class="(isPadding) ? 'add-padding': ''" style="margin-top: 55px">
         <div class="container-fluid">
           <Nuxt/>
         </div>
