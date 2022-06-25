@@ -17,26 +17,12 @@
         @click="addPadding">
         <font-awesome-icon icon="fa-solid fa-bars" />
       </b-button>
-      <main class="pt-3" :class="(isPadding) ? 'add-padding': ''" style="margin-top: 65px">
+      <main class="pt-3" :class="(isPadding) ? 'add-padding': ''" style="margin-top: 55px">
         <div class="container-fluid">
           <Nuxt/>
         </div>
       </main>
     </div>
-
-    <!--<div class="wrapper" v-if="$route.path === '/login' ? false : true">-->
-      <!--<div class="body-overlay"></div>-->
-      <!--<Sidebar />-->
-      <!--&lt;!&ndash; Start Content &ndash;&gt;-->
-      <!--<div id="content">-->
-        <!--<Navbar  />-->
-        <!--<div class="main-content" >-->
-
-          <!--<Nuxt/>-->
-        <!--</div>-->
-      <!--</div>-->
-      <!-- End Content -->
-    <!--</div>-->
   </div>
 </template>
 
