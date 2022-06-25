@@ -5,7 +5,6 @@
       <b-col md="8">
         <b-card class="mt-3" header="Create Landlord">
           <b-row>
-
             <b-form @submit.prevent="store">
               <b-row>
                 <b-col lg="6" md="6" sm="12">
@@ -145,8 +144,6 @@
               </b-form-group>
 
             </b-form>
-            >
-
           </b-row>
         </b-card>
       </b-col>
@@ -242,18 +239,16 @@ export default {
       console.log(this.$refs.el.dropzone.processQueue());
     },
     async store() {
-      this.$refs.el.dropzone.processQueue()
-      //console.log(this.$refs.el.dropzone);
-      // await this.$axios.$post('landlord', this.form, )
-      //   .then(response => {
-      //     console.log(response);
-      //     this.$toast.success('Landlord create successfully!');
-      //     this.$refs.el.dropzone.processQueue();
-      //     //this.submitForm ()
-      //     //this.$router.push({name: 'users-landlords'});
-      //   })
-      //.catch(error => this.errors = error.response.data.errors)
-      //.catch(error => console.log(error))
+
+      await this.$axios.$post('landlord', this.form, )
+        .then(response => {
+          console.log(response);
+          this.$toast.success('Landlord create successfully!');
+          this.$refs.el.dropzone.processQueue();
+          this.$router.push({name: 'users-landlords'});
+        })
+      .catch(error => this.errors = error.response.data.errors)
+      .catch(error => console.log(error))
     },
 
 
