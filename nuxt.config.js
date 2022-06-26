@@ -55,7 +55,7 @@ export default {
   },
   axios: {
     //proxy: true,
-    baseURL: 'http://sheanch-home-api-v1.test/api/v1/admin/',
+    baseURL: process.env.APP_ROOT_API,
   },
   auth: {
     strategies: {
@@ -83,7 +83,12 @@ export default {
   build: {
   },
   router: {
-    middleware: ['auth'],
+    middleware: ['auth']
+  },
+  reactStrictMode: true,
+  env: {
+    APP_ROOT_API: process.env.APP_ROOT_API,
+    APP_ROOT_IMG_URL: process.env.APP_ROOT_IMG_URL
   }
 
 }
