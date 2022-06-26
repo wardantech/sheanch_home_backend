@@ -2,57 +2,42 @@
   <div>
     <div>
       <b-row>
-        <b-col>
-          <b-card border-variant="light">
-            <div class="card-header">
-              <p class="card-title"><span>asd: {{ loggedInUser }}</span></p>
+        <b-col lg="4" md="6" sm="12">
+          <div class="dashboard-status status-success">
+            <div class="dashboard-status-content">
+              <h4>288,999</h4>
+              <span>Approved properties</span>
             </div>
-            <div class="card-footer">
-              <div class="status">Pending Amount</div>
+            <div class="dashboard-status-icon">
+              <font-awesome-icon icon="fa-solid fa-circle-check" />
             </div>
-          </b-card>
+          </div>
         </b-col>
 
-        <b-col>
-          <b-card border-variant="light" class="card-stats">
-            <div class="card-header card-header-info">
-              <p class="card-title">15,000.00</p>
+        <b-col lg="4" md="6" sm="12">
+          <div class="dashboard-status status-warning">
+            <div class="dashboard-status-content">
+              <h4>100,000</h4>
+              <span>Pending approve properties</span>
             </div>
-            <div class="card-footer">
-              <div class="status">Pending Amount</div>
+            <div class="dashboard-status-icon">
+              <font-awesome-icon icon="fa-solid fa-circle-dollar-to-slot" />
             </div>
-          </b-card>
+          </div>
         </b-col>
 
-        <b-col>
-          <b-card border-variant="light" class="card-stats">
-            <div class="card-header card-header-accent">
-              <p class="card-title">15,000.00</p>
+        <b-col lg="4" md="6" sm="12">
+          <div class="dashboard-status status-info">
+            <div class="dashboard-status-content">
+              <h4>200,000</h4>
+              <span>Rejected properties</span>
             </div>
-            <div class="card-footer">
-              <div class="status">Pending Amount</div>
+            <div class="dashboard-status-icon">
+              <font-awesome-icon icon="fa-solid fa-circle-nodes" />
             </div>
-          </b-card>
+          </div>
         </b-col>
-        <b-col>
-          <b-card border-variant="light" class="card-stats">
-            <div class="card-header card-header-info">
-              <p class="card-title">15,000.00</p>
-            </div>
-            <div class="card-footer">
-              <div class="status">Pending Amount</div>
-            </div>
-          </b-card>
-        </b-col>
-      </b-row>
 
-      <!--Body Card-->
-      <b-row class="mt-5">
-        <b-col>
-          <b-card title="Table Title">
-
-          </b-card>
-        </b-col>
       </b-row>
     </div>
 
