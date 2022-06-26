@@ -29,6 +29,9 @@
           <tbody>
             <tr v-for="(value,i) in values" :key="value.id">
               <td>{{i+1}}</td>
+              <td>
+                <img style="height: 50px; width: 50px" :src="imageUrl+value.image" alt="">
+              </td>
               <td>{{value.name}}</td>
               <td>
                 <nuxt-link :to="{name:'users-landlords-id-edit',params: { id: value.id }}" rel="tooltip" class="btn btn-sm btn-success btn-simple"
@@ -66,10 +69,17 @@ export default {
   created() {
     this.getData();
   },
+  computed:{
+    imageUrl(){
+      return `${process.env.APP_ROOT_IMG_URL}/`
+    }
+  },
+
   data() {
     let sortOrders = {};
     let columns = [
       {width: '', label: 'Sl', name: 'id' },
+      {width: '', label: 'Img', name: 'image' },
       {width: '', label: 'Name', name: 'name'},
       {width: '', label: 'Action', name: ''},
     ];
@@ -85,7 +95,7 @@ export default {
       perPage: ['10', '25', '50','100','500','2000','all'],
       tableData: {
         draw: 0,
-        length: '',
+        length: 10,
         search: '',
         column: 0,
         dir: 'desc',

@@ -166,7 +166,6 @@
             <dropzone id="foo" ref="el"
                       :options="options"
                       :destroyDropzone="false"
-                      @vdropzone-queue-complete="submitForm"
             >
             </dropzone>
           </b-form-group>
@@ -189,8 +188,9 @@ export default {
   data() {
     return {
       options: {
-        url: "http://sheanch-home-api-v1.test/api/v1/admin/formSubmit",
+        url: "url",
         addRemoveLinks: true,
+        headers: {"Authorization": this.$auth.strategy.token.get()},
         maxFiles: 1,
         autoProcessQueue: false,
         acceptedFiles: ".jpeg,.jpg,.png"
@@ -222,6 +222,7 @@ export default {
   async created() {
     let divisions = await this.$axios.$get('settings/divisions')
     this.divisions = divisions.data
+    console.log(this.$auth.strategy.token.get())
   },
 
   methods: {
@@ -235,20 +236,27 @@ export default {
       let thanas = await this.$axios.$post('settings/thanas', {districtId: district_id});
       this.thanas = thanas.data;
     },
-    submitForm() {
-      console.log(this.$refs.el.dropzone.processQueue());
-    },
+
     async store() {
 
       await this.$axios.$post('landlord', this.form, )
         .then(response => {
           console.log(response);
           this.$toast.success('Landlord create successfully!');
+          this.$refs.el.dropzone.options.url = process.env.APP_ROOT_API+'landlord/image-upload/'+response.data.id;
           this.$refs.el.dropzone.processQueue();
           this.$router.push({name: 'users-landlords'});
         })
-      .catch(error => this.errors = error.response.data.errors)
-      .catch(error => console.log(error))
+      //.catch(error => this.errors = error.response.data.errors)
+      .catch(error => {
+        if(error.response.status == 422){
+          this.errors = error.response.data.errors
+        }
+        else{
+          alert(error.response.message)
+        }
+
+      })
     },
 
 
