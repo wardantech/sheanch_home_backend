@@ -1,17 +1,20 @@
 <template>
   <div>
     <!--Body Card-->
-    <b-row class="mt-2">
+    <b-row>
       <b-col md="8">
-        <b-card class="mt-3" header="Edit Landlord">
-          <b-row>
+        <div class="card mt-3">
+          <div class="card-header">
+            <h5 class="card-title m-0">Edit Landlord</h5>
+          </div>
+          <div class="card-body">
             <b-form @submit.prevent="update">
               <b-row>
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Name">
                     <b-form-input v-model="form.name" type="text" placeholder="Name"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px" v-if="errors.name">{{
-                        errors.name[0]
+                      errors.name[0]
                       }}</strong>
                   </b-form-group>
                 </b-col>
@@ -30,7 +33,7 @@
                   <b-form-group label="NID">
                     <b-form-input type="text" v-model="form.nid" placeholder="National ID"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px" v-if="errors.nid">{{
-                        errors.nid[0]
+                      errors.nid[0]
                       }}</strong>
                   </b-form-group>
                 </b-col>
@@ -39,7 +42,7 @@
                   <b-form-group label="Email">
                     <b-form-input v-model="form.email" type="email" placeholder="Email"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px" v-if="errors.email">{{
-                        errors.email[0]
+                      errors.email[0]
                       }}</strong>
                   </b-form-group>
                 </b-col>
@@ -123,13 +126,13 @@
               </b-form-group>
 
             </b-form>
-          </b-row>
-        </b-card>
+          </div>
+        </div>
       </b-col>
       <b-col md="4">
         <b-card class="mt-3" header="Image">
           <td>
-            <img style="height: 200px; width: 300px" v-model="form.oldImage" :src="imageUrl+form.image" alt="">
+            <img style="height: 200px; width: 300px; object-fit: cover;" v-model="form.oldImage" :src="imageUrl+form.image" alt="">
           </td>
           <b-form-group label="Image">
             <dropzone id="foo" ref="el"

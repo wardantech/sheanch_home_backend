@@ -32,10 +32,11 @@
             </td>
             <td>{{value.name}}</td>
             <td>
-              <!--<nuxt-link :to="{name:'users-landlords-id-edit',params: { id: value.id }}" rel="tooltip" class="btn btn-sm btn-success btn-simple"-->
-              <!--title="Edit">-->
-              <!--<font-awesome-icon icon="fa-solid fa-pen-to-square" />-->
-              <!--</nuxt-link>-->
+              <nuxt-link :to="{name:'users-tenants-id-edit',params: { id: value.id }}" rel="tooltip"
+                         class="btn btn-sm btn-success btn-simple"
+                         title="Edit">
+                <font-awesome-icon icon="fa-solid fa-pen-to-square"/>
+              </nuxt-link>
             </td>
           </tr>
           </tbody>
@@ -61,16 +62,16 @@
     created() {
       this.getData();
     },
-    computed:{
-      imageUrl(){
+    computed: {
+      imageUrl() {
         return `${process.env.APP_ROOT_IMG_URL}/`
       }
     },
     data() {
       let sortOrders = {};
       let columns = [
-        {width: '', label: 'Sl', name: 'id' },
-        {width: '', label: 'Img', name: 'image' },
+        {width: '', label: 'Sl', name: 'id'},
+        {width: '', label: 'Img', name: 'image'},
         {width: '', label: 'Name', name: 'name'},
         {width: '', label: 'Action', name: ''},
       ];
@@ -83,7 +84,7 @@
         columns: columns,
         sortKey: 'id',
         sortOrders: sortOrders,
-        perPage: ['10', '25', '50','100','500','2000','all'],
+        perPage: ['10', '25', '50', '100', '500', '2000', 'all'],
         tableData: {
           draw: 0,
           length: 10,
