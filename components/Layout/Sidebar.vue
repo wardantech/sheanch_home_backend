@@ -6,10 +6,10 @@
           <nav class="mb-3 sidebar-nav">
             <ul class="list-unstyled components">
               <li class="active">
-                <b-link href="#" class="dashboard">
+                <nuxt-link :to="{ name: 'index' }"  class="dashboard">
                   <font-awesome-icon icon="fa-solid fa-house-chimney"/>
                   <span>Dashboard</span>
-                </b-link>
+                </nuxt-link>
               </li>
 
               <li>
