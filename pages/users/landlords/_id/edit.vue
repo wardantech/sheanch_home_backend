@@ -5,7 +5,7 @@
       <b-col md="8">
         <b-card class="mt-3" header="Edit Landlord">
           <b-row>
-            <b-form @submit.prevent="store">
+            <b-form @submit.prevent="update">
               <b-row>
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Name">
@@ -89,7 +89,6 @@
                       <option value="">Select</option>
                       <option value="1">Active</option>
                       <option value="0">Inactive</option>
-
                     </select>
                     <strong class="text-danger" style="font-size: 12px"
                             v-if="errors.status">{{ errors.status[0] }}</strong>
@@ -128,20 +127,10 @@
         </b-card>
       </b-col>
       <b-col md="4">
-        <b-card class="mt-3" header="Create Landlord">
-          <!--          <b-form-group label="Image">-->
-          <!--            <b-form-file-->
-          <!--              ref="fileInput"-->
-          <!--              @input="pickFile"-->
-          <!--            >-->
-          <!--            </b-form-file>-->
-          <!--            &lt;!&ndash;            <input type="hidden" v-model="form.image">&ndash;&gt;-->
-          <!--            <strong class="text-danger" style="font-size: 12px" v-if="errors.nid">{{ errors.nid[0] }}</strong>-->
-          <!--          </b-form-group>-->
-          <!--          <div-->
-          <!--            class="imagePreviewWrapper"-->
-          <!--            :style="{ 'background-image': `url(${previewImage})` }">-->
-          <!--          </div>-->
+        <b-card class="mt-3" header="Image">
+          <td>
+            <img style="height: 200px; width: 300px" v-model="form.oldImage" :src="imageUrl+form.image" alt="">
+          </td>
           <b-form-group label="Image">
             <dropzone id="foo" ref="el"
                       :options="options"
@@ -165,6 +154,11 @@ export default {
   components: {
     Dropzone
   },
+  computed:{
+    imageUrl(){
+      return `${process.env.APP_ROOT_IMG_URL}/`
+    }
+  },
   data() {
     return {
       options: {
@@ -182,6 +176,7 @@ export default {
         nid: '',
         email: '',
         image: '',
+        oldImage:'',
         status: '',
         thana_id: '',
         district_id: '',
@@ -204,6 +199,7 @@ export default {
     await this.$axios.$get('landlord/show/'+this.$route.params.id)
       .then(response=>{
         this.form = response.data;
+        this.form.oldImage = response.data.image;
         this.getDivisions()
         this.getDistricts(this.form.division_id)
         this.getThanas(this.form.district_id)
@@ -211,9 +207,6 @@ export default {
       //.catch(error=>this.errors = error.response.data.errors)
       //.finally(() =>{this.loading =  false});
 
-
-      //this.form.district_id = district.id
-      //console.log(district);
 
   },
 
@@ -236,9 +229,9 @@ export default {
       this.thanas = thanas.data;
     },
 
-    async store() {
+    async update() {
 
-      await this.$axios.$post('landlord', this.form, )
+      await this.$axios.$post('landlord/update/'+this.$route.params.id, this.form, )
         .then(response => {
           console.log(response);
           this.$toast.success('Landlord create successfully!');
@@ -246,7 +239,6 @@ export default {
           this.$refs.el.dropzone.processQueue();
           this.$router.push({name: 'users-landlords'});
         })
-        //.catch(error => this.errors = error.response.data.errors)
         .catch(error => {
           if(error.response.status == 422){
             this.errors = error.response.data.errors
@@ -263,14 +255,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.imagePreviewWrapper {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  display: block;
-  cursor: pointer;
-  margin: 0 auto 30px;
-  background-size: cover;
-  background-position: center center;
-}
+
 </style>

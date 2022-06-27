@@ -148,7 +148,7 @@
         </b-card>
       </b-col>
       <b-col md="4">
-        <b-card class="mt-3" header="Create Landlord">
+        <b-card class="mt-3" header="Image">
           <!--          <b-form-group label="Image">-->
           <!--            <b-form-file-->
           <!--              ref="fileInput"-->
