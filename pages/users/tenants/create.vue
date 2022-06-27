@@ -12,7 +12,7 @@
               <b-row>
                 <b-col md="12">
                   <b-form-group label="Name">
-                    <b-form-input v-model="form.name" type="text" placeholder="Name"></b-form-input>
+                    <b-form-input v-model="form.name" type="text" class="custom-form-control" placeholder="Name"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px" v-if="errors.name">{{
                       errors.name[0]
                       }}</strong>
@@ -23,7 +23,7 @@
               <b-row>
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Email">
-                    <b-form-input v-model="form.email" type="email" placeholder="Email"></b-form-input>
+                    <b-form-input v-model="form.email" type="email" class="custom-form-control" placeholder="Email"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px" v-if="errors.email">{{
                       errors.email[0]
                       }}</strong>
@@ -32,7 +32,7 @@
 
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Mobile">
-                    <b-form-input v-model="form.mobile" type="text" placeholder="Mobile"></b-form-input>
+                    <b-form-input v-model="form.mobile" type="text" class="custom-form-control" placeholder="Mobile"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px" v-if="errors.mobile">{{
                       errors.mobile[0]
                       }}</strong>
@@ -44,7 +44,7 @@
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Division">
                     <select @change="getDistricts(form.division_id)" v-model="form.division_id" id=""
-                            class="form-control">
+                            class="form-control custom-form-control">
                       <option value="">Select</option>
                       <option v-for="(division, i) in divisions" :value="division.id" :key="i">
                         {{ division.name }}
@@ -58,7 +58,7 @@
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="District">
                     <select @change="getThanas(form.district_id)" v-model="form.district_id" id=""
-                            class="form-control">
+                            class="form-control custom-form-control">
                       <option value="">Select</option>
                       <option v-for="(district, i) in districts" :value="district.id" :key="i">
                         {{ district.name }}
@@ -73,7 +73,7 @@
               <b-row>
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Thana">
-                    <select v-model="form.thana_id" id="" class="form-control">
+                    <select v-model="form.thana_id" id="" class="form-control custom-form-control">
                       <option value="">Select</option>
                       <option v-for="(thana, i) in thanas" :value="thana.id" :key="i">
                         {{ thana.name }}
@@ -86,7 +86,7 @@
 
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Status">
-                    <select v-model="form.status" id="" class="form-control">
+                    <select v-model="form.status" id="" class="form-control custom-form-control">
                       <option value="">Select</option>
                       <option value="1">Active</option>
                       <option value="0">Inactive</option>
@@ -101,7 +101,7 @@
               <b-row>
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Gender">
-                    <select v-model="form.gender" id="" class="form-control">
+                    <select v-model="form.gender" id="" class="form-control custom-form-control">
                       <option value="">Select</option>
                       <option value="1">Male</option>
                       <option value="2">Female</option>
@@ -116,7 +116,7 @@
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Date of birth">
                     <b-form-input v-model="form.dob" type="date"
-                                  placeholder="Date of Birth"></b-form-input>
+                                  placeholder="Date of Birth" class="custom-form-control"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px"
                             v-if="errors.dob">{{ errors.dob[0] }}</strong>
                   </b-form-group>
@@ -126,7 +126,7 @@
               <b-row>
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="National Id">
-                    <b-form-input v-model="form.nid" type="text"
+                    <b-form-input v-model="form.nid" class="custom-form-control" type="text"
                                   placeholder="National Id"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px"
                             v-if="errors.nid">{{ errors.nid[0] }}</strong>
@@ -135,7 +135,7 @@
 
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Passport No">
-                    <b-form-input v-model="form.passport_no" type="text"
+                    <b-form-input v-model="form.passport_no" class="custom-form-control" type="text"
                                   placeholder="Passport No"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px"
                             v-if="errors.passport_no">{{ errors.passport_no[0] }}</strong>
@@ -146,7 +146,7 @@
               <b-row>
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Marital status">
-                    <select v-model="form.marital_status" id="" class="form-control">
+                    <select v-model="form.marital_status" id="" class="form-control custom-form-control">
                       <option value="">Select</option>
                       <option value="1">Married</option>
                       <option value="2">Unmarried</option>
@@ -159,7 +159,7 @@
 
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Postal code">
-                    <b-form-input v-model="form.postal_code" type="text"
+                    <b-form-input v-model="form.postal_code" class="custom-form-control" type="text"
                                   placeholder="Postal code"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px"
                             v-if="errors.postal_code">{{ errors.postal_code[0] }}</strong>
@@ -170,7 +170,7 @@
               <b-row>
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Password">
-                    <b-form-input v-model="form.password" type="text" placeholder="Password"></b-form-input>
+                    <b-form-input v-model="form.password" type="text" class="custom-form-control" placeholder="Password"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px"
                             v-if="errors.password">{{ errors.password[0] }}</strong>
                   </b-form-group>
@@ -178,7 +178,7 @@
 
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Confirm Password">
-                    <b-form-input v-model="form.password_confirmation" type="text"
+                    <b-form-input v-model="form.password_confirmation" class="custom-form-control" type="text"
                                   placeholder="Password"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px"
                             v-if="errors.password_confirmation">{{ errors.password_confirmation[0] }}</strong>
