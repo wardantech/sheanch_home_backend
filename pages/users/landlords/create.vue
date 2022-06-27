@@ -239,7 +239,7 @@ export default {
 
     async store() {
 
-      await this.$axios.$post('landlord', this.form, )
+      await this.$axios.$post('landlord/store', this.form, )
         .then(response => {
           console.log(response);
           this.$toast.success('Landlord create successfully!');
@@ -247,7 +247,6 @@ export default {
           this.$refs.el.dropzone.processQueue();
           this.$router.push({name: 'users-landlords'});
         })
-      //.catch(error => this.errors = error.response.data.errors)
       .catch(error => {
         if(error.response.status == 422){
           this.errors = error.response.data.errors

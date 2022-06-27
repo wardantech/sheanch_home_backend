@@ -1,9 +1,5 @@
 <template>
   <div>
-
-
-
-
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="card-title m-0">Landlord List</h5>
