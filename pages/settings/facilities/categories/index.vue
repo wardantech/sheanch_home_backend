@@ -2,9 +2,9 @@
   <div>
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="card-title m-0">Utility Categories List</h5>
+        <h5 class="card-title m-0">Facility Categories List</h5>
 
-        <nuxt-link :to="{ name: 'settings-utilities-categories-create' }" class="btn btn-info">
+        <nuxt-link :to="{ name: 'settings-facilities-categories-create' }" class="btn btn-info">
           <font-awesome-icon icon="fa-solid fa-plus"/>
           Add Category
         </nuxt-link>
@@ -30,13 +30,13 @@
             <td>{{value.name}}</td>
             <td>{{value.description}}</td>
             <td>
-              <b-button @click="statusChange({id:value.id, status:value.status})"  title="Deactivate"
+              <b-button @click="statusChange({id:value.id, status:value.status})"
                         :class="value.status === 1 ? 'btn-sm btn-info': 'btn-sm btn-danger'">
                 {{value.status === 1 ? 'Active': 'Inactive'}}
               </b-button>
             </td>
             <td>
-              <nuxt-link :to="{name:'settings-utilities-categories-id-edit',params: { id: value.id }}" rel="tooltip"
+              <nuxt-link :to="{name:'settings-facilities-categories-id-edit',params: { id: value.id }}" rel="tooltip"
                          class="btn btn-sm btn-success btn-simple"
                          title="Edit">
                 <font-awesome-icon icon="fa-solid fa-pen-to-square"/>
@@ -105,7 +105,7 @@
       }
     },
     methods: {
-      getData(url = '/settings/utility/category/list') {
+      getData(url = '/settings/facility/category/list') {
         this.tableData.draw++;
         this.$axios.post(url, {params: this.tableData})
           .then(response => {
@@ -142,9 +142,9 @@
         return array.findIndex(i => i[key] == value)
       },
       async statusChange(params) {
-        await this.$axios.$post('/settings/utility/category/change-status/' + params.id, params)
+        await this.$axios.$post('/settings/facility/category/change-status/' + params.id, params)
           .then(response => {
-            this.$toast.success('Utility category deactivated successfully!');
+            this.$toast.success('Facility category status updated successfully!');
             this.getData()
           })
           .catch(error => {
