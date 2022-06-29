@@ -67,6 +67,27 @@
                   </li>
                 </b-collapse>
               </b-collapse>
+
+              <b-collapse class="dropdown-container m-2" id="collapse-3">
+                <li>
+                  <b-button class="custom-dropdown-btn" v-b-toggle.collapse-6>
+                    Facilities
+                  </b-button>
+                </li>
+
+                <b-collapse class="dropdown-container m-2" id="collapse-6">
+                  <li>
+                    <nuxt-link :to="{ name: 'settings-facilities-categories' }">
+                      Categories
+                    </nuxt-link>
+                  </li>
+                  <li>
+                    <nuxt-link :to="{ name: 'settings-facilities' }">
+                      Facility
+                    </nuxt-link>
+                  </li>
+                </b-collapse>
+              </b-collapse>
             </ul>
           </nav>
         </div>

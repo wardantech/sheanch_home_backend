@@ -2,7 +2,7 @@
   <div>
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="card-title m-0">Utility Categories List</h5>
+        <h5 class="card-title m-0">Utility List</h5>
 
         <nuxt-link :to="{ name: 'settings-utilities-create' }" class="btn btn-info">
           <font-awesome-icon icon="fa-solid fa-plus"/>
