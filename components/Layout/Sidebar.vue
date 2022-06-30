@@ -13,6 +13,7 @@
                 </nuxt-link>
               </li>
 
+              <!-- Users -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.collapse-2>
                   <font-awesome-icon icon="fa-solid fa-layer-group"/>
@@ -38,7 +39,9 @@
                   </nuxt-link>
                 </li>
               </b-collapse>
+              <!--/. Users -->
 
+              <!-- Settings -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.collapse-3>
                   <font-awesome-icon icon="fa-solid fa-gear"/>
@@ -88,6 +91,31 @@
                   </li>
                 </b-collapse>
               </b-collapse>
+              <!--/. Settings -->
+
+              <!-- Properties -->
+              <li>
+                <b-button class="custom-dropdown-btn" v-b-toggle.collapse-7>
+                  <font-awesome-icon icon="fa-solid fa-hotel" />
+                  Properties
+                  <font-awesome-icon icon="fa-solid fa-caret-down"/>
+                </b-button>
+              </li>
+
+              <b-collapse class="dropdown-container m-2" id="collapse-7">
+                <li>
+                  <nuxt-link :to="{ name: 'properties' }">
+                    All Properties
+                  </nuxt-link>
+                </li>
+                <li>
+                  <nuxt-link :to="{ name: 'properties-create' }">
+                    Add Property
+                  </nuxt-link>
+                </li>
+              </b-collapse>
+              <!--/. Properties -->
+
             </ul>
           </nav>
         </div>

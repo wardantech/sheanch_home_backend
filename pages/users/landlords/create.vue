@@ -195,7 +195,6 @@
           maxFiles: 1,
           autoProcessQueue: false,
           acceptedFiles: ".jpeg,.jpg,.png"
-
         },
         form: {
           name: '',
