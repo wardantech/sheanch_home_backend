@@ -85,7 +85,10 @@
       async update() {
         await this.$axios.$post('/settings/facility/category/update/' + this.$route.params.id, this.form,)
           .then(response => {
-            this.$toast.success('Facility category updated successfully!');
+            this.$izitoast.success({
+              title: 'Success !!',
+              message: 'Facility category updated successfully!'
+            })
             this.$router.push({name: 'settings-facilities-categories'});
           })
           .catch(error => {

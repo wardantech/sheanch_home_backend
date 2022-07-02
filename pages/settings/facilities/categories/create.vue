@@ -80,7 +80,10 @@
         await this.$axios.$post('settings/facility/category', this.form,)
           .then(response => {
             console.log(response);
-            this.$toast.success('Facility create successfully!');
+            this.$izitoast.success({
+              title: 'Success !!',
+              message: 'Facility category create successfully!'
+            })
             this.$router.push({name: 'settings-facilities-categories'});
           })
           .catch(error => {

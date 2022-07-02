@@ -99,8 +99,11 @@
       async store() {
         await this.$axios.$post('settings/facility', this.form,)
           .then(response => {
-            console.log(response);
-            this.$toast.success('Facility create successfully!');
+            //console.log(response);
+            this.$izitoast.success({
+              title: 'Success !!',
+              message: 'Facility create successfully!'
+            })
             this.$router.push({name: 'settings-facilities'});
           })
           .catch(error => {

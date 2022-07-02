@@ -25,10 +25,17 @@
           <tbody>
             <tr v-for="(value,i) in values" :key="value.id">
               <td>{{i+1}}</td>
-              <td>
-                <img style="height: 50px; width: 50px" :src="imageUrl+value.image" alt="">
-              </td>
+<!--              <td>-->
+<!--                <img style="height: 50px; width: 50px" :src="imageUrl+value.image" alt="">-->
+<!--              </td>-->
               <td>{{value.name}}</td>
+              <td>{{value.mobile}}</td>
+              <td>
+                <b-button @click="statusChange({id:value.id, status:value.status})"
+                          :class="value.status == 1 ? 'btn-sm btn-info': 'btn-sm btn-danger'">
+                  {{value.status === 1 ? 'Active': 'Inactive'}}
+                </b-button>
+              </td>
               <td>
                 <nuxt-link :to="{name:'users-landlords-id-edit',params: { id: value.id }}" rel="tooltip" class="btn btn-sm btn-success btn-simple"
                   title="Edit">
@@ -66,17 +73,18 @@ export default {
     this.getData();
   },
   computed:{
-    imageUrl(){
-      return `${process.env.APP_ROOT_IMG_URL}/`
-    }
+    // imageUrl(){
+    //   return `${process.env.APP_ROOT_IMG_URL}/`
+    // }
   },
 
   data() {
     let sortOrders = {};
     let columns = [
       {width: '', label: 'Sl', name: 'id' },
-      {width: '', label: 'Img', name: 'image' },
       {width: '', label: 'Name', name: 'name'},
+      {width: '', label: 'Mobile', name: 'mobile'},
+      {width: '', label: 'Status', name: ''},
       {width: '', label: 'Action', name: ''},
     ];
     columns.forEach((column) => {
@@ -116,7 +124,6 @@ export default {
           let data = response.data;
           if (this.tableData.draw == data.draw) {
             this.values = data.data.data;
-            console.log(this.values);
             this.configPagination(data.data);
           }
         })
@@ -126,6 +133,23 @@ export default {
 
       });
     },
+
+    async statusChange(params) {
+      await this.$axios.$post('landlord/change-status/' + params.id, params)
+        .then(response => {
+          this.$toast.success('Facility category status updated successfully!');
+          this.getData()
+        })
+        .catch(error => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+          }
+          else {
+            alert(error.response.message)
+          }
+        })
+    },
+
     configPagination(data) {
       this.pagination.lastPage = data.last_page;
       this.pagination.currentPage = data.current_page;

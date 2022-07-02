@@ -54,13 +54,14 @@ export default {
   name: 'IndexPage',
   components: {Login, Default},
   //middleware: 'auth',
+  //middleware: ['authenticated'],
   computed: {
     loggedInUser() {
       return this.$auth.loggedIn
     }
   },
   async mounted() {
-    // console.log(this.$store.state.auth.user)
+    //console.log(this.$store.state.auth.user)
     console.log(this.$auth.loggedIn)
     //await this.$auth.logout();
 

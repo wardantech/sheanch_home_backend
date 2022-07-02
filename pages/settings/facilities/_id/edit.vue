@@ -104,7 +104,10 @@
       async update() {
         await this.$axios.$post('/settings/facility/update/' + this.$route.params.id, this.form,)
           .then(response => {
-            this.$toast.success('Facility updated successfully!');
+            this.$izitoast.success({
+              title: 'Success !!',
+              message: 'Facility updated successfully!'
+            })
             this.$router.push({name: 'settings-facilities'});
           })
           .catch(error => {

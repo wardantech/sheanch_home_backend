@@ -242,7 +242,11 @@
         await this.$axios.$post('landlord/store', this.form,)
           .then(response => {
             console.log(response);
-            this.$toast.success('Landlord create successfully!');
+            this.$izitoast.success({
+              title: 'Success !!',
+              message: 'Landlord create successfully!'
+            })
+
             this.$refs.el.dropzone.options.url = process.env.APP_ROOT_API + 'landlord/image-upload/' + response.data.id;
             this.$refs.el.dropzone.processQueue();
             this.$router.push({name: 'users-landlords'});

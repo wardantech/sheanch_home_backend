@@ -2,11 +2,11 @@
   <div>
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="card-title m-0">Facility Categories List</h5>
+        <h5 class="card-title m-0">Utility List</h5>
 
-        <nuxt-link :to="{ name: 'settings-facilities-categories-create' }" class="btn btn-info">
+        <nuxt-link :to="{ name: 'settings-utilities-create' }" class="btn btn-info">
           <font-awesome-icon icon="fa-solid fa-plus"/>
-          Add Category
+          Add Utility
         </nuxt-link>
       </div>
 
@@ -30,13 +30,14 @@
             <td>{{value.name}}</td>
             <td>{{value.description}}</td>
             <td>
-              <b-button @click="statusChange({id:value.id, status:value.status})"
-                        :class="value.status == 1 ? 'btn-sm btn-info': 'btn-sm btn-danger'">
-                {{value.status === 1 ? 'Active': 'Inactive'}}
+              <b-button v-if="value.status === 1" @click="deActivate(value.id)" variant="primary" title="Deactivate"
+                        class="btn-sm">Active
+              </b-button>
+              <b-button v-else @click="active(value.id)" variant="danger" title="Deactivate" class="btn-sm">Inactive
               </b-button>
             </td>
             <td>
-              <nuxt-link :to="{name:'settings-facilities-categories-id-edit',params: { id: value.id }}" rel="tooltip"
+              <nuxt-link :to="{name:'settings-utilities-id-edit',params: { id: value.id }}" rel="tooltip"
                          class="btn btn-sm btn-success btn-simple"
                          title="Edit">
                 <font-awesome-icon icon="fa-solid fa-pen-to-square"/>
@@ -105,7 +106,7 @@
       }
     },
     methods: {
-      getData(url = '/settings/facility/category/list') {
+      getData(url = '/settings/utility/list') {
         this.tableData.draw++;
         this.$axios.post(url, {params: this.tableData})
           .then(response => {
@@ -140,25 +141,7 @@
       },
       getIndex(array, key, value) {
         return array.findIndex(i => i[key] == value)
-      },
-      async statusChange(params) {
-        await this.$axios.$post('/settings/facility/category/change-status/' + params.id, params)
-          .then(response => {
-            this.$izitoast.success({
-              title: 'Success !!',
-              message: 'Facility category status updated successfully!'
-            })
-            this.getData()
-          })
-          .catch(error => {
-            if (error.response.status == 422) {
-              this.errors = error.response.data.errors
-            }
-            else {
-              alert(error.response.message)
-            }
-          })
-      },
+      }
     }
   }
 </script>

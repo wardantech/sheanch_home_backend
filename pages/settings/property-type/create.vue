@@ -5,37 +5,24 @@
         <div class="card mt-3">
           <div class="card-header">
             <h5 class="card-title m-0">
-              Create Utilities
+              Create Property Type
             </h5>
           </div>
           <div class="card-body">
             <form @submit.prevent="store">
               <b-row>
-                <b-col md="4">
+                <b-col md="6">
                   <b-form-group label="Name">
                     <b-form-input v-model="form.name" type="text" class="custom-form-control"
                                   placeholder="Name"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px" v-if="errors.name">{{
-                      errors.name[0]
+                        errors.name[0]
                       }}</strong>
                   </b-form-group>
                 </b-col>
 
-                <b-col md="4">
-                  <b-form-group label="Category">
-                    <select v-model="form.utility_category_id"
-                            class="form-control custom-form-control">
-                      <option value="">Select</option>
-                      <option v-for="(category, i) in utilityCategories" :value="category.id" :key="i">
-                        {{ category.name }}
-                      </option>
-                    </select>
-                    <strong class="text-danger" style="font-size: 12px"
-                            v-if="errors.utility_category_id">{{ errors.utility_category_id[0] }}</strong>
-                  </b-form-group>
-                </b-col>
 
-                <b-col md="4">
+                <b-col md="6">
                   <b-form-group label="Status">
                     <select v-model="form.status" id="" class="form-control custom-form-control">
                       <option value="">Select</option>
@@ -77,48 +64,44 @@
 </template>
 
 <script>
-  export default {
-    name: "create",
-    data() {
-      return {
-        form: {
-          name: '',
-          status: '',
-          description: '',
-          utility_category_id: ''
-        },
-        utilityCategories: '',
-        errors: {}
-      }
-    },
-    async created() {
-      let utilityCategories = await this.$axios.$get('settings/utility/get-categories');
-      this.utilityCategories = utilityCategories.data;
-      console.log(this.utilityCategories);
-    },
-    methods: {
-      async store() {
-        await this.$axios.$post('settings/utility', this.form,)
-          .then(response => {
-            console.log(response);
-            this.$izitoast.success({
-              title: 'Success !!',
-              message: 'Utility create successfully!'
-            })
-            // this.$toast.success('Utility create successfully!');
-            this.$router.push({name: 'settings-utilities'});
+export default {
+  name: "create",
+  data() {
+    return {
+      form: {
+        name: '',
+        status: '',
+        description: '',
+      },
+      errors: {}
+    }
+  },
+  async created() {
+
+  },
+  methods: {
+    async store() {
+      await this.$axios.$post('settings/property-type', this.form,)
+        .then(response => {
+          console.log(response);
+          this.$izitoast.success({
+            title: 'Success !!',
+            message: 'Property type create successfully!'
           })
-          .catch(error => {
-            if(error.response.status == 422){
-              this.errors = error.response.data.errors
-            }
-            else{
-              alert(error.response.message)
-            }
-          })
-      }
+
+          this.$router.push({name: 'settings-property-type'});
+        })
+        .catch(error => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+          }
+          else {
+            alert(error.response.message)
+          }
+        })
     }
   }
+}
 </script>
 
 <style scoped>
