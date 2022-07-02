@@ -11,27 +11,27 @@
           <div class="card-body">
             <form @submit.prevent="store">
               <b-row>
-                <b-col md="4">
-                  <b-form-group label="Name">
-                    <b-form-input v-model="form.name" type="text" class="custom-form-control"
-                                  placeholder="Name"></b-form-input>
-                    <strong class="text-danger" style="font-size: 12px" v-if="errors.name">{{
-                      errors.name[0]
-                      }}</strong>
-                  </b-form-group>
-                </b-col>
+<!--                <b-col md="4">-->
+<!--                  <b-form-group label="Name">-->
+<!--                    <b-form-input v-model="form.name" type="text" class="custom-form-control"-->
+<!--                                  placeholder="Name"></b-form-input>-->
+<!--                    <strong class="text-danger" style="font-size: 12px" v-if="errors.name">{{-->
+<!--                      errors.name[0]-->
+<!--                      }}</strong>-->
+<!--                  </b-form-group>-->
+<!--                </b-col>-->
 
                 <b-col md="4">
                   <b-form-group label="Category">
-                    <select v-model="form.utility_category_id"
+                    <select v-model="form.expense_category_id"
                             class="form-control custom-form-control">
                       <option value="">Select</option>
-                      <option v-for="(category, i) in utilityCategories" :value="category.id" :key="i">
+                      <option v-for="(category, i) in expenseCategories" :value="category.id" :key="i">
                         {{ category.name }}
                       </option>
                     </select>
                     <strong class="text-danger" style="font-size: 12px"
-                            v-if="errors.utility_category_id">{{ errors.utility_category_id[0] }}</strong>
+                            v-if="errors.expense_category_id">{{ errors.expense_category_id[0] }}</strong>
                   </b-form-group>
                 </b-col>
 
@@ -47,7 +47,19 @@
                             v-if="errors.status">{{ errors.status[0] }}</strong>
                   </b-form-group>
                 </b-col>
+
+                <b-col md="4">
+                  <b-form-group label="Amount">
+                    <b-form-input v-model="form.total_amount" type="number" class="custom-form-control"
+                                  placeholder="Amount"></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px" v-if="errors.total_amount">{{
+                        errors.total_amount[0]
+                      }}</strong>
+                  </b-form-group>
+                </b-col>
               </b-row>
+
+
 
               <b-row>
                 <b-col md="12">
@@ -82,30 +94,31 @@
     data() {
       return {
         form: {
-          name: '',
+          total_amount: '',
           status: '',
           description: '',
-          utility_category_id: ''
+          expense_category_id: ''
         },
-        utilityCategories: '',
+        expenseCategories: '',
         errors: {}
       }
     },
     async created() {
-      let utilityCategories = await this.$axios.$get('settings/utility/get-categories');
-      this.utilityCategories = utilityCategories.data;
-      console.log(this.utilityCategories);
+      let expenseCategories = await this.$axios.$get('expense/get-categories');
+      this.expenseCategories = expenseCategories.data;
+      console.log(this.expenseCategorie);
+
     },
     methods: {
       async store() {
-        await this.$axios.$post('settings/utility', this.form,)
+        await this.$axios.$post('expense/store', this.form,)
           .then(response => {
 
             this.$izitoast.success({
               title: 'Success !!',
-              message: 'Utility create successfully!'
+              message: 'Expense create successfully!'
             })
-            this.$router.push({name: 'settings-utilities'});
+            this.$router.push({name: 'expense'});
           })
           .catch(error => {
             if(error.response.status == 422){

@@ -137,7 +137,10 @@ export default {
     async statusChange(params) {
       await this.$axios.$post('landlord/change-status/' + params.id, params)
         .then(response => {
-          this.$toast.success('Facility category status updated successfully!');
+          this.$izitoast.success({
+            title: 'Success !!',
+            message: 'Landlord status change successfully!'
+          })
           this.getData()
         })
         .catch(error => {

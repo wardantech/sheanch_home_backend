@@ -2,11 +2,11 @@
   <div>
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="card-title m-0">Utility List</h5>
+        <h5 class="card-title m-0">Expense List</h5>
 
-        <nuxt-link :to="{ name: 'settings-utilities-create' }" class="btn btn-info">
+        <nuxt-link :to="{ name: 'expense-create' }" class="btn btn-info">
           <font-awesome-icon icon="fa-solid fa-plus"/>
-          Add Utility
+          Add Expense
         </nuxt-link>
       </div>
 
@@ -27,13 +27,12 @@
           <tbody>
           <tr v-for="(value,i) in values" :key="value.id">
             <td>{{i+1}}</td>
-            <td>{{value.name}}</td>
             <td>{{value.description}}</td>
+            <td>{{value.total_amount}}</td>
             <td>
-              <b-button v-if="value.status === 1" @click="deActivate(value.id)" variant="primary" title="Deactivate"
-                        class="btn-sm">Active
-              </b-button>
-              <b-button v-else @click="active(value.id)" variant="danger" title="Deactivate" class="btn-sm">Inactive
+              <b-button @click="statusChange({id:value.id, status:value.status})"  title="Deactivate"
+                        :class="value.status === 1 ? 'btn-sm btn-info': 'btn-sm btn-danger'">
+                {{value.status === 1 ? 'Active': 'Inactive'}}
               </b-button>
             </td>
             <td>
@@ -71,9 +70,9 @@
       let sortOrders = {};
       let columns = [
         {width: '', label: 'Sl', name: 'id'},
-        {width: '', label: 'Name', name: 'name'},
         {width: '', label: 'Description', name: 'description'},
         {width: '', label: 'Status', name: 'status'},
+        {width: '', label: 'Amount', name: 'total_amount'},
         {width: '', label: 'Action', name: ''},
       ];
       columns.forEach((column) => {
@@ -106,7 +105,7 @@
       }
     },
     methods: {
-      getData(url = '/settings/utility/list') {
+      getData(url = 'expense/list') {
         this.tableData.draw++;
         this.$axios.post(url, {params: this.tableData})
           .then(response => {
@@ -141,7 +140,26 @@
       },
       getIndex(array, key, value) {
         return array.findIndex(i => i[key] == value)
-      }
+      },
+
+      async statusChange(params) {
+        await this.$axios.$post('/expense/change-status/' + params.id, params)
+          .then(response => {
+            this.$izitoast.success({
+              title: 'Success !!',
+              message: 'Expense deactivated successfully!'
+            })
+            this.getData()
+          })
+          .catch(error => {
+            if (error.response.status == 422) {
+              this.errors = error.response.data.errors
+            }
+            else {
+              alert(error.response.message)
+            }
+          })
+      },
     }
   }
 </script>

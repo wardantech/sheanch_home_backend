@@ -5,7 +5,7 @@
         <div class="card mt-3">
           <div class="card-header">
             <h5 class="card-title m-0">
-              Create Utility Categories
+              Create Expense Category
             </h5>
           </div>
           <div class="card-body">
@@ -77,14 +77,14 @@
     },
     methods: {
       async store() {
-        await this.$axios.$post('settings/utility/category', this.form,)
+        await this.$axios.$post('expense/category', this.form,)
           .then(response => {
             console.log(response);
             this.$izitoast.success({
               title: 'Success !!',
-              message: 'Utility category create successfully!'
+              message: 'Expense category create successfully!'
             })
-            this.$router.push({name: 'settings-utilities-categories'});
+            this.$router.push({name: 'expense-categories'});
           })
           .catch(error => {
             if(error.response.status == 422){
