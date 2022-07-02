@@ -12,7 +12,7 @@
               <b-row>
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Select Landlord *">
-                    <select v-model="form.landlord_id" id=""
+                    <select v-model="form.landlord_id"
                             class="form-control custom-select-form-control">
                       <option value="">Select</option>
                       <option v-for="(landlord, i) in landlords" :value="landlord.id" :key="i">
@@ -26,15 +26,15 @@
 
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Property Types *">
-                    <select v-model="form.property_id"
+                    <select v-model="form.property_type_id"
                             class="form-control custom-select-form-control">
                       <option value="">Select</option>
-                      <option value="1">Apartment</option>
-                      <option value="2">Villa</option>
-                      <option value="3">House</option>
+                      <option v-for="(type, i) in propertyTypes" :key="i" :value="type.id">
+                        {{ type.name }}
+                      </option>
                     </select>
                     <strong class="text-danger" style="font-size: 12px"
-                            v-if="errors.property_id">{{ errors.property_id[0] }}</strong>
+                            v-if="errors.property_type_id">{{ errors.property_type_id[0] }}</strong>
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -289,23 +289,23 @@
           <div class="card-header">
             Facilities
           </div>
-          <!--<div class="card-body">-->
-            <!--<div class="form-check" v-for="(facilityCategory, i) in facilitiesCategories" :key="i">-->
-              <!--<span v-if="facilityCategory.facilities.length > 0">-->
-                <!--<b>{{utilityCategory.name}}</b>-->
-                <!--<div class="form-check ml-2" v-for="(utility, j) in utilityCategory.utilities" :key="j">-->
-                <!--<input class="form-check-input mt-2"-->
-                       <!--type="checkbox"-->
-                       <!--:value="utility.id"-->
-                       <!--v-model="form.utilities_paid_by_tenant"-->
-                       <!--:id="'tenantUtility-'+utility.id">-->
-                <!--<label class="form-check-label" :for="'tenantUtility-'+utility.id">-->
-                  <!--{{ utility.name }}-->
-                <!--</label>-->
-              <!--</div>-->
-              <!--</span>-->
-            <!--</div>-->
-          <!--</div>-->
+          <div class="card-body">
+            <div class="form-check" v-for="(facilityCategory, i) in facilitiesCategories" :key="i">
+              <span v-if="facilityCategory.facilities.length > 0">
+                <b>{{facilityCategory.name}}</b>
+                <div class="form-check ml-2" v-for="(facility, j) in facilityCategory.facilities" :key="j">
+                <input class="form-check-input mt-2"
+                       type="checkbox"
+                       :value="facility.id"
+                       v-model="form.facilities"
+                       :id="'facilityUtility-'+facility.id">
+                <label class="form-check-label" :for="'facilityUtility-'+facility.id">
+                  {{ facility.name }}
+                </label>
+              </div>
+              </span>
+            </div>
+          </div>
         </div>
       </b-col>
     </b-row>
@@ -336,6 +336,7 @@
           thana_id: '',
           district_id: '',
           division_id: '',
+          property_type_id: '',
           bed_rooms: '',
           bath_rooms: '',
           address: '',
@@ -345,12 +346,12 @@
           status: '',
           description: '',
           landlord_id: '',
-          property_id: '',
           image: '',
-          facilities_paid_by_landlord: [],
+          facilities: [],
           utilities_paid_by_tenant: [],
           utilities_paid_by_landlord: []
         },
+        propertyTypes: '',
         previewImage: null,
         landlords: '',
         utilityCategories: '',
@@ -362,19 +363,21 @@
       }
     },
     async created() {
-      let divisions = await this.$axios.$get('settings/divisions');
+
+      const divisions = await this.$axios.$get('settings/divisions');
       this.divisions = divisions.data;
 
-      let landlords = await this.$axios.$get('landlord/get-landlords');
+      const landlords = await this.$axios.$get('landlord/get-landlords');
       this.landlords = landlords.data;
 
       const utilityCategories = await this.$axios.$get('settings/utility/get-utilities');
       this.utilityCategories = utilityCategories.data;
 
-      let facilitiesCategories = await this.$axios.$get('settings/facility/get-facilities');
+      const facilitiesCategories = await this.$axios.$get('settings/facility/get-facilities');
       this.facilitiesCategories = facilitiesCategories.data;
-      console.log(this.facilitiesCategories);
 
+      const propertyTypes = await this.$axios.$get('property/get-property-type');
+      this.propertyTypes = propertyTypes.data;
     },
 
     methods: {
@@ -390,17 +393,24 @@
       },
 
       async store() {
-        await this.$axios.$post('property/create', this.form,)
+
+        await this.$axios.$post('property/store', this.form)
           .then(response => {
-            console.log(response);
-            this.$toast.success('Property create successfully!');
+            // this.$izitoast.success({
+            //   title: 'Success !!',
+            //   message: 'Property create successfully!'
+            // });
+
+            this.$refs.el.dropzone.options.url = process.env.APP_ROOT_API + 'landlord/image-upload/' + response.data.id;
+            this.$refs.el.dropzone.processQueue();
             this.$router.push({name: 'properties'});
           })
           .catch(error => {
-            if(error.response.status == 422){
+
+            if (error.response.status == 422) {
               this.errors = error.response.data.errors
             }
-            else{
+            else {
               alert(error.response.message)
             }
           })

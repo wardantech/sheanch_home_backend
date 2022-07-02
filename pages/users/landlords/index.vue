@@ -33,7 +33,7 @@
               <td>
                 <b-button @click="statusChange({id:value.id, status:value.status})"
                           :class="value.status == 1 ? 'btn-sm btn-info': 'btn-sm btn-danger'">
-                  {{value.status === 1 ? 'Active': 'Inactive'}}
+                  {{value.status == 1 ? 'Active': 'Inactive'}}
                 </b-button>
               </td>
               <td>
@@ -137,7 +137,10 @@ export default {
     async statusChange(params) {
       await this.$axios.$post('landlord/change-status/' + params.id, params)
         .then(response => {
-          this.$toast.success('Facility category status updated successfully!');
+          this.$izitoast.success({
+            title: 'Success !!',
+            message: 'Landlord status updated successfully!'
+          });
           this.getData()
         })
         .catch(error => {
