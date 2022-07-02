@@ -244,12 +244,20 @@
             Utilities Paid By Landlord
           </div>
           <div class="card-body">
-            <div class="form-check" v-for="(utility, index) in utilities" :key="index">
-              <input class="form-check-input mt-2" name="utilities_paid_by_landlord" type="checkbox" :value="utility.id"
-                     :id="'utility-'+utility.id">
-              <label class="form-check-label" :for="'utility-'+utility.id">
-                {{ utility.name }}
-              </label>
+            <div class="form-check" v-for="(utilityCategory, i) in utilityCategories" :key="i">
+              <span v-if="utilityCategory.utilities.length > 0">
+                <b>{{utilityCategory.name}}</b>
+                <div class="form-check ml-2" v-for="(utility, j) in utilityCategory.utilities" :key="j">
+                <input class="form-check-input mt-2"
+                       type="checkbox"
+                       :value="utility.id"
+                       v-model="form.utilities_paid_by_landlord"
+                       :id="'utility-'+utility.id">
+                <label class="form-check-label" :for="'utility-'+utility.id">
+                  {{ utility.name }}
+                </label>
+              </div>
+              </span>
             </div>
           </div>
         </div>
@@ -259,12 +267,20 @@
             Utilities Paid By Tenants
           </div>
           <div class="card-body">
-            <div class="form-check" v-for="(utility, index) in utilities" :key="index">
-              <input class="form-check-input mt-2" name="utilities_paid_by_tenant" type="checkbox" :value="utility.id"
-                     :id="'utility-'+utility.id">
-              <label class="form-check-label" :for="'utility-'+utility.id">
-                {{ utility.name }}
-              </label>
+            <div class="form-check" v-for="(utilityCategory, i) in utilityCategories" :key="i">
+              <span v-if="utilityCategory.utilities.length > 0">
+                <b>{{utilityCategory.name}}</b>
+                <div class="form-check ml-2" v-for="(utility, j) in utilityCategory.utilities" :key="j">
+                <input class="form-check-input mt-2"
+                       type="checkbox"
+                       :value="utility.id"
+                       v-model="form.utilities_paid_by_tenant"
+                       :id="'tenantUtility-'+utility.id">
+                <label class="form-check-label" :for="'tenantUtility-'+utility.id">
+                  {{ utility.name }}
+                </label>
+              </div>
+              </span>
             </div>
           </div>
         </div>
@@ -273,15 +289,23 @@
           <div class="card-header">
             Facilities
           </div>
-          <div class="card-body">
-            <div class="form-check" v-for="(facility, index) in facilities" :key="index">
-              <input class="form-check-input" name="facilities_paid_by_landlord" type="checkbox" :value="facility.id"
-                     :id="'facility-'+facility.id">
-              <label class="form-check-label" :for="'facility-'+facility.id">
-                {{ facility.name }}
-              </label>
-            </div>
-          </div>
+          <!--<div class="card-body">-->
+            <!--<div class="form-check" v-for="(facilityCategory, i) in facilitiesCategories" :key="i">-->
+              <!--<span v-if="facilityCategory.facilities.length > 0">-->
+                <!--<b>{{utilityCategory.name}}</b>-->
+                <!--<div class="form-check ml-2" v-for="(utility, j) in utilityCategory.utilities" :key="j">-->
+                <!--<input class="form-check-input mt-2"-->
+                       <!--type="checkbox"-->
+                       <!--:value="utility.id"-->
+                       <!--v-model="form.utilities_paid_by_tenant"-->
+                       <!--:id="'tenantUtility-'+utility.id">-->
+                <!--<label class="form-check-label" :for="'tenantUtility-'+utility.id">-->
+                  <!--{{ utility.name }}-->
+                <!--</label>-->
+              <!--</div>-->
+              <!--</span>-->
+            <!--</div>-->
+          <!--</div>-->
         </div>
       </b-col>
     </b-row>
@@ -322,12 +346,15 @@
           description: '',
           landlord_id: '',
           property_id: '',
-          image: ''
+          image: '',
+          facilities_paid_by_landlord: [],
+          utilities_paid_by_tenant: [],
+          utilities_paid_by_landlord: []
         },
         previewImage: null,
         landlords: '',
-        utilities: '',
-        facilities: '',
+        utilityCategories: '',
+        facilitiesCategories: '',
         divisions: '',
         districts: '',
         thanas: '',
@@ -341,11 +368,12 @@
       let landlords = await this.$axios.$get('landlord/get-landlords');
       this.landlords = landlords.data;
 
-      let utilities = await this.$axios.$get('settings/utility/get-utilities');
-      this.utilities = utilities.data;
+      const utilityCategories = await this.$axios.$get('settings/utility/get-utilities');
+      this.utilityCategories = utilityCategories.data;
 
-      let facilities = await this.$axios.$get('settings/facility/get-facilities');
-      this.facilities = facilities.data;
+      let facilitiesCategories = await this.$axios.$get('settings/facility/get-facilities');
+      this.facilitiesCategories = facilitiesCategories.data;
+      console.log(this.facilitiesCategories);
 
     },
 
@@ -362,8 +390,21 @@
       },
 
       async store() {
-        // Data Here....
-      },
+        await this.$axios.$post('property/create', this.form,)
+          .then(response => {
+            console.log(response);
+            this.$toast.success('Property create successfully!');
+            this.$router.push({name: 'properties'});
+          })
+          .catch(error => {
+            if(error.response.status == 422){
+              this.errors = error.response.data.errors
+            }
+            else{
+              alert(error.response.message)
+            }
+          })
+      }
     }
   }
 </script>
