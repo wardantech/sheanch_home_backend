@@ -30,8 +30,8 @@
             <td>{{value.name}}</td>
             <td>{{value.description}}</td>
             <td>
-              <b-button @click="statusChange({catId:value.id, status:value.status, id:'status'+i} )"  title="Deactivate" :id="'status'+i"
-                        :class="value.status === isActive ? 'btn-sm btn-success': 'btn-sm btn-danger'">
+              <b-button @click="statusChange({id:value.id, status:value.status})"  title="Deactivate"
+                        :class="value.status === 1 ? 'btn-sm btn-info': 'btn-sm btn-danger'">
                 {{value.status === 1 ? 'Active': 'Inactive'}}
               </b-button>
             </td>
@@ -142,9 +142,25 @@
       getIndex(array, key, value) {
         return array.findIndex(i => i[key] == value)
       },
-      async statusChange(parms){
 
-      }
+      async statusChange(params){
+        await this.$axios.$post('/settings/facility/change-status/' + params.id, params)
+          .then(response => {
+            this.$izitoast.success({
+              title: 'Success !!',
+              message: 'Facility status change successfully!'
+            })
+            this.getData();
+          })
+          .catch(error => {
+            if (error.response.status == 422) {
+              this.errors = error.response.data.errors
+            }
+            else {
+              alert(error.response.message)
+            }
+          })
+      },
     }
   }
 </script>
