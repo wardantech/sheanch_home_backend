@@ -34,7 +34,7 @@
                   </b-form-group>
                 </b-col>
               </b-row>
-              
+
               <b-row>
                 <b-col md="12">
                   <b-form-group label="Description">
@@ -86,7 +86,12 @@
       async update() {
         await this.$axios.$post('/settings/utility/category/update/' + this.$route.params.id, this.form,)
           .then(response => {
-            this.$toast.success('Utility category updated successfully!');
+
+            this.$izitoast.success({
+              title: 'Success !!',
+              message: 'Utility category updated successfully!'
+            })
+
             this.$router.push({name: 'settings-utilities-categories'});
           })
           .catch(error => {

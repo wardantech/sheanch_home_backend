@@ -144,7 +144,10 @@
       async statusChange(params) {
         await this.$axios.$post('/settings/utility/category/change-status/' + params.id, params)
           .then(response => {
-            this.$toast.success('Utility category deactivated successfully!');
+            this.$izitoast.success({
+              title: 'Success !!',
+              message: 'Utility category deactivated successfully!'
+            })
             this.getData()
           })
           .catch(error => {

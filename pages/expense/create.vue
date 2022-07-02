@@ -5,11 +5,11 @@
         <div class="card mt-3">
           <div class="card-header">
             <h5 class="card-title m-0">
-              Edit Utility
+              Create Expense
             </h5>
           </div>
           <div class="card-body">
-            <form @submit.prevent="update">
+            <form @submit.prevent="store">
               <b-row>
                 <b-col md="4">
                   <b-form-group label="Name">
@@ -64,7 +64,7 @@
               <b-row>
                 <b-col>
                   <b-form-group>
-                    <b-button type="submit" variant="info">Update</b-button>
+                    <b-button type="submit" variant="info">Save</b-button>
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -78,7 +78,7 @@
 
 <script>
   export default {
-    name: "edit",
+    name: "create",
     data() {
       return {
         form: {
@@ -94,27 +94,24 @@
     async created() {
       let utilityCategories = await this.$axios.$get('settings/utility/get-categories');
       this.utilityCategories = utilityCategories.data;
-
-      await this.$axios.$get('/settings/utility/show/' + this.$route.params.id)
-        .then(response => {
-          this.form = response.data;
-        })
+      console.log(this.utilityCategories);
     },
     methods: {
-      async update() {
-        await this.$axios.$post('/settings/utility/update/' + this.$route.params.id, this.form,)
+      async store() {
+        await this.$axios.$post('settings/utility', this.form,)
           .then(response => {
+
             this.$izitoast.success({
               title: 'Success !!',
-              message: 'Utility updated successfully!'
+              message: 'Utility create successfully!'
             })
             this.$router.push({name: 'settings-utilities'});
           })
           .catch(error => {
-            if (error.response.status == 422) {
+            if(error.response.status == 422){
               this.errors = error.response.data.errors
             }
-            else {
+            else{
               alert(error.response.message)
             }
           })

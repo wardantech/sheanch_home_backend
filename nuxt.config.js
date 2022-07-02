@@ -47,12 +47,16 @@ export default {
     'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
-    '@nuxtjs/toast',
+    'nuxt-izitoast',
+    'vue-sweetalert2/nuxt',
+
   ],
-  toast: {
-    position: 'top-right',
-    duration: 2000,
+  izitoast: {
+    position: 'topRight',
+    transitionIn: 'bounceInLeft',
+    transitionOut: 'fadeOutRight',
   },
+
   axios: {
     //proxy: true,
     baseURL: process.env.APP_ROOT_API,

@@ -305,6 +305,10 @@
             // this.$toast.success('Tenants create successfully!');
             this.$refs.el.dropzone.options.url = process.env.APP_ROOT_API+'tenant/image-upload/'+response.data.id;
             this.$refs.el.dropzone.processQueue();
+            this.$izitoast.success({
+              title: 'Success !!',
+              message: 'Tenants create successfully!'
+            })
             this.$router.push({name: 'users-tenants'});
           })
           .catch(error => {

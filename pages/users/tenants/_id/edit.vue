@@ -302,6 +302,10 @@
       async update() {
         await this.$axios.$post('tenant/update/' + this.$route.params.id, this.form,)
           .then(response => {
+            this.$izitoast.success({
+              title: 'Success !!',
+              message: 'Tenant updated successfully!'
+            })
             this.$toast.success('Tenant create successfully!');
             this.$refs.el.dropzone.options.url = process.env.APP_ROOT_API + 'tenant/image-upload/' + response.data.id;
             this.$refs.el.dropzone.processQueue();
