@@ -88,6 +88,36 @@
                   </li>
                 </b-collapse>
               </b-collapse>
+
+              <!--             Property Type -->
+              <b-collapse class="dropdown-container m-2" id="collapse-3">
+                <li>
+                  <nuxt-link class="custom-dropdown-btn ml-2" :to="{ name: 'settings-property-type' }">
+                    Property Type
+                  </nuxt-link>
+                </li>
+              </b-collapse>
+
+              <li>
+                <b-button class="custom-dropdown-btn" v-b-toggle.collapse-22>
+                  <font-awesome-icon icon="fa-solid fa-hand-holding-dollar" />
+                  Expense
+                  <font-awesome-icon icon="fa-solid fa-caret-down"/>
+                </b-button>
+              </li>
+
+              <b-collapse class="dropdown-container m-2" id="collapse-22">
+                <li>
+                  <nuxt-link :to="{ name: 'expense-categories' }">
+                    Categories
+                  </nuxt-link>
+                </li>
+                <li>
+                  <nuxt-link :to="{ name: 'expense' }">
+                    Expenses
+                  </nuxt-link>
+                </li>
+              </b-collapse>
             </ul>
           </nav>
         </div>
@@ -98,5 +128,5 @@
 </template>
 
 <script>
-  export default {}
+export default {}
 </script>

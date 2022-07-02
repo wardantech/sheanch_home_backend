@@ -30,10 +30,9 @@
             <td>{{value.name}}</td>
             <td>{{value.description}}</td>
             <td>
-              <b-button v-if="value.status === 1" @click="deActivate(value.id)" variant="primary" title="Deactivate"
-                        class="btn-sm">Active
-              </b-button>
-              <b-button v-else @click="active(value.id)" variant="danger" title="Deactivate" class="btn-sm">Inactive
+              <b-button @click="statusChange({id:value.id, status:value.status})"  title="Deactivate"
+                        :class="value.status === 1 ? 'btn-sm btn-info': 'btn-sm btn-danger'">
+                {{value.status === 1 ? 'Active': 'Inactive'}}
               </b-button>
             </td>
             <td>
@@ -141,8 +140,28 @@
       },
       getIndex(array, key, value) {
         return array.findIndex(i => i[key] == value)
-      }
-    }
+      },
+
+      async statusChange(params) {
+        await this.$axios.$post('/settings/utility/change-status/' + params.id, params)
+          .then(response => {
+            this.$izitoast.success({
+              title: 'Success !!',
+              message: 'Utility deactivated successfully!'
+            })
+            this.getData();
+          })
+          .catch(error => {
+            if (error.response.status == 422) {
+              this.errors = error.response.data.errors
+            }
+            else {
+              alert(error.response.message)
+            }
+          })
+      },
+    },
+
   }
 </script>
 

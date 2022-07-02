@@ -4,7 +4,7 @@
       <b-container>
         <b-row class="justify-content-center">
           <b-col cols="6" class="text-center mb-5">
-            <h2 class="heading-section">SEANCH LOGIN</h2>
+            <h2 class="heading-section">SHE-ANCH LOGIN</h2>
           </b-col>
         </b-row>
         <b-row class="justify-content-center">
@@ -61,39 +61,43 @@ export default {
   auth: false,
   data() {
     return {
-      loader:false,
+      loader: false,
       form: {
         email: 'admin@gmail.com',
         password: '123456',
       },
-      errors:{}
+      errors: {}
     }
   },
   mounted() {
     console.log(this.$store.state.auth.user)
-     console.log(this.$auth.loggedIn)
-    if(this.$auth.loggedIn){
+    console.log(this.$auth.loggedIn)
+    if (this.$auth.loggedIn) {
       this.$router.push({name: '/'});
     }
   },
   methods: {
 
-    async userLogin () {
+    async userLogin() {
       this.loader = true;
 
-        await this.$auth.loginWith('local', { data: this.form })
-          .then(response=>{
-            this.$toast.success('Logged In successfully!');
-            //console.log(response)
-            //this.$nuxt.$loading.finish();
-            //this.$store.dispatch('auth/storeAuthToken', response.data.data.token)
-            //console.log(this.$store.getters['auth/getAuthToken']);
-            //console.log(response);
-            //console.log(this.$auth.user)
-            this.$nuxt.$options.router.push({path:'/'})
-            //console.log(this.$auth.user)
-            //console.log(this.$auth.loggedIn)
-          });
+      await this.$auth.loginWith('local', {data: this.form})
+        .then(response => {
+          this.$izitoast.success({
+            title: 'Success !!',
+            message: 'Logged In successfully!'
+          })
+
+          //console.log(response)
+          //this.$nuxt.$loading.finish();
+          //this.$store.dispatch('auth/storeAuthToken', response.data.data.token)
+          //console.log(this.$store.getters['auth/getAuthToken']);
+          //console.log(response);
+          //console.log(this.$auth.user)
+          this.$nuxt.$options.router.push({path: '/'})
+          //console.log(this.$auth.user)
+          //console.log(this.$auth.loggedIn)
+        });
 
 
     },
