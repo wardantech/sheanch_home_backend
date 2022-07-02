@@ -139,8 +139,8 @@ export default {
         .then(response => {
           this.$izitoast.success({
             title: 'Success !!',
-            message: 'Landlord status updated successfully!'
-          });
+            message: 'Landlord status change successfully!'
+          })
           this.getData()
         })
         .catch(error => {
