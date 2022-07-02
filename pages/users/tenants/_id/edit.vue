@@ -306,7 +306,7 @@
               title: 'Success !!',
               message: 'Tenant updated successfully!'
             })
-            this.$toast.success('Tenant create successfully!');
+
             this.$refs.el.dropzone.options.url = process.env.APP_ROOT_API + 'tenant/image-upload/' + response.data.id;
             this.$refs.el.dropzone.processQueue();
             this.$router.push({name: 'users-tenants'});
