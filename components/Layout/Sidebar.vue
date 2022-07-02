@@ -69,9 +69,7 @@
                     </nuxt-link>
                   </li>
                 </b-collapse>
-              </b-collapse>
 
-              <b-collapse class="dropdown-container m-2" id="collapse-3">
                 <li>
                   <b-button class="custom-dropdown-btn" v-b-toggle.collapse-6>
                     Facilities
@@ -90,7 +88,15 @@
                     </nuxt-link>
                   </li>
                 </b-collapse>
+
+                <li>
+                  <nuxt-link class="m-0" :to="{ name: 'settings-property-type' }">
+                    Property Type
+                  </nuxt-link>
+                </li>
+
               </b-collapse>
+
               <!--/. Settings -->
 
               <!-- Properties -->
@@ -115,6 +121,29 @@
                 </li>
               </b-collapse>
               <!--/. Properties -->
+
+              <!-- Expense -->
+              <li>
+                <b-button class="custom-dropdown-btn" v-b-toggle.collapse-8>
+                  <font-awesome-icon icon="fa-solid fa-hand-holding-dollar" />
+                  Expense
+                  <font-awesome-icon icon="fa-solid fa-caret-down"/>
+                </b-button>
+              </li>
+
+              <b-collapse class="dropdown-container m-2" id="collapse-8">
+                <li>
+                  <nuxt-link :to="{ name: 'expense-categories' }">
+                    Categories
+                  </nuxt-link>
+                </li>
+                <li>
+                  <nuxt-link :to="{ name: 'expense' }">
+                    Expenses
+                  </nuxt-link>
+                </li>
+              </b-collapse>
+              <!--/. Expense -->
 
             </ul>
           </nav>
