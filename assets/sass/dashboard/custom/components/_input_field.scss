@@ -3,6 +3,7 @@
   border-color: #2b3553;
   border-radius: 0.4285rem;
   font-size: 1rem;
+  resize: none;
   transition: color .3s ease-in-out,border-color .3s ease-in-out,background-color .3s ease-in-out;
 
   &:focus {
@@ -25,5 +26,4 @@
     box-shadow: none;
     outline: 0;
   }
-
 }
