@@ -1,13 +1,171 @@
 <template>
-    <div>
-      <h1>Property Lists</h1>
+  <div>
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="card-title m-0">Property List</h5>
+
+        <nuxt-link :to="{ name: 'properties-create' }" class="btn btn-info">
+          <font-awesome-icon icon="fa-solid fa-plus"/>
+          Add Property
+        </nuxt-link>
+      </div>
+
+      <div class="card-body">
+        <div class="search d-flex justify-content-between align-items-center">
+          <div class="form-group">
+            <input class="form-control custom-form-control" type="text" v-model="tableData.search"
+                   placeholder="Search Table" @input="getData()">
+          </div>
+          <div class="form-group">
+            <select class="form-control custom-select-form-control" v-model="tableData.length" @change="getData()">
+              <option v-for="(records, index) in perPage" :key="index" :value="records">{{records}}</option>
+            </select>
+          </div>
+        </div>
+        <DataTable id="dataTable" :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy"
+                   class="">
+          <tbody>
+          <tr v-for="(value,i) in values" :key="value.id">
+            <td>{{i+1}}</td>
+            <!--              <td>-->
+            <!--                <img style="height: 50px; width: 50px" :src="imageUrl+value.image" alt="">-->
+            <!--              </td>-->
+            <td>{{value.name}}</td>
+            <td>{{value.address}}</td>
+            <td>
+              <b-button @click="statusChange({id:value.id, status:value.status})"
+                        :class="value.status == 1 ? 'btn-sm btn-info': 'btn-sm btn-danger'">
+                {{value.status == 1 ? 'Active': 'Inactive'}}
+              </b-button>
+            </td>
+            <td>
+              <!--<nuxt-link :to="{name:'users-landlords-id-edit',params: { id: value.id }}" rel="tooltip"-->
+                         <!--class="btn btn-sm btn-success btn-simple"-->
+                         <!--title="Edit">-->
+                <!--<font-awesome-icon icon="fa-solid fa-pen-to-square"/>-->
+              <!--</nuxt-link>-->
+            </td>
+          </tr>
+          </tbody>
+        </DataTable>
+
+        <pagination :pagination="pagination"
+                    @prev="getData(pagination.prevPageUrl)"
+                    @next="getData(pagination.nextPageUrl)">
+        </pagination>
+
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "index"
+  import DataTable from "@/components/Datatable/DataTable";
+  import Pagination from "@/components/Datatable/Pagination";
+
+  export default {
+    name: "index",
+    components: {Pagination, DataTable},
+    created() {
+      this.getData();
+    },
+    data() {
+      let sortOrders = {};
+      let columns = [
+        {width: '', label: 'Sl', name: 'id' },
+        {width: '', label: 'Name', name: 'name'},
+        {width: '', label: 'Address', name: 'address'},
+        {width: '', label: 'Status', name: ''},
+        {width: '', label: 'Action', name: ''},
+      ];
+      columns.forEach((column) => {
+        sortOrders[column.name] = -1;
+      });
+      return {
+        values: [],
+        sum: [],
+        columns: columns,
+        sortKey: 'id',
+        sortOrders: sortOrders,
+        perPage: ['10', '25', '50','100','500','2000','all'],
+        tableData: {
+          draw: 0,
+          length: 10,
+          search: '',
+          column: 0,
+          dir: 'desc',
+        },
+        pagination: {
+          lastPage: '',
+          currentPage: '',
+          total: '',
+          lastPageUrl: '',
+          nextPageUrl: '',
+          prevPageUrl: '',
+          from: '',
+          to: '',
+        },
+      }
+    },
+    methods: {
+      getData(url = '/property/list') {
+        this.tableData.draw++;
+        this.$axios.post(url, {params: this.tableData})
+          .then(response => {
+            let data = response.data;
+            if (this.tableData.draw == data.draw) {
+              this.values = data.data.data;
+              this.configPagination(data.data);
+            }
+          })
+          .catch(errors => {
+            //console.log(errors);
+          }).finally(() => {
+        });
+      },
+
+      async statusChange(params) {
+        await this.$axios.$post('property/change-status/' + params.id, params)
+          .then(response => {
+            this.$izitoast.success({
+              title: 'Success !!',
+              message: 'Property status updated successfully!'
+            });
+            this.getData()
+          })
+          .catch(error => {
+            if (error.response.status == 422) {
+              this.errors = error.response.data.errors
+            }
+            else {
+              alert(error.response.message)
+            }
+          })
+      },
+
+      configPagination(data) {
+        this.pagination.lastPage = data.last_page;
+        this.pagination.currentPage = data.current_page;
+        this.pagination.total = data.total;
+        this.pagination.lastPageUrl = data.last_page_url;
+        this.pagination.nextPageUrl = data.next_page_url;
+        this.pagination.prevPageUrl = data.prev_page_url;
+        this.pagination.from = data.from;
+        this.pagination.to = data.to;
+      },
+
+      sortBy(key) {
+        this.sortKey = key;
+        this.sortOrders[key] = this.sortOrders[key] * -1;
+        this.tableData.column = this.getIndex(this.columns, 'name', key);
+        this.tableData.dir = this.sortOrders[key] === 1 ? 'asc' : 'desc';
+        this.getData();
+      },
+      getIndex(array, key, value) {
+        return array.findIndex(i => i[key] == value)
+      },
     }
+  }
 </script>
 
 <style scoped>

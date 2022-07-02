@@ -33,7 +33,7 @@
               <td>
                 <b-button @click="statusChange({id:value.id, status:value.status})"
                           :class="value.status == 1 ? 'btn-sm btn-info': 'btn-sm btn-danger'">
-                  {{value.status === 1 ? 'Active': 'Inactive'}}
+                  {{value.status == 1 ? 'Active': 'Inactive'}}
                 </b-button>
               </td>
               <td>
