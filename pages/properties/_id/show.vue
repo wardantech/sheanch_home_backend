@@ -128,7 +128,11 @@
       await this.$axios.$get('property/show/' + this.$route.params.id)
         .then(response => {
           this.property = response.data;
-          this.images = this.property.image.split(',');
+
+          if(this.property.image != null){
+            this.images = this.property.image.split(',');
+          }
+
           this.thana_name = this.property.thana.name;
           this.district_name = this.property.district.name;
           this.division_name = this.property.division.name;
