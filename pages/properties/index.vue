@@ -39,11 +39,11 @@
               </b-button>
             </td>
             <td>
-              <!--<nuxt-link :to="{name:'users-landlords-id-edit',params: { id: value.id }}" rel="tooltip"-->
-                         <!--class="btn btn-sm btn-success btn-simple"-->
-                         <!--title="Edit">-->
-                <!--<font-awesome-icon icon="fa-solid fa-pen-to-square"/>-->
-              <!--</nuxt-link>-->
+              <nuxt-link :to="{name:'properties-id-show',params: { id: value.id }}" rel="tooltip"
+                         class="btn btn-sm btn-info btn-simple"
+                         title="Edit">
+                <font-awesome-icon icon="fa-solid fa-eye" />
+              </nuxt-link>
             </td>
           </tr>
           </tbody>
