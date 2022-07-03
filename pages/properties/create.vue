@@ -327,7 +327,7 @@
           url: "url",
           addRemoveLinks: true,
           headers: {"Authorization": this.$auth.strategy.token.get()},
-          maxFiles: 1,
+          // maxFiles: 1,
           autoProcessQueue: false,
           acceptedFiles: ".jpeg,.jpg,.png"
         },
@@ -396,12 +396,12 @@
 
         await this.$axios.$post('property/store', this.form)
           .then(response => {
-            // this.$izitoast.success({
-            //   title: 'Success !!',
-            //   message: 'Property create successfully!'
-            // });
+            this.$izitoast.success({
+              title: 'Success !!',
+              message: 'Property create successfully!'
+            });
 
-            this.$refs.el.dropzone.options.url = process.env.APP_ROOT_API + 'landlord/image-upload/' + response.data.id;
+            this.$refs.el.dropzone.options.url = process.env.APP_ROOT_API + 'property/image-upload/' + response.data.id;
             this.$refs.el.dropzone.processQueue();
             this.$router.push({name: 'properties'});
           })
