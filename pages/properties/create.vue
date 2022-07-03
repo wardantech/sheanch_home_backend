@@ -139,6 +139,44 @@
               </b-row>
 
               <b-row>
+                <b-col lg="4" md="4" sm="12">
+                  <b-form-group label="House Number">
+                    <b-form-input min="1" v-model="form.house_no" class="custom-form-control" type="text"
+                                  placeholder="House Number"></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px" v-if="errors.house_no">{{
+                      errors.house_no[0]
+                      }}</strong>
+                  </b-form-group>
+                </b-col>
+
+                <b-col lg="4" md="4" sm="12">
+                  <b-form-group label="Sale Type">
+                    <select v-model="form.sale_type"
+                            class="form-control custom-select-form-control">
+                      <option value="">Select</option>
+                      <option value="1">For Rent</option>
+                      <option value="2">For Sale</option>
+                    </select>
+                    <strong class="text-danger" style="font-size: 12px"
+                            v-if="errors.sale_type">{{ errors.sale_type[0] }}</strong>
+                  </b-form-group>
+                </b-col>
+
+                <b-col lg="4" md="4" sm="12">
+                  <b-form-group label="Lease Type">
+                    <select v-model="form.lease_type"
+                            class="form-control custom-select-form-control">
+                      <option value="">Select</option>
+                      <option value="1">Commercial</option>
+                      <option value="2">Residential</option>
+                    </select>
+                    <strong class="text-danger" style="font-size: 12px"
+                            v-if="errors.lease_type">{{ errors.lease_type[0] }}</strong>
+                  </b-form-group>
+                </b-col>
+              </b-row>
+
+              <b-row>
                 <b-col md="12">
                   <b-form-group label="Address *">
                     <b-form-textarea
@@ -327,11 +365,9 @@
           url: "url",
           addRemoveLinks: true,
           headers: {"Authorization": this.$auth.strategy.token.get()},
+          // maxFiles: 1,
           autoProcessQueue: false,
-          acceptedFiles: ".jpeg,.jpg,.png",
-          parallelUploads: 20,
-          maxFilesize: 2,
-          maxFiles: 20,
+          acceptedFiles: ".jpeg,.jpg,.png"
         },
         form: {
           name: '',
@@ -349,6 +385,9 @@
           description: '',
           landlord_id: '',
           image: '',
+          lease_type: '',
+          sale_type: '',
+          house_no: '',
           facilities: [],
           utilities_paid_by_tenant: [],
           utilities_paid_by_landlord: []
@@ -394,30 +433,28 @@
         this.thanas = thanas.data;
       },
 
-       store() {
-        this.$refs.el.dropzone.options.url = process.env.APP_ROOT_API + 'property/image-upload/' + 2;
-        this.$refs.el.dropzone.processQueue();
+      async store() {
 
-        // await this.$axios.$post('property/store', this.form)
-        //   .then(response => {
-        //     this.$izitoast.success({
-        //       title: 'Success !!',
-        //       message: 'Property create successfully!'
-        //     });
-        //
-        //     this.$refs.el.dropzone.options.url = process.env.APP_ROOT_API + 'property/image-upload/' + response.data.id;
-        //     this.$refs.el.dropzone.processQueue();
-        //     this.$router.push({name: 'properties'});
-        //   })
-        //   .catch(error => {
-        //
-        //     if (error.response.status == 422) {
-        //       this.errors = error.response.data.errors
-        //     }
-        //     else {
-        //       alert(error.response.message)
-        //     }
-        //   })
+        await this.$axios.$post('property/store', this.form)
+          .then(response => {
+            this.$izitoast.success({
+              title: 'Success !!',
+              message: 'Property create successfully!'
+            });
+
+            this.$refs.el.dropzone.options.url = process.env.APP_ROOT_API + 'property/image-upload/' + response.data.id;
+            this.$refs.el.dropzone.processQueue();
+            this.$router.push({name: 'properties'});
+          })
+          .catch(error => {
+
+            if (error.response.status == 422) {
+              this.errors = error.response.data.errors
+            }
+            else {
+              alert(error.response.message)
+            }
+          })
       }
     }
   }
