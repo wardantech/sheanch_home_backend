@@ -13,40 +13,28 @@
 
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Select Landlord">
-                    <select @change="getDistricts(form.division_id)" v-model="form.division_id" id=""
+                    <select  @change="getProperties(form.landlord_id)" v-model="form.landlord_id" id=""
                             class="form-control">
                       <option value="">Select</option>
-                      <option v-for="(division, i) in divisions" :value="division.id" :key="i">
-                        {{ division.name }}
+                      <option v-for="(landlord, i) in landlords" :value="landlord.id" :key="i">
+                        {{ landlord.name }}
                       </option>
                     </select>
                     <strong class="text-danger" style="font-size: 12px"
-                            v-if="errors.division_id">{{ errors.division_id[0] }}</strong>
+                            v-if="errors.landlord_id">{{ errors.landlord_id[0] }}</strong>
                   </b-form-group>
                 </b-col>
                 <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="District">
-                    <select @change="getThanas(form.district_id)" v-model="form.district_id" id=""
+                  <b-form-group label="Property">
+                    <select v-model="form.property_id" id=""
                             class="form-control">
                       <option value="">Select</option>
-                      <option v-for="(district, i) in districts" :value="district.id" :key="i">
-                        {{ district.name }}
+                      <option v-for="(property, i) in properties" :value="property.id" :key="i">
+                        {{ property.name }}
                       </option>
                     </select>
                     <strong class="text-danger" style="font-size: 12px"
-                            v-if="errors.district_id">{{ errors.district_id[0] }}</strong>
-                  </b-form-group>
-                </b-col>
-                <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="Thana">
-                    <select v-model="form.thana_id" id="" class="form-control">
-                      <option value="">Select</option>
-                      <option v-for="(thana, i) in thanas" :value="thana.id" :key="i">
-                        {{ thana.name }}
-                      </option>
-                    </select>
-                    <strong class="text-danger" style="font-size: 12px"
-                            v-if="errors.thana_id">{{ errors.thana_id[0] }}</strong>
+                            v-if="errors.property_id">{{ errors.property_id[0] }}</strong>
                   </b-form-group>
                 </b-col>
 
@@ -117,24 +105,16 @@
 </template>
 
 <script>
-  import Dropzone from 'nuxt-dropzone'
-  import 'nuxt-dropzone/dropzone.css'
+
 
   export default {
     name: "create",
     components: {
-      Dropzone
+
     },
     data() {
       return {
-        options: {
-          url: "url",
-          addRemoveLinks: true,
-          headers: {"Authorization": this.$auth.strategy.token.get()},
-          maxFiles: 1,
-          autoProcessQueue: false,
-          acceptedFiles: ".jpeg,.jpg,.png"
-        },
+
         form: {
           name: '',
           mobile: '',
@@ -150,30 +130,20 @@
           password: '',
           password_confirmation: '',
         },
-        previewImage: null,
-        landlord: '',
-        divisions: '',
-        districts: '',
-        thanas: '',
+        landlords: '',
+        properties: '',
         errors: {}
       }
     },
     async created() {
-      let divisions = await this.$axios.$get('settings/divisions')
-      this.divisions = divisions.data
-      console.log(this.$auth.strategy.token.get())
+      let landlords = await this.$axios.$get('landlord/get-landlords')
+      this.landlords = landlords.data;
     },
 
     methods: {
-      async getDistricts(division_id) {
-        this.thanas = '';
-        let district = await this.$axios.$post('settings/districts', {divisionId: division_id});
-        this.districts = district.data;
-      },
-
-      async getThanas(district_id) {
-        let thanas = await this.$axios.$post('settings/thanas', {districtId: district_id});
-        this.thanas = thanas.data;
+      async getProperties(landlord_id) {
+        let properties = await this.$axios.$post('lease/get-property-as-landlord', {landlordId: landlord_id});
+        this.properties = properties.data;
       },
 
       async store() {

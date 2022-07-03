@@ -38,7 +38,6 @@
                   </b-form-group>
                 </b-col>
               </b-row>
-
               <b-row>
                 <b-col md="12">
                   <b-form-group label="Property Name *">
@@ -372,7 +371,7 @@
           maxFilesize: 2,
           maxFiles: 20, // Test
         },
-        
+
         form: {
           name: '',
           thana_id: '',
