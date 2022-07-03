@@ -64,6 +64,29 @@
               </b-collapse>
               <!--/. Properties -->
 
+              <!-- Property Ad Manager -->
+              <li>
+                <b-button class="custom-dropdown-btn" v-b-toggle.collapse-10>
+                  <font-awesome-icon icon="fa-solid fa-hotel" />
+                  Property Ads
+                  <font-awesome-icon icon="fa-solid fa-caret-down"/>
+                </b-button>
+              </li>
+
+              <b-collapse class="dropdown-container m-2" id="collapse-10">
+                <li>
+                  <nuxt-link :to="{ name: 'properties-ads-manager' }">
+                    All Ads
+                  </nuxt-link>
+                </li>
+                <li>
+                  <nuxt-link :to="{ name: 'properties-ads-manager-create' }">
+                    Add Ad
+                  </nuxt-link>
+                </li>
+              </b-collapse>
+              <!--/. Property Ad Manager -->
+
               <!-- Lease -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.collapse-9>
