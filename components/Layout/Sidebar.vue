@@ -41,6 +41,75 @@
               </b-collapse>
               <!--/. Users -->
 
+              <!-- Properties -->
+              <li>
+                <b-button class="custom-dropdown-btn" v-b-toggle.collapse-7>
+                  <font-awesome-icon icon="fa-solid fa-hotel" />
+                  Properties
+                  <font-awesome-icon icon="fa-solid fa-caret-down"/>
+                </b-button>
+              </li>
+
+              <b-collapse class="dropdown-container m-2" id="collapse-7">
+                <li>
+                  <nuxt-link :to="{ name: 'properties' }">
+                    All Properties
+                  </nuxt-link>
+                </li>
+                <li>
+                  <nuxt-link :to="{ name: 'properties-create' }">
+                    Add Property
+                  </nuxt-link>
+                </li>
+              </b-collapse>
+              <!--/. Properties -->
+
+              <!-- Lease -->
+              <li>
+                <b-button class="custom-dropdown-btn" v-b-toggle.collapse-9>
+                  <font-awesome-icon icon="fa-solid fa-hotel" />
+                  Lease
+                  <font-awesome-icon icon="fa-solid fa-caret-down"/>
+                </b-button>
+              </li>
+
+              <b-collapse class="dropdown-container m-2" id="collapse-9">
+                <li>
+                  <nuxt-link :to="{ name: 'leases' }">
+                    All Leases
+                  </nuxt-link>
+                </li>
+                <li>
+                  <nuxt-link :to="{ name: 'leases-create' }">
+                    Add Lease
+                  </nuxt-link>
+                </li>
+              </b-collapse>
+              <!--/. Leases -->
+
+              <!-- Expense -->
+              <li>
+                <b-button class="custom-dropdown-btn" v-b-toggle.collapse-8>
+                  <font-awesome-icon icon="fa-solid fa-hand-holding-dollar" />
+                  Expense
+                  <font-awesome-icon icon="fa-solid fa-caret-down"/>
+                </b-button>
+              </li>
+
+              <b-collapse class="dropdown-container m-2" id="collapse-8">
+                <li>
+                  <nuxt-link :to="{ name: 'expense-categories' }">
+                    Categories
+                  </nuxt-link>
+                </li>
+                <li>
+                  <nuxt-link :to="{ name: 'expense' }">
+                    Expenses
+                  </nuxt-link>
+                </li>
+              </b-collapse>
+              <!--/. Expense -->
+
               <!-- Settings -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.collapse-3>
@@ -98,52 +167,6 @@
               </b-collapse>
 
               <!--/. Settings -->
-
-              <!-- Properties -->
-              <li>
-                <b-button class="custom-dropdown-btn" v-b-toggle.collapse-7>
-                  <font-awesome-icon icon="fa-solid fa-hotel" />
-                  Properties
-                  <font-awesome-icon icon="fa-solid fa-caret-down"/>
-                </b-button>
-              </li>
-
-              <b-collapse class="dropdown-container m-2" id="collapse-7">
-                <li>
-                  <nuxt-link :to="{ name: 'properties' }">
-                    All Properties
-                  </nuxt-link>
-                </li>
-                <li>
-                  <nuxt-link :to="{ name: 'properties-create' }">
-                    Add Property
-                  </nuxt-link>
-                </li>
-              </b-collapse>
-              <!--/. Properties -->
-
-              <!-- Expense -->
-              <li>
-                <b-button class="custom-dropdown-btn" v-b-toggle.collapse-8>
-                  <font-awesome-icon icon="fa-solid fa-hand-holding-dollar" />
-                  Expense
-                  <font-awesome-icon icon="fa-solid fa-caret-down"/>
-                </b-button>
-              </li>
-
-              <b-collapse class="dropdown-container m-2" id="collapse-8">
-                <li>
-                  <nuxt-link :to="{ name: 'expense-categories' }">
-                    Categories
-                  </nuxt-link>
-                </li>
-                <li>
-                  <nuxt-link :to="{ name: 'expense' }">
-                    Expenses
-                  </nuxt-link>
-                </li>
-              </b-collapse>
-              <!--/. Expense -->
 
             </ul>
           </nav>
