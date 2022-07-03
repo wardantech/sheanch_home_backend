@@ -367,8 +367,12 @@
           headers: {"Authorization": this.$auth.strategy.token.get()},
           // maxFiles: 1,
           autoProcessQueue: false,
-          acceptedFiles: ".jpeg,.jpg,.png"
+          acceptedFiles: ".jpeg,.jpg,.png",
+          parallelUploads: 20,
+          maxFilesize: 2,
+          maxFiles: 20, // Test
         },
+        
         form: {
           name: '',
           thana_id: '',
