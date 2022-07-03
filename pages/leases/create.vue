@@ -2,52 +2,17 @@
   <div>
     <!--Body Card-->
     <b-row>
-      <b-col md="8">
+      <b-col md="12">
         <div class="card mt-3">
           <div class="card-header">
-            <h5 class="card-title m-0">Create Landlord</h5>
+            <h5 class="card-title m-0">Create lease</h5>
           </div>
           <div class="card-body">
             <form @submit.prevent="store">
               <b-row>
-                <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="Name">
-                    <b-form-input v-model="form.name" type="text" placeholder="Name"></b-form-input>
-                    <strong class="text-danger" style="font-size: 12px" v-if="errors.name">{{
-                      errors.name[0]
-                      }}</strong>
-                  </b-form-group>
-                </b-col>
-                <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="Mobile">
-                    <b-form-input type="text" v-model="form.mobile" placeholder="Mobile"></b-form-input>
-                    <strong class="text-danger" style="font-size: 12px"
-                            v-if="errors.mobile">{{ errors.mobile[0] }}</strong>
-                  </b-form-group>
-                </b-col>
-              </b-row>
-
-              <b-row>
-                <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="NID">
-                    <b-form-input type="text" v-model="form.nid" placeholder="National ID"></b-form-input>
-                    <strong class="text-danger" style="font-size: 12px" v-if="errors.nid">{{
-                      errors.nid[0]
-                      }}</strong>
-                  </b-form-group>
-                </b-col>
 
                 <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="Email">
-                    <b-form-input v-model="form.email" type="email" placeholder="Email"></b-form-input>
-                    <strong class="text-danger" style="font-size: 12px" v-if="errors.email">{{
-                      errors.email[0]
-                      }}</strong>
-                  </b-form-group>
-                </b-col>
-
-                <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="Division">
+                  <b-form-group label="Select Landlord">
                     <select @change="getDistricts(form.division_id)" v-model="form.division_id" id=""
                             class="form-control">
                       <option value="">Select</option>
@@ -146,32 +111,6 @@
             </form>
           </div>
         </div>
-      </b-col>
-
-      <b-col md="4">
-        <b-card class="mt-3" header="Image">
-          <!--          <b-form-group label="Image">-->
-          <!--            <b-form-file-->
-          <!--              ref="fileInput"-->
-          <!--              @input="pickFile"-->
-          <!--            >-->
-          <!--            </b-form-file>-->
-          <!--            &lt;!&ndash;            <input type="hidden" v-model="form.image">&ndash;&gt;-->
-          <!--            <strong class="text-danger" style="font-size: 12px" v-if="errors.nid">{{ errors.nid[0] }}</strong>-->
-          <!--          </b-form-group>-->
-          <!--          <div-->
-          <!--            class="imagePreviewWrapper"-->
-          <!--            :style="{ 'background-image': `url(${previewImage})` }">-->
-          <!--          </div>-->
-          <b-form-group label="Image">
-            <dropzone id="foo" ref="el"
-                      :options="options"
-                      :destroyDropzone="false"
-            >
-            </dropzone>
-          </b-form-group>
-        </b-card>
-
       </b-col>
     </b-row>
   </div>

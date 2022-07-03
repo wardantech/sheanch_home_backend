@@ -331,7 +331,7 @@
           acceptedFiles: ".jpeg,.jpg,.png",
           parallelUploads: 20,
           maxFilesize: 2,
-          maxFiles: 20,
+          maxFiles: 20, // Test
         },
         form: {
           name: '',
