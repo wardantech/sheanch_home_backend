@@ -5,56 +5,58 @@
         <h5 class="card-title m-0">Property Ad List</h5>
 
         <nuxt-link :to="{ name: 'users-landlords-create' }" class="btn btn-info">
-          <font-awesome-icon icon="fa-solid fa-plus" />
+          <font-awesome-icon icon="fa-solid fa-plus"/>
           Add Property Ad
         </nuxt-link>
       </div>
 
       <div class="card-body">
         <div class="search d-flex justify-content-between align-items-center">
-            <div class="form-group">
-              <input class="form-control custom-form-control" type="text" v-model="tableData.search" placeholder="Search Table" @input="getData()">
-            </div>
-            <div class="form-group">
-              <select class="form-control custom-select-form-control" v-model="tableData.length" @change="getData()">
-                <option v-for="(records, index) in perPage" :key="index" :value="records">{{records}}</option>
-              </select>
-            </div>
+          <div class="form-group">
+            <input class="form-control custom-form-control" type="text" v-model="tableData.search"
+                   placeholder="Search Table" @input="getData()">
+          </div>
+          <div class="form-group">
+            <select class="form-control custom-select-form-control" v-model="tableData.length" @change="getData()">
+              <option v-for="(records, index) in perPage" :key="index" :value="records">{{ records }}</option>
+            </select>
+          </div>
         </div>
-        <DataTable id="dataTable" :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy" class="">
+        <DataTable id="dataTable" :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy"
+                   class="">
           <tbody>
-            <tr v-for="(value,i) in values" :key="value.id">
-              <td>{{i+1}}</td>
-<!--              <td>-->
-<!--                <img style="height: 50px; width: 50px" :src="imageUrl+value.image" alt="">-->
-<!--              </td>-->
-              <td>{{value.name}}</td>
-              <td>{{value.mobile}}</td>
-              <td>
-                <b-button @click="statusChange({id:value.id, status:value.status})"
-                          :class="value.status == 1 ? 'btn-sm btn-info': 'btn-sm btn-danger'">
-                  {{value.status == 1 ? 'Active': 'Inactive'}}
-                </b-button>
-              </td>
-              <td>
-                <nuxt-link :to="{name:'users-landlords-id-edit',params: { id: value.id }}" rel="tooltip" class="btn btn-sm btn-success btn-simple"
-                  title="Edit">
-                  <font-awesome-icon icon="fa-solid fa-pen-to-square" />
-                  </nuxt-link>
-                  <!--<a @click="deleteCategory(value.id)"-->
-                     <!--rel="tooltip" class="btn btn-danger btn-simple"-->
-                     <!--style="color: white"-->
-                     <!--title="Delete">-->
-                    <!--<i class="material-icons">close</i>-->
-                  <!--</a>-->
-              </td>
-            </tr>
+          <tr v-for="(value,i) in values" :key="value.id">
+            <td>{{ i + 1 }}</td>
+
+            <td>{{ value.start_date }}</td>
+            <td>{{ value.landlord.name }}</td>
+            <td>{{ value.rent_amount }}</td>
+            <td>
+              <b-button @click="statusChange({id:value.id, status:value.status})"
+                        :class="value.status == 1 ? 'btn-sm btn-info': 'btn-sm btn-danger'">
+                {{ value.status == 1 ? 'Active' : 'Inactive' }}
+              </b-button>
+            </td>
+            <td>
+<!--              <nuxt-link :to="{name:'users-landlords-id-edit',params: { id: value.id }}" rel="tooltip"-->
+<!--                         class="btn btn-sm btn-success btn-simple"-->
+<!--                         title="Edit">-->
+<!--                <font-awesome-icon icon="fa-solid fa-pen-to-square"/>-->
+<!--              </nuxt-link>-->
+              <!--<a @click="deleteCategory(value.id)"-->
+              <!--rel="tooltip" class="btn btn-danger btn-simple"-->
+              <!--style="color: white"-->
+              <!--title="Delete">-->
+              <!--<i class="material-icons">close</i>-->
+              <!--</a>-->
+            </td>
+          </tr>
           </tbody>
         </DataTable>
 
         <pagination :pagination="pagination"
-          @prev="getData(pagination.prevPageUrl)"
-          @next="getData(pagination.nextPageUrl)">
+                    @prev="getData(pagination.prevPageUrl)"
+                    @next="getData(pagination.nextPageUrl)">
         </pagination>
 
       </div>
@@ -72,7 +74,7 @@ export default {
   created() {
     this.getData();
   },
-  computed:{
+  computed: {
     // imageUrl(){
     //   return `${process.env.APP_ROOT_IMG_URL}/`
     // }
@@ -81,9 +83,10 @@ export default {
   data() {
     let sortOrders = {};
     let columns = [
-      {width: '', label: 'Sl', name: 'id' },
-      {width: '', label: 'Name', name: 'name'},
-      {width: '', label: 'Mobile', name: 'mobile'},
+      {width: '', label: 'Sl', name: 'id'},
+      {width: '', label: 'Property', name: 'name'},
+      {width: '', label: 'Landlord', name: 'landlord'},
+      {width: '', label: 'Lease/Rent Amount', name: 'rent_amount'},
       {width: '', label: 'Status', name: ''},
       {width: '', label: 'Action', name: ''},
     ];
@@ -96,7 +99,7 @@ export default {
       columns: columns,
       sortKey: 'id',
       sortOrders: sortOrders,
-      perPage: ['10', '25', '50','100','500','2000','all'],
+      perPage: ['10', '25', '50', '100', '500', '2000', 'all'],
       tableData: {
         draw: 0,
         length: 10,
@@ -117,7 +120,7 @@ export default {
     }
   },
   methods: {
-    getData(url = '/property/list/list') {
+    getData(url = '/property/ad/list') {
       this.tableData.draw++;
       this.$axios.post(url, {params: this.tableData})
         .then(response => {
@@ -146,8 +149,7 @@ export default {
         .catch(error => {
           if (error.response.status == 422) {
             this.errors = error.response.data.errors
-          }
-          else {
+          } else {
             alert(error.response.message)
           }
         })
