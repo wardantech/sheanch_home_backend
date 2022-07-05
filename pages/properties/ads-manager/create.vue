@@ -10,7 +10,6 @@
           <div class="card-body">
             <form @submit.prevent="store">
               <b-row>
-
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Select Landlord">
                     <select @change="getProperties(form.landlord_id)" v-model="form.landlord_id" id=""

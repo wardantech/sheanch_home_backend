@@ -84,7 +84,7 @@ export default {
     let sortOrders = {};
     let columns = [
       {width: '', label: 'Sl', name: 'id'},
-      {width: '', label: 'Property', name: 'name'},
+      {width: '', label: 'Lease/Rent Start Date', name: 'start_date'},
       {width: '', label: 'Landlord', name: 'landlord'},
       {width: '', label: 'Lease/Rent Amount', name: 'rent_amount'},
       {width: '', label: 'Status', name: ''},
