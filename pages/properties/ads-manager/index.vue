@@ -32,6 +32,10 @@
             <td>{{ value.landlord.name }}</td>
             <td>{{ value.rent_amount }}</td>
             <td>
+              <div v-if="value.sale_type == 1"> Rent</div>
+              <div v-if="value.sale_type == 2"> Sale</div>
+            </td>
+            <td>
               <b-button @click="statusChange({id:value.id, status:value.status})"
                         :class="value.status == 1 ? 'btn-sm btn-info': 'btn-sm btn-danger'">
                 {{ value.status == 1 ? 'Active' : 'Inactive' }}
@@ -87,6 +91,7 @@ export default {
       {width: '', label: 'Lease/Rent Start Date', name: 'start_date'},
       {width: '', label: 'Landlord', name: 'landlord'},
       {width: '', label: 'Lease/Rent Amount', name: 'rent_amount'},
+      {width: '', label: 'Type', name: 'sale type'},
       {width: '', label: 'Status', name: ''},
       {width: '', label: 'Action', name: ''},
     ];
@@ -138,11 +143,11 @@ export default {
     },
 
     async statusChange(params) {
-      await this.$axios.$post('landlord/change-status/' + params.id, params)
+      await this.$axios.$post('property/ad/change-status/' + params.id, params)
         .then(response => {
           this.$izitoast.success({
             title: 'Success !!',
-            message: 'Landlord status change successfully!'
+            message: 'Property ad status change successfully!'
           })
           this.getData()
         })
