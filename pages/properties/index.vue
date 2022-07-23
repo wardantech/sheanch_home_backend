@@ -44,6 +44,9 @@
                          title="Edit">
                 <font-awesome-icon icon="fa-solid fa-eye" />
               </nuxt-link>
+              <b-button class="btn btn-sm btn-danger" @click="deleteItem(value.id)">
+                <font-awesome-icon icon="fa-solid fa-trash"/>
+              </b-button>
             </td>
           </tr>
           </tbody>
@@ -141,6 +144,31 @@
               alert(error.response.message)
             }
           })
+      },
+
+      async deleteItem(id) {
+        let result = confirm("Want to delete?");
+
+        if (result) {
+          await this.$axios.$post('property/delete/' + id)
+            .then(response => {
+              if (id) {
+                this.values.splice(this.values.indexOf(id), 1);
+              }
+              this.$izitoast.success({
+                title: 'Success !!',
+                message: 'Property deleted successfully!'
+              });
+            })
+            .catch(error => {
+              if (error.response.status == 422) {
+                this.errors = error.response.data.errors
+              }
+              else {
+                alert(error.response.message)
+              }
+            })
+        }
       },
 
       configPagination(data) {

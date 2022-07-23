@@ -30,17 +30,21 @@
             <td>{{value.name}}</td>
             <td>{{value.description}}</td>
             <td>
-              <b-button @click="statusChange({id:value.id, status:value.status})"  title="Deactivate"
+              <b-button @click="statusChange({id:value.id, status:value.status})" title="Deactivate"
                         :class="value.status === 1 ? 'btn-sm btn-info': 'btn-sm btn-danger'">
                 {{value.status === 1 ? 'Active': 'Inactive'}}
               </b-button>
             </td>
             <td>
               <nuxt-link :to="{name:'settings-facilities-id-edit',params: { id: value.id }}" rel="tooltip"
-                         class="btn btn-sm btn-success btn-simple"
+                         class="btn btn-sm btn-info btn-simple"
                          title="Edit">
                 <font-awesome-icon icon="fa-solid fa-pen-to-square"/>
               </nuxt-link>
+
+              <b-button class="btn btn-sm btn-danger" @click="deleteItem(value.id)">
+                <font-awesome-icon icon="fa-solid fa-trash"/>
+              </b-button>
             </td>
           </tr>
           </tbody>
@@ -122,6 +126,32 @@
           }).finally(() => {
         });
       },
+
+      async deleteItem(id) {
+        let result = confirm("Want to delete?");
+
+        if (result) {
+          await this.$axios.$post('settings/facility/delete/' + id)
+            .then(response => {
+              if (id) {
+                this.values.splice(this.values.indexOf(id), 1);
+              }
+              this.$izitoast.success({
+                title: 'Success !!',
+                message: 'Facility deleted successfully!'
+              });
+            })
+            .catch(error => {
+              if (error.response.status == 422) {
+                this.errors = error.response.data.errors
+              }
+              else {
+                alert(error.response.message)
+              }
+            })
+        }
+      },
+
       configPagination(data) {
         this.pagination.lastPage = data.last_page;
         this.pagination.currentPage = data.current_page;
@@ -143,7 +173,7 @@
         return array.findIndex(i => i[key] == value)
       },
 
-      async statusChange(params){
+      async statusChange(params) {
         await this.$axios.$post('/settings/facility/change-status/' + params.id, params)
           .then(response => {
             this.$izitoast.success({

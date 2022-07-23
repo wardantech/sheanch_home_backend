@@ -37,10 +37,14 @@
             </td>
             <td>
               <nuxt-link :to="{name:'settings-facilities-categories-id-edit',params: { id: value.id }}" rel="tooltip"
-                         class="btn btn-sm btn-success btn-simple"
+                         class="btn btn-sm btn-info btn-simple"
                          title="Edit">
                 <font-awesome-icon icon="fa-solid fa-pen-to-square"/>
               </nuxt-link>
+
+              <b-button class="btn btn-sm btn-danger" @click="deleteItem(value.id)">
+                <font-awesome-icon icon="fa-solid fa-trash"/>
+              </b-button>
             </td>
           </tr>
           </tbody>
@@ -121,6 +125,32 @@
           }).finally(() => {
         });
       },
+
+      async deleteItem(id) {
+        let result = confirm("Want to delete?");
+
+        if (result) {
+          await this.$axios.$post('settings/facility/category/delete/' + id)
+            .then(response => {
+              if (id) {
+                this.values.splice(this.values.indexOf(id), 1);
+              }
+              this.$izitoast.success({
+                title: 'Success !!',
+                message: 'Facility categories deleted successfully!'
+              });
+            })
+            .catch(error => {
+              if (error.response.status == 422) {
+                this.errors = error.response.data.errors
+              }
+              else {
+                alert(error.response.message)
+              }
+            })
+        }
+      },
+
       configPagination(data) {
         this.pagination.lastPage = data.last_page;
         this.pagination.currentPage = data.current_page;
@@ -131,6 +161,7 @@
         this.pagination.from = data.from;
         this.pagination.to = data.to;
       },
+
       sortBy(key) {
         this.sortKey = key;
         this.sortOrders[key] = this.sortOrders[key] * -1;
@@ -138,9 +169,11 @@
         this.tableData.dir = this.sortOrders[key] === 1 ? 'asc' : 'desc';
         this.getData();
       },
+
       getIndex(array, key, value) {
         return array.findIndex(i => i[key] == value)
       },
+
       async statusChange(params) {
         await this.$axios.$post('/settings/facility/category/change-status/' + params.id, params)
           .then(response => {
