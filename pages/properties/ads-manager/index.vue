@@ -4,7 +4,7 @@
       <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="card-title m-0">Property Ad List</h5>
 
-        <nuxt-link :to="{ name: 'users-landlords-create' }" class="btn btn-info">
+        <nuxt-link :to="{ name: 'properties-ads-manager-create' }" class="btn btn-info">
           <font-awesome-icon icon="fa-solid fa-plus"/>
           Add Property Ad
         </nuxt-link>
@@ -53,6 +53,9 @@
               <!--title="Delete">-->
               <!--<i class="material-icons">close</i>-->
               <!--</a>-->
+              <b-button class="btn btn-sm btn-danger" @click="deleteItem(value.id)">
+                <font-awesome-icon icon="fa-solid fa-trash"/>
+              </b-button>
             </td>
           </tr>
           </tbody>
@@ -158,6 +161,31 @@ export default {
             alert(error.response.message)
           }
         })
+    },
+
+    async deleteItem(id) {
+      let result = confirm("Want to delete?");
+
+      if (result) {
+        await this.$axios.$post('property/ad/delete/' + id)
+          .then(response => {
+            if (id) {
+              this.values.splice(this.values.indexOf(id), 1);
+            }
+            this.$izitoast.success({
+              title: 'Success !!',
+              message: 'Property Ad deleted successfully!'
+            });
+          })
+          .catch(error => {
+            if (error.response.status == 422) {
+              this.errors = error.response.data.errors
+            }
+            else {
+              alert(error.response.message)
+            }
+          })
+      }
     },
 
     configPagination(data) {

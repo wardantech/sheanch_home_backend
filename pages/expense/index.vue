@@ -30,17 +30,21 @@
             <td>{{value.description}}</td>
             <td>{{value.total_amount}}</td>
             <td>
-              <b-button @click="statusChange({id:value.id, status:value.status})"  title="Deactivate"
+              <b-button @click="statusChange({id:value.id, status:value.status})" title="Deactivate"
                         :class="value.status === 1 ? 'btn-sm btn-info': 'btn-sm btn-danger'">
                 {{value.status === 1 ? 'Active': 'Inactive'}}
               </b-button>
             </td>
             <td>
               <nuxt-link :to="{name:'settings-utilities-id-edit',params: { id: value.id }}" rel="tooltip"
-                         class="btn btn-sm btn-success btn-simple"
+                         class="btn btn-sm btn-info btn-simple"
                          title="Edit">
                 <font-awesome-icon icon="fa-solid fa-pen-to-square"/>
               </nuxt-link>
+
+              <b-button class="btn btn-sm btn-danger" @click="deleteItem(value.id)">
+                <font-awesome-icon icon="fa-solid fa-trash"/>
+              </b-button>
             </td>
           </tr>
           </tbody>
@@ -104,6 +108,7 @@
         },
       }
     },
+
     methods: {
       getData(url = 'expense/list') {
         this.tableData.draw++;
@@ -121,6 +126,32 @@
           }).finally(() => {
         });
       },
+
+      async deleteItem(id) {
+        let result = confirm("Want to delete?");
+
+        if (result) {
+          await this.$axios.$post('expense/delete/' + id)
+            .then(response => {
+              if (id) {
+                this.values.splice(this.values.indexOf(id), 1);
+              }
+              this.$izitoast.success({
+                title: 'Success !!',
+                message: 'Expense deleted successfully!'
+              });
+            })
+            .catch(error => {
+              if (error.response.status == 422) {
+                this.errors = error.response.data.errors
+              }
+              else {
+                alert(error.response.message)
+              }
+            })
+        }
+      },
+
       configPagination(data) {
         this.pagination.lastPage = data.last_page;
         this.pagination.currentPage = data.current_page;
@@ -131,6 +162,7 @@
         this.pagination.from = data.from;
         this.pagination.to = data.to;
       },
+
       sortBy(key) {
         this.sortKey = key;
         this.sortOrders[key] = this.sortOrders[key] * -1;
