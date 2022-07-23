@@ -98,15 +98,15 @@
 
               <b-collapse class="dropdown-container m-2" id="collapse-9">
                 <li>
-                  <nuxt-link :to="{ name: 'leases' }">
+                  <nuxt-link :to="{ name: 'properties-leases' }">
                     All Leases
                   </nuxt-link>
                 </li>
-                <li>
-                  <nuxt-link :to="{ name: 'leases-create' }">
-                    Add Lease
-                  </nuxt-link>
-                </li>
+<!--                <li>-->
+<!--                  <nuxt-link :to="{ name: 'properties-leases-create' }">-->
+<!--                    Add Lease-->
+<!--                  </nuxt-link>-->
+<!--                </li>-->
               </b-collapse>
               <!--/. Leases -->
 
