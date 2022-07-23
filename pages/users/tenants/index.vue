@@ -149,6 +149,7 @@
               alert(error.response.message)
             }
           })
+      },
           
       async deleteItem(id) {
         let result = confirm("Want to delete?");
