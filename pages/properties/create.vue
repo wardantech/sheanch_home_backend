@@ -448,6 +448,7 @@
             this.$refs.el.dropzone.options.url = process.env.APP_ROOT_API + 'property/image-upload/' + response.data.id;
             this.$refs.el.dropzone.processQueue();
             this.$router.push({name: 'properties'});
+
           })
           .catch(error => {
 

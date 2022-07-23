@@ -27,10 +27,14 @@
           <tbody>
           <tr v-for="(value,i) in values" :key="value.id">
             <td>{{i+1}}</td>
-            <td>
-              <img style="height: 50px; width: 50px" :src="imageUrl+value.image" alt="">
-            </td>
             <td>{{value.name}}</td>
+            <td>{{value.mobile}}</td>
+            <td>
+              <b-button @click="statusChange({id:value.id, status:value.status})"
+                        :class="value.status == 1 ? 'btn-sm btn-info': 'btn-sm btn-danger'">
+                {{value.status == 1 ? 'Active': 'Inactive'}}
+              </b-button>
+            </td>
             <td>
               <nuxt-link :to="{name:'users-tenants-id-edit',params: { id: value.id }}" rel="tooltip"
                          class="btn btn-sm btn-info btn-simple"
@@ -74,8 +78,9 @@
       let sortOrders = {};
       let columns = [
         {width: '', label: 'Sl', name: 'id'},
-        {width: '', label: 'Img', name: 'image'},
         {width: '', label: 'Name', name: 'name'},
+        {width: '', label: 'Mobile', name: 'mobile'},
+        {width: '', label: 'Status', name: 'status'},
         {width: '', label: 'Action', name: ''},
       ];
       columns.forEach((column) => {
@@ -127,6 +132,24 @@
         });
       },
 
+      async statusChange(params) {
+        await this.$axios.$post('tenant/change-status/' + params.id, params)
+          .then(response => {
+            this.$izitoast.success({
+              title: 'Success !!',
+              message: 'Tenant status change successfully!'
+            })
+            this.getData()
+          })
+          .catch(error => {
+            if (error.response.status == 422) {
+              this.errors = error.response.data.errors
+            }
+            else {
+              alert(error.response.message)
+            }
+          })
+          
       async deleteItem(id) {
         let result = confirm("Want to delete?");
 
@@ -150,6 +173,7 @@
               }
             })
         }
+
       },
 
       configPagination(data) {
@@ -172,7 +196,8 @@
       getIndex(array, key, value) {
         return array.findIndex(i => i[key] == value)
       },
-    }
+    },
+
   }
 </script>
 

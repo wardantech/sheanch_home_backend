@@ -4,10 +4,10 @@
       <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="card-title m-0">Lease List</h5>
 
-        <nuxt-link :to="{ name: 'users-landlords-create' }" class="btn btn-info">
-          <font-awesome-icon icon="fa-solid fa-plus" />
-          Add Lease
-        </nuxt-link>
+<!--        <nuxt-link :to="{ name: 'users-landlords-create' }" class="btn btn-info">-->
+<!--          <font-awesome-icon icon="fa-solid fa-plus" />-->
+<!--          Add Lease-->
+<!--        </nuxt-link>-->
       </div>
 
       <div class="card-body">
@@ -24,29 +24,24 @@
         <DataTable id="dataTable" :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy" class="">
           <tbody>
             <tr v-for="(value,i) in values" :key="value.id">
+            <tr v-for="(value,i) in values" :key="value.id">
               <td>{{i+1}}</td>
-<!--              <td>-->
-<!--                <img style="height: 50px; width: 50px" :src="imageUrl+value.image" alt="">-->
-<!--              </td>-->
-              <td>{{value.name}}</td>
-              <td>{{value.mobile}}</td>
+              <td>{{value.landlord.name}}</td>
+              <td>{{value.property.address}}</td>
+              <td>
+                <div v-if="value.property.lease_type == 1"> Commercial</div>
+                <div v-if="value.property.lease_type == 2"> Residential</div>
+              </td>
+              <td>
+                <div v-if="value.property.sale_type == 1"> Rent</div>
+                <div v-if="value.property.sale_type == 2"> Sale</div>
+              </td>
+              <td>{{value.property.rent_amount}}</td>
               <td>
                 <b-button @click="statusChange({id:value.id, status:value.status})"
                           :class="value.status == 1 ? 'btn-sm btn-info': 'btn-sm btn-danger'">
                   {{value.status == 1 ? 'Active': 'Inactive'}}
                 </b-button>
-              </td>
-              <td>
-                <nuxt-link :to="{name:'users-landlords-id-edit',params: { id: value.id }}" rel="tooltip" class="btn btn-sm btn-success btn-simple"
-                  title="Edit">
-                  <font-awesome-icon icon="fa-solid fa-pen-to-square" />
-                  </nuxt-link>
-                  <!--<a @click="deleteCategory(value.id)"-->
-                     <!--rel="tooltip" class="btn btn-danger btn-simple"-->
-                     <!--style="color: white"-->
-                     <!--title="Delete">-->
-                    <!--<i class="material-icons">close</i>-->
-                  <!--</a>-->
               </td>
             </tr>
           </tbody>
@@ -83,9 +78,12 @@ export default {
     let columns = [
       {width: '', label: 'Sl', name: 'id' },
       {width: '', label: 'Name', name: 'name'},
-      {width: '', label: 'Mobile', name: 'mobile'},
-      {width: '', label: 'Status', name: ''},
-      {width: '', label: 'Action', name: ''},
+      {width: '', label: 'Address', name: 'address'},
+      {width: '', label: 'Type', name: 'sale_type'},
+      {width: '', label: 'Lease Type', name: 'lease_type'},
+      {width: '', label: 'Amount', name: 'rent_amount'},
+      {width: '', label: 'Status', name: 'status'},
+      // {width: '', label: 'Action', name: ''},
     ];
     columns.forEach((column) => {
       sortOrders[column.name] = -1;
@@ -117,7 +115,7 @@ export default {
     }
   },
   methods: {
-    getData(url = '/landlord/list') {
+    getData(url = 'property/lease/list') {
       this.tableData.draw++;
       this.$axios.post(url, {params: this.tableData})
         .then(response => {
@@ -135,11 +133,11 @@ export default {
     },
 
     async statusChange(params) {
-      await this.$axios.$post('landlord/change-status/' + params.id, params)
+      await this.$axios.$post('property/lease/change-status/' + params.id, params)
         .then(response => {
           this.$izitoast.success({
             title: 'Success !!',
-            message: 'Landlord status change successfully!'
+            message: 'Lease status change successfully!'
           })
           this.getData()
         })
