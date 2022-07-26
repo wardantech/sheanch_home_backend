@@ -159,7 +159,7 @@ export default {
   },
   computed:{
     imageUrl(){
-      return `${process.env.APP_ROOT_IMG_URL}/`
+      return `${process.env.APP_ROOT_IMG_URL}`
     }
   },
   data() {
