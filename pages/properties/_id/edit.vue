@@ -287,7 +287,7 @@
                       v-model="utility.utility_name"
                       :id="'utility_name'+n"
                       min="1" class="custom-form-control" type="text"
-                      placeholder="Area Size">
+                      placeholder="Utility Name">
                     </b-form-input>
                     <strong class="text-danger" style="font-size: 12px" v-if="errors.security_money">{{
                         errors.security_money[0]
@@ -315,7 +315,7 @@
                                   :id="'utility_amount'+n"
                                   v-model="utility.utility_amount"
                                   min="1" class="custom-form-control" type="text"
-                                  placeholder="Area Size"></b-form-input>
+                                  placeholder="Amount"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px" v-if="errors.area_size">{{
                         errors.area_size[0]
                       }}</strong>
