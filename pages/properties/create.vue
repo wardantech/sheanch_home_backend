@@ -47,7 +47,6 @@
                       }}</strong>
                   </b-form-group>
                 </b-col>
-
               </b-row>
 
               <b-row>
@@ -273,12 +272,12 @@
                   </b-form-group>
                 </b-col>
                 <b-col md="4">
-                  <div class="button-t-m">
+                  <div class="button-t-m" style="margin-top: 30px">
                     <b-button variant="success" @click="addUtilityRow(utility)">Add utility</b-button>
                   </div>
                 </b-col>
               </b-row>
-              <b-row v-for="(utility, n) in form.utilities" :key="utility">
+              <b-row class="align-items-center" v-for="(utility, n) in form.utilities" :key="utility">
                 <b-col md="4">
                   <b-form-group label="Utility Name">
                     <b-form-input
@@ -350,12 +349,12 @@
                   </b-form-group>
                 </b-col>
                 <b-col md="4">
-                  <div class="button-t-m">
+                  <div class="button-t-m" style="margin-top: 30px">
                     <b-button variant="success" @click="addFacilityRow(facility)">Add facility</b-button>
                   </div>
                 </b-col>
               </b-row>
-              <b-row v-for="(facility, n) in form.facilities" :key="utility">
+              <b-row class="align-items-center" v-for="(facility, n) in form.facilities" :key="utility">
                 <b-col md="4">
                   <b-form-group label="Facility name">
                     <b-form-input
