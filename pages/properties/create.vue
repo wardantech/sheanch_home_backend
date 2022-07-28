@@ -325,11 +325,9 @@
                   </div>
                 </b-col>
               </b-row>
-
             </div>
           </div>
         </b-col>
-
 
         <b-col md="12">
           <div class="card mt-3">
@@ -435,7 +433,7 @@ export default {
         acceptedFiles: ".jpeg,.jpg,.png",
         parallelUploads: 20,
         maxFilesize: 2,
-        maxFiles: 20, // Test
+        maxFiles: 20,
       },
 
       form: {
@@ -580,6 +578,7 @@ export default {
             message: 'Property create successfully!'
           });
 
+          this.$router.push({name: 'properties'});
           // this.$refs.el.dropzone.options.url = process.env.APP_ROOT_API + 'property/image-upload/' + response.data.id;
           // this.$refs.el.dropzone.processQueue();
           // this.$router.push({name: 'properties'});
