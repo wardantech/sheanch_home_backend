@@ -519,14 +519,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.imagePreviewWrapper {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  display: block;
-  cursor: pointer;
-  margin: 0 auto 30px;
-  background-size: cover;
-  background-position: center center;
-}
+
 </style>
