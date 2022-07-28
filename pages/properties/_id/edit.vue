@@ -259,6 +259,140 @@
         <b-col md="12">
           <div class="card mt-3">
             <div class="card-header">
+              Utilities
+            </div>
+            <div class="card-body">
+              <b-row>
+                <b-col md="4">
+                  <b-form-group label="Utilities">
+                    <select v-model="utility" class="form-control custom-select-form-control" name="" id="">
+                      <option value="">select</option>
+                      <option v-for="(utility, n) in utilities" :value="utility">
+                        {{ utility.name }}
+                      </option>
+                    </select>
+                  </b-form-group>
+                </b-col>
+                <b-col md="4">
+                  <div class="button-t-m" style="margin-top: 30px">
+                    <b-button variant="success" @click="addUtilityRow(utility)">Add utility</b-button>
+                  </div>
+                </b-col>
+              </b-row>
+              <b-row class="align-items-center" v-for="(utility, n) in form.utilities" :key="utility">
+                <b-col md="4">
+                  <b-form-group label="Utility Name">
+                    <b-form-input
+                      readonly
+                      v-model="utility.utility_name"
+                      :id="'utility_name'+n"
+                      min="1" class="custom-form-control" type="text"
+                      placeholder="Area Size">
+                    </b-form-input>
+                    <strong class="text-danger" style="font-size: 12px" v-if="errors.security_money">{{
+                        errors.security_money[0]
+                      }}</strong>
+                  </b-form-group>
+                </b-col>
+
+                <b-col md="4">
+                  <b-form-group label="Paid By">
+                    <select @click="utilityPaidBy(n, utility)" name="" :id="'utility_paid_by'+n"
+                            class="form-control custom-select-form-control">
+                      <option value="0">select</option>
+                      <option :selected="utility.utility_paid_by == 1" value="1">Paid By Landlord</option>
+                      <option :selected="utility.utility_paid_by == 2" value="2">Paid By Tenant</option>
+                    </select>
+                    <strong class="text-danger" style="font-size: 12px" v-if="errors.area_size">{{
+                        errors.area_size[0]
+                      }}</strong>
+                  </b-form-group>
+                </b-col>
+
+                <b-col md="3">
+                  <b-form-group label="Amount">
+                    <b-form-input @input="utilityAmount(n, utility)"
+                                  :id="'utility_amount'+n"
+                                  v-model="utility.utility_amount"
+                                  min="1" class="custom-form-control" type="text"
+                                  placeholder="Area Size"></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px" v-if="errors.area_size">{{
+                        errors.area_size[0]
+                      }}</strong>
+                  </b-form-group>
+                </b-col>
+
+                <b-col md="1"  @click="deleteUtilityRow(n, utility)">
+                  <div class="button-t-m">
+                    <b-button variant="danger">-</b-button>
+                  </div>
+                </b-col>
+              </b-row>
+            </div>
+          </div>
+        </b-col>
+
+        <b-col md="12">
+          <div class="card mt-3">
+            <div class="card-header">
+              Facility
+            </div>
+            <div class="card-body">
+              <b-row>
+                <b-col md="4">
+                  <b-form-group label="Facilities">
+                    <select v-model="facility" class="form-control custom-select-form-control" name="" id="">
+                      <option value="">select</option>
+                      <option v-for="(facility, f) in facilities" :value="facility">
+                        {{ facility.name }}
+                      </option>
+                    </select>
+                  </b-form-group>
+                </b-col>
+                <b-col md="4">
+                  <div class="button-t-m" style="margin-top: 30px">
+                    <b-button variant="success" @click="addFacilityRow(facility)">Add facility</b-button>
+                  </div>
+                </b-col>
+              </b-row>
+              <b-row class="align-items-center" v-for="(facility, n) in form.facilities" :key="utility">
+                <b-col md="4">
+                  <b-form-group label="Facility name">
+                    <b-form-input
+                      readonly
+                      v-model="facility.facility_name"
+                      :id="'facility_name'+n"
+                      min="1" class="custom-form-control" type="text"
+                      placeholder="Facility name">
+                    </b-form-input>
+
+                  </b-form-group>
+                </b-col>
+
+                <b-col md="3">
+                  <b-form-group label="Amount">
+                    <b-form-input @input="facilityAmount(n, facility)"
+                                  v-model="facility.facility_amount"
+                                  :id="'facility_amount'+n"
+                                  min="1" class="custom-form-control" type="text"
+                                  placeholder="Amount"></b-form-input>
+                  </b-form-group>
+                </b-col>
+
+                <b-col md="1"  @click="deleteFacilityRow(n, facility)">
+                  <div class="button-t-m">
+                    <b-button variant="danger">-</b-button>
+                  </div>
+                </b-col>
+              </b-row>
+
+            </div>
+          </div>
+        </b-col>
+
+        <b-col md="12">
+          <div class="card mt-3">
+            <div class="card-header">
               Image Upload
             </div>
             <div class="card-body">
@@ -327,14 +461,15 @@
           sale_type: '',
           house_no: '',
           facilities: [],
-          utilities_paid_by_tenant: [],
-          utilities_paid_by_landlord: []
+          utilities: [],
         },
 
         propertyTypes: '',
         landlords: '',
-        utilityCategories: '',
-        facilitiesCategories: '',
+        utilities: '',
+        utility: '',
+        facility: '',
+        facilities: '',
         divisions: '',
         districts: '',
         thanas: '',
@@ -354,10 +489,12 @@
       this.thanas = data.data.thanas;
       this.landlords = data.data.landlords;
       this.propertyTypes = data.data.propertyTypes;
-      this.utilityCategories = data.data.utilityCategories;
-      this.facilitiesCategories = data.data.facilitiesCategories;
+      this.utilities = data.data.utilities;
+      this.facilities = data.data.facilities;
 
       this.form = data.data.property;
+      this.form.utilities = JSON.parse(data.data.property.utilities);
+      this.form.facilities = JSON.parse(data.data.property.facilities);
       let images = data.data.propertyImages
       this.form.oldImages = [];
 
@@ -426,14 +563,60 @@
         }
       },
 
-      async store() {
+      addUtilityRow(data) {
+        this.form.utilities.push({
+          'utility_id': data.id,
+          'utility_name': data.name,
+          'utility_paid_by': '',
+          'utility_amount': '',
+        })
+      },
+      deleteUtilityRow(index, utility) {
+        let idx = this.form.utilities.indexOf(utility);
+        if (idx > -1) {
+          this.form.utilities.splice(idx, 1);
+        }
+      },
 
+      utilityPaidBy(n, utility) {
+        let paid_by = document.getElementById('utility_paid_by' + n).value
+        this.form.utilities[n].utility_paid_by = paid_by;
+      },
+
+      utilityAmount(n, utility) {
+        let amount = document.getElementById('utility_amount' + n).value
+        this.form.utilities[n].utility_amount = amount;
+      },
+
+      addFacilityRow(data){
+        this.form.facilities.push({
+          'facility_id': data.id,
+          'facility_name': data.name,
+          'facility_amount': '',
+        })
+      },
+
+      deleteFacilityRow(index, facility) {
+        let idx = this.form.facilities.indexOf(facility);
+        if (idx > -1) {
+          this.form.facilities.splice(idx, 1);
+        }
+      },
+
+      facilityAmount(n, facility) {
+        let amount = document.getElementById('facility_amount' + n).value
+        this.form.facilities[n].facility_amount = amount;
+      },
+
+      async store() {
         await this.$axios.$post('property/update/' + this.$route.params.id, this.form)
           .then(response => {
             this.$izitoast.success({
               title: 'Success !!',
               message: 'Property updated successfully!'
             });
+
+            this.$router.push({name: 'properties'});
 
           })
           .catch(error => {
