@@ -56,11 +56,64 @@
                     All Properties
                   </nuxt-link>
                 </li>
+
                 <li>
                   <nuxt-link :to="{ name: 'properties-create' }">
                     Add Property
                   </nuxt-link>
                 </li>
+
+                <li>
+                  <a href="#" v-b-toggle.collapse-11>
+                    Settings
+                  </a>
+                </li>
+
+                <b-collapse class="dropdown-container m-2" id="collapse-11">
+                  <li>
+                    <a href="#" v-b-toggle.collapse-4>
+                      Utilities
+                    </a>
+                  </li>
+
+                  <b-collapse class="dropdown-container m-2" id="collapse-4">
+                    <li>
+                      <nuxt-link :to="{ name: 'settings-utilities-categories' }">
+                        Categories
+                      </nuxt-link>
+                    </li>
+                    <li>
+                      <nuxt-link :to="{ name: 'settings-utilities' }">
+                        Utility
+                      </nuxt-link>
+                    </li>
+                  </b-collapse>
+
+                  <li>
+                    <a href="#" v-b-toggle.collapse-6>
+                      Facilities
+                    </a>
+                  </li>
+
+                  <b-collapse class="dropdown-container m-2" id="collapse-6">
+                    <li>
+                      <nuxt-link :to="{ name: 'settings-facilities-categories' }">
+                        Categories
+                      </nuxt-link>
+                    </li>
+                    <li>
+                      <nuxt-link :to="{ name: 'settings-facilities' }">
+                        Facility
+                      </nuxt-link>
+                    </li>
+                  </b-collapse>
+
+                  <li>
+                    <nuxt-link :to="{ name: 'settings-property-type' }">
+                      Property Type
+                    </nuxt-link>
+                  </li>
+                </b-collapse>
               </b-collapse>
               <!--/. Properties -->
 
@@ -144,49 +197,10 @@
 
               <b-collapse class="dropdown-container m-2" id="collapse-3">
                 <li>
-                  <b-button class="custom-dropdown-btn" v-b-toggle.collapse-4>
-                    Utilities
-                  </b-button>
-                </li>
-
-                <b-collapse class="dropdown-container m-2" id="collapse-4">
-                  <li>
-                    <nuxt-link :to="{ name: 'settings-utilities-categories' }">
-                      Categories
-                    </nuxt-link>
-                  </li>
-                  <li>
-                    <nuxt-link :to="{ name: 'settings-utilities' }">
-                      Utility
-                    </nuxt-link>
-                  </li>
-                </b-collapse>
-
-                <li>
-                  <b-button class="custom-dropdown-btn" v-b-toggle.collapse-6>
-                    Facilities
-                  </b-button>
-                </li>
-
-                <b-collapse class="dropdown-container m-2" id="collapse-6">
-                  <li>
-                    <nuxt-link :to="{ name: 'settings-facilities-categories' }">
-                      Categories
-                    </nuxt-link>
-                  </li>
-                  <li>
-                    <nuxt-link :to="{ name: 'settings-facilities' }">
-                      Facility
-                    </nuxt-link>
-                  </li>
-                </b-collapse>
-
-                <li>
-                  <nuxt-link class="m-0" :to="{ name: 'settings-property-type' }">
-                    Property Type
+                  <nuxt-link :to="{ name: 'settings-frontend-create' }">
+                    Frontend Setting
                   </nuxt-link>
                 </li>
-
               </b-collapse>
 
               <!--/. Settings -->
