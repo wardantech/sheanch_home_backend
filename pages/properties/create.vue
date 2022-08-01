@@ -24,6 +24,19 @@
                   </b-form-group>
                 </b-col>
 
+                <b-col lg="4" md="4" sm="12">
+                  <b-form-group label="Property category *">
+                    <select v-model="form.property_category"
+                            class="form-control custom-select-form-control">
+                      <option value="">Select</option>
+                      <option value="1">Commercial</option>
+                      <option value="2">Residential</option>
+                    </select>
+                    <strong class="text-danger" style="font-size: 12px"
+                            v-if="errors.property_category">{{ errors.property_category[0] }}</strong>
+                  </b-form-group>
+                </b-col>
+
                 <b-col lg="4" md="6" sm="12">
                   <b-form-group label="Property Types *">
                     <select v-model="form.property_type_id"
@@ -39,11 +52,94 @@
                 </b-col>
 
                 <b-col lg="4" md="6" sm="12">
+                  <b-form-group label="Sale/Lease Type">
+                    <select v-model="form.sale_type"
+                            class="form-control custom-select-form-control">
+                      <option value="">Select</option>
+                      <option value="1">For Rent</option>
+                      <option value="2">For Sale</option>
+                    </select>
+                    <strong class="text-danger" style="font-size: 12px"
+                            v-if="errors.sale_type">{{ errors.sale_type[0] }}</strong>
+                  </b-form-group>
+                </b-col>
+
+                <b-col lg="4" md="6" sm="12">
                   <b-form-group label="Property Name *">
                     <b-form-input v-model="form.name" class="custom-form-control" type="text"
                                   placeholder="Name"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px" v-if="errors.name">{{
                         errors.name[0]
+                      }}</strong>
+                  </b-form-group>
+                </b-col>
+
+                <b-col lg="4" md="6" sm="12">
+                  <b-form-group label="Status *">
+                    <select v-model="form.status"
+                            class="form-control custom-select-form-control">
+                      <option value="">Select</option>
+                      <option value="1">Active</option>
+                      <option value="0">Inactive</option>
+                    </select>
+                    <strong class="text-danger" style="font-size: 12px"
+                            v-if="errors.status">{{ errors.status[0] }}</strong>
+                  </b-form-group>
+                </b-col>
+              </b-row>
+
+
+
+              <b-row>
+                <b-col lg="4" md="6" sm="12">
+                  <b-form-group label="Area Size">
+                    <b-form-input min="1" v-model="form.area_size" class="custom-form-control" type="number"
+                                  placeholder="Area Size"></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px" v-if="errors.area_size">{{
+                        errors.area_size[0]
+                      }}</strong>
+                  </b-form-group>
+                </b-col>
+
+                <b-col lg="4" md="6" sm="12">
+                  <b-form-group label="Bed Rooms (Qty)">
+                    <b-form-input min="1" v-model="form.bed_rooms" class="custom-form-control" type="number"
+                                  placeholder="Enter Quantity"></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px" v-if="errors.bed_rooms">{{
+                        errors.bed_rooms[0]
+                      }}</strong>
+                  </b-form-group>
+                </b-col>
+
+                <b-col lg="4" md="6" sm="12">
+                  <b-form-group label="Bath Rooms (Qty)">
+                    <b-form-input min="1" v-model="form.bath_rooms" class="custom-form-control" type="number"
+                                  placeholder="Enter Quantity"></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px" v-if="errors.bath_rooms">{{
+                        errors.bath_rooms[0]
+                      }}</strong>
+                  </b-form-group>
+                </b-col>
+              </b-row>
+
+
+              <b-row>
+                <b-col lg="6" md="6" sm="12">
+                  <b-form-group label="Rent Amount *">
+                    <b-form-input min="0" v-model="form.rent_amount" class="custom-form-control" type="number"
+                                  placeholder="Rent Amount"></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px" v-if="errors.rent_amount">{{
+                        errors.rent_amount[0]
+                      }}</strong>
+                  </b-form-group>
+                </b-col>
+
+                <b-col lg="6" md="6" sm="12">
+                  <b-form-group label="Security Money">
+                    <b-form-input v-model="form.security_money" class="custom-form-control" type="number"
+                                  placeholder="Security Money"></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px" v-if="errors.security_money">{{
+                        errors.security_money[0]
                       }}</strong>
                   </b-form-group>
                 </b-col>
@@ -91,39 +187,6 @@
                   </b-form-group>
                 </b-col>
               </b-row>
-
-              <b-row>
-                <b-col lg="4" md="6" sm="12">
-                  <b-form-group label="Zip Code *">
-                    <b-form-input v-model="form.zip_code" class="custom-form-control" type="text"
-                                  placeholder="Zip Code"></b-form-input>
-                    <strong class="text-danger" style="font-size: 12px" v-if="errors.zip_code">{{
-                        errors.zip_code[0]
-                      }}</strong>
-                  </b-form-group>
-                </b-col>
-
-                <b-col lg="4" md="6" sm="12">
-                  <b-form-group label="Bed Rooms (Qty)">
-                    <b-form-input min="1" v-model="form.bed_rooms" class="custom-form-control" type="number"
-                                  placeholder="Enter Quantity"></b-form-input>
-                    <strong class="text-danger" style="font-size: 12px" v-if="errors.bed_rooms">{{
-                        errors.bed_rooms[0]
-                      }}</strong>
-                  </b-form-group>
-                </b-col>
-
-                <b-col lg="4" md="6" sm="12">
-                  <b-form-group label="Bath Rooms (Qty)">
-                    <b-form-input min="1" v-model="form.bath_rooms" class="custom-form-control" type="number"
-                                  placeholder="Enter Quantity"></b-form-input>
-                    <strong class="text-danger" style="font-size: 12px" v-if="errors.bath_rooms">{{
-                        errors.bath_rooms[0]
-                      }}</strong>
-                  </b-form-group>
-                </b-col>
-              </b-row>
-
               <b-row>
                 <!--<b-col lg="4" md="6" sm="12">-->
                 <!--<b-form-group label="Units">-->
@@ -136,88 +199,26 @@
                 <!--</b-col>-->
 
                 <b-col lg="4" md="6" sm="12">
-                  <b-form-group label="House Number">
-                    <b-form-input min="1" v-model="form.house_no" class="custom-form-control" type="text"
-                                  placeholder="House Number"></b-form-input>
-                    <strong class="text-danger" style="font-size: 12px" v-if="errors.house_no">{{
-                        errors.house_no[0]
+                  <b-form-group label="Zip Code *">
+                    <b-form-input v-model="form.zip_code" class="custom-form-control" type="text"
+                                  placeholder="Zip Code"></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px" v-if="errors.zip_code">{{
+                        errors.zip_code[0]
                       }}</strong>
                   </b-form-group>
                 </b-col>
 
                 <b-col lg="4" md="6" sm="12">
-                  <b-form-group label="Sale Type">
-                    <select v-model="form.sale_type"
-                            class="form-control custom-select-form-control">
-                      <option value="">Select</option>
-                      <option value="1">For Rent</option>
-                      <option value="2">For Sale</option>
-                    </select>
-                    <strong class="text-danger" style="font-size: 12px"
-                            v-if="errors.sale_type">{{ errors.sale_type[0] }}</strong>
-                  </b-form-group>
-                </b-col>
-
-                <b-col lg="4" md="4" sm="12">
-                  <b-form-group label="Lease Type">
-                    <select v-model="form.lease_type"
-                            class="form-control custom-select-form-control">
-                      <option value="">Select</option>
-                      <option value="1">Commercial</option>
-                      <option value="2">Residential</option>
-                    </select>
-                    <strong class="text-danger" style="font-size: 12px"
-                            v-if="errors.lease_type">{{ errors.lease_type[0] }}</strong>
-                  </b-form-group>
-                </b-col>
-              </b-row>
-
-              <b-row>
-                <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="Rent Amount *">
-                    <b-form-input min="0" v-model="form.rent_amount" class="custom-form-control" type="number"
-                                  placeholder="Rent Amount"></b-form-input>
-                    <strong class="text-danger" style="font-size: 12px" v-if="errors.rent_amount">{{
-                        errors.rent_amount[0]
-                      }}</strong>
-                  </b-form-group>
-                </b-col>
-
-                <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="Security Money">
-                    <b-form-input v-model="form.security_money" class="custom-form-control" type="number"
-                                  placeholder="Rent Amount"></b-form-input>
-                    <strong class="text-danger" style="font-size: 12px" v-if="errors.security_money">{{
-                        errors.security_money[0]
+                  <b-form-group label="House/Holding/Unit Number">
+                    <b-form-input min="1" v-model="form.house_no" class="custom-form-control" type="text"
+                                  placeholder="Enter Number"></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px" v-if="errors.house_no">{{
+                        errors.house_no[0]
                       }}</strong>
                   </b-form-group>
                 </b-col>
               </b-row>
 
-              <b-row>
-                <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="Area Size">
-                    <b-form-input min="1" v-model="form.area_size" class="custom-form-control" type="number"
-                                  placeholder="Area Size"></b-form-input>
-                    <strong class="text-danger" style="font-size: 12px" v-if="errors.area_size">{{
-                        errors.area_size[0]
-                      }}</strong>
-                  </b-form-group>
-                </b-col>
-
-                <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="Status">
-                    <select v-model="form.status"
-                            class="form-control custom-select-form-control">
-                      <option value="">Select</option>
-                      <option value="1">Active</option>
-                      <option value="0">Inactive</option>
-                    </select>
-                    <strong class="text-danger" style="font-size: 12px"
-                            v-if="errors.status">{{ errors.status[0] }}</strong>
-                  </b-form-group>
-                </b-col>
-              </b-row>
 
               <b-row>
                 <b-col md="12">
@@ -367,7 +368,7 @@
                 </b-col>
 
                 <b-col md="3">
-                  <b-form-group label="Amount">
+                  <b-form-group label="Amount (Optional)">
                     <b-form-input @input="facilityAmount(n, facility)"
                                   :id="'facility_amount'+n"
                                   min="1" class="custom-form-control" type="text"
@@ -441,9 +442,11 @@ export default {
         thana_id: '',
         district_id: '',
         division_id: '',
+        property_category: '',
         property_type_id: '',
         bed_rooms: '',
         bath_rooms: '',
+        zip_code:'',
         address: '',
         area_size: '',
         rent_amount: '',
@@ -452,7 +455,6 @@ export default {
         description: '',
         landlord_id: '',
         images: [],
-        lease_type: '',
         sale_type: '',
         house_no: '',
         facilities: [],
@@ -525,12 +527,31 @@ export default {
     },
 
     addUtilityRow(data) {
-      this.form.utilities.push({
-        'utility_id': data.id,
-        'utility_name': data.name,
-        'utility_paid_by': '',
-        'utility_amount': '',
-      })
+      if(data){
+        let dataCheck = this.form.utilities.find(element => element.utility_id == data.id)
+        if(!dataCheck){
+          this.form.utilities.push({
+            'utility_id': data.id,
+            'utility_name': data.name,
+            'utility_paid_by': '',
+            'utility_amount': '',
+          })
+        }
+        else{
+          this.$izitoast.warning({
+            title: 'Warning !!',
+            message: data.name + ' Already added!'
+          });
+        }
+
+      }
+      else {
+        this.$izitoast.error({
+          title: 'Warning !!',
+          message: 'Please select utility first!'
+        });
+      }
+
     },
     deleteUtilityRow(index, utility) {
       let idx = this.form.utilities.indexOf(utility);
@@ -550,11 +571,32 @@ export default {
     },
 
     addFacilityRow(data){
-      this.form.facilities.push({
-        'facility_id': data.id,
-        'facility_name': data.name,
-        'facility_amount': '',
-      })
+
+      if(data){
+        let dataCheck = this.form.facilities.find(element => element.facility_id == data.id)
+        if(!dataCheck){
+          this.form.facilities.push({
+            'facility_id': data.id,
+            'facility_name': data.name,
+            'facility_amount': '',
+          })
+        }
+        else{
+          this.$izitoast.warning({
+            title: 'Warning !!',
+            message: data.name + ' Already added!'
+          });
+        }
+
+      }
+      else{
+        this.$izitoast.error({
+          title: 'Warning !!',
+          message: 'Please select facility first!'
+        });
+      }
+
+
     },
 
     deleteFacilityRow(index, facility) {
