@@ -197,10 +197,18 @@
 
               <b-collapse class="dropdown-container m-2" id="collapse-3">
                 <li>
-                  <nuxt-link :to="{ name: 'settings-frontend-create' }">
+                  <a href="#" v-b-toggle.collapse-12>
                     Frontend Setting
-                  </nuxt-link>
+                  </a>
                 </li>
+
+                <b-collapse class="dropdown-container m-2" id="collapse-12">
+                  <li>
+                    <nuxt-link :to="{ name: 'settings-frontend-general-create' }">
+                      General
+                    </nuxt-link>
+                  </li>
+                </b-collapse>
               </b-collapse>
 
               <!--/. Settings -->
