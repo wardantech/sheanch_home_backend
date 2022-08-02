@@ -34,35 +34,43 @@
                         v-if="errors.address">{{ errors.address[0] }}</strong>
               </b-form-group>
 
-              <b-form-group label="Banner Image">
-                <dropzone id="banner_img" ref="favicon_el"
-                          :options="options"
-                          @vdropzone-files-added="processBannerFile"
-                          @vdropzone-removed-file="fileBannerRemoved"
-                          :destroyDropzone="false"
-                >
-                </dropzone>
-              </b-form-group>
+              <b-row>
+                <b-col md="4">
+                  <b-form-group label="Banner Image">
+                    <dropzone id="banner_img" ref="banner_el"
+                              :options="options"
+                              @vdropzone-files-added="processBannerFile"
+                              @vdropzone-removed-file="fileBannerRemoved"
+                              :destroyDropzone="false"
+                    >
+                    </dropzone>
+                  </b-form-group>
+                </b-col>
 
-              <b-form-group label="Favicon">
-                <dropzone id="favicon" ref="favicon_el"
-                          :options="options"
-                          @vdropzone-files-added="processFaviconFile"
-                          @vdropzone-removed-file="fileFaviconRemoved"
-                          :destroyDropzone="false"
-                >
-                </dropzone>
-              </b-form-group>
+                <b-col md="4">
+                  <b-form-group label="Favicon">
+                    <dropzone id="favicon" ref="favicon_el"
+                              :options="options"
+                              @vdropzone-files-added="processFaviconFile"
+                              @vdropzone-removed-file="fileFaviconRemoved"
+                              :destroyDropzone="false"
+                    >
+                    </dropzone>
+                  </b-form-group>
+                </b-col>
 
-              <b-form-group label="Logo">
-                <dropzone id="logo" ref="logo_el"
-                          :options="options"
-                          @vdropzone-files-added="processLogoFile"
-                          @vdropzone-removed-file="fileLogoRemoved"
-                          :destroyDropzone="false"
-                >
-                </dropzone>
-              </b-form-group>
+                <b-col md="4">
+                  <b-form-group label="Logo">
+                    <dropzone id="logo" ref="logo_el"
+                              :options="options"
+                              @vdropzone-files-added="processLogoFile"
+                              @vdropzone-removed-file="fileLogoRemoved"
+                              :destroyDropzone="false"
+                    >
+                    </dropzone>
+                  </b-form-group>
+                </b-col>
+              </b-row>
 
               <b-form-group>
                 <b-button type="submit" variant="dark">Save</b-button>
@@ -106,6 +114,40 @@
         },
         errors: {}
       }
+    },
+
+    async created() {
+      const data = await this.$axios.$post('settings/frontend/get-data');
+
+      if(data.status){
+        this.form.email = data.data.email;
+        this.form.phone = data.data.phone;
+        this.form.address = data.data.address;
+      }
+      let images = data.data.media;
+      //console.log(data.data.media);
+
+      if (images.length > 0) {
+        for (let i = 0; i < images.length; i++) {
+          var file = {
+            size: images[i].size,
+            name: images[i].name,
+            url: images[i].original_url,
+          };
+
+          if(images[i].collection_name == 'banner'){
+           this.$refs.banner_el.manuallyAddFile(file, images[i].original_url);
+          }
+          else if (images[i].collection_name == 'fav'){
+
+            this.$refs.favicon_el.manuallyAddFile(file, images[i].original_url);
+          } else {
+
+            this.$refs.logo_el.manuallyAddFile(file, images[i].original_url);
+          }
+        }
+      }
+
     },
 
     methods: {
