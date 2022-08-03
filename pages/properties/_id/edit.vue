@@ -527,7 +527,6 @@ export default {
 
     processFile(file) {
 
-      console.log(file)
       this.form.images = [];
       let image = Array.from(file)
       image.forEach(element => {
