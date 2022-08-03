@@ -127,7 +127,7 @@
       let images = data.data.media;
       //console.log(data.data.media);
 
-      if (images.length > 0) {
+      if (images && images.length > 0) {
         for (let i = 0; i < images.length; i++) {
           var file = {
             size: images[i].size,
