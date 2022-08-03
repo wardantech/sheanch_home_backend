@@ -133,17 +133,19 @@
             size: images[i].size,
             name: images[i].name,
             url: images[i].original_url,
+            data:images[i].data,
           };
 
           if(images[i].collection_name == 'banner'){
            this.$refs.banner_el.manuallyAddFile(file, images[i].original_url);
+            this.form.bannerImage.push(file)
           }
-          else if (images[i].collection_name == 'fav'){
-
+          else if (images[i].collection_name == 'favicon'){
             this.$refs.favicon_el.manuallyAddFile(file, images[i].original_url);
-          } else {
-
+            this.form.favicon.push(file)
+          } else if(images[i].collection_name == 'logo') {
             this.$refs.logo_el.manuallyAddFile(file, images[i].original_url);
+            this.form.logo.push(file)
           }
         }
       }
@@ -174,9 +176,9 @@
       // Remove Banner Image
       fileBannerRemoved(file) {
         if (file.dataURL) {
-          this.form.images = this.form.bannerImage.filter(element => element.data !== file.dataURL)
+          this.form.bannerImage = this.form.bannerImage.filter(element => element.data !== file.dataURL)
         } else {
-          this.form.images = this.form.bannerImage.filter(element => element.name !== file.name)
+          this.form.bannerImage = this.form.bannerImage.filter(element => element.name !== file.name)
         }
       },
 
@@ -203,9 +205,9 @@
       // Remove Favicon Image
       fileFaviconRemoved(file) {
         if (file.dataURL) {
-          this.form.favicon = this.form.bannerImage.filter(element => element.data !== file.dataURL)
+          this.form.favicon = this.form.favicon.filter(element => element.data !== file.dataURL)
         } else {
-          this.form.favicon = this.form.bannerImage.filter(element => element.name !== file.name)
+          this.form.favicon = this.form.favicon.filter(element => element.name !== file.name)
         }
       },
 
@@ -232,9 +234,9 @@
       // Remove Logo Image
       fileLogoRemoved(file) {
         if (file.dataURL) {
-          this.form.favicon = this.form.logo.filter(element => element.data !== file.dataURL)
+          this.form.logo = this.form.logo.filter(element => element.data !== file.dataURL)
         } else {
-          this.form.favicon = this.form.logo.filter(element => element.name !== file.name)
+          this.form.logo = this.form.logo.filter(element => element.name !== file.name)
         }
       },
 
