@@ -100,7 +100,7 @@
 
         <b-row>
           <b-col md="4" lg="3" sm="12" v-for="(img, i) in images" :key="i">
-            <img :src="imageUrl+img" alt="property.name" width="100%" height="100%" style="object-fit: cover;">
+            <img :src="img.original_url" alt="property.name" width="100%" height="100%" style="object-fit: cover;">
           </b-col>
         </b-row>
       </div>
@@ -131,17 +131,14 @@ export default {
   async created() {
     await this.$axios.$get('property/show/' + this.$route.params.id)
       .then(response => {
+        console.log();
         this.property = response.data;
 
-        if (this.property.image != null) {
-          this.images = this.property.image.split(',');
-        }
-
+        this.images = response.data.media;
         this.thana_name = this.property.thana.name;
         this.district_name = this.property.district.name;
         this.division_name = this.property.division.name;
         this.property_type_name = this.property.property_type.name;
-        //console.log(this.property.landlord.name)
         this.landlord_name = this.property.landlord.name;
       })
   },
