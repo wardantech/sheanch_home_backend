@@ -35,7 +35,7 @@
               </b-form-group>
 
               <b-row>
-                <b-col md="4">
+                <b-col md="6">
                   <b-form-group label="Banner Image">
                     <dropzone id="banner_img" ref="banner_el"
                               :options="options"
@@ -47,7 +47,7 @@
                   </b-form-group>
                 </b-col>
 
-                <b-col md="4">
+                <b-col md="6">
                   <b-form-group label="Favicon">
                     <dropzone id="favicon" ref="favicon_el"
                               :options="options"
@@ -58,13 +58,27 @@
                     </dropzone>
                   </b-form-group>
                 </b-col>
+              </b-row>
 
-                <b-col md="4">
-                  <b-form-group label="Logo">
+              <b-row>
+                <b-col md="6">
+                  <b-form-group label="Header Logo">
                     <dropzone id="logo" ref="logo_el"
                               :options="options"
                               @vdropzone-files-added="processLogoFile"
                               @vdropzone-removed-file="fileLogoRemoved"
+                              :destroyDropzone="false"
+                    >
+                    </dropzone>
+                  </b-form-group>
+                </b-col>
+
+                <b-col md="6">
+                  <b-form-group label="Footer Logo">
+                    <dropzone id="footer" ref="footer_el"
+                              :options="options"
+                              @vdropzone-files-added="processFooterFile"
+                              @vdropzone-removed-file="fileFooterLogoRemoved"
                               :destroyDropzone="false"
                     >
                     </dropzone>
@@ -110,7 +124,8 @@
           address: '',
           bannerImage: [],
           favicon: [],
-          logo: []
+          footerLogo: [],
+          logo: [],
         },
         errors: {}
       }
@@ -146,6 +161,9 @@
           } else if(images[i].collection_name == 'logo') {
             this.$refs.logo_el.manuallyAddFile(file, images[i].original_url);
             this.form.logo.push(file)
+          }else if(images[i].collection_name == 'footerLogo') {
+            this.$refs.footer_el.manuallyAddFile(file, images[i].original_url);
+            this.form.footerLogo.push(file)
           }
         }
       }
@@ -233,6 +251,35 @@
 
       // Remove Logo Image
       fileLogoRemoved(file) {
+        if (file.dataURL) {
+          this.form.logo = this.form.logo.filter(element => element.data !== file.dataURL)
+        } else {
+          this.form.logo = this.form.logo.filter(element => element.name !== file.name)
+        }
+      },
+
+      // Catch Footer Logo Image
+      processFooterFile(file) {
+        let image = Array.from(file);
+        image.forEach(element => {
+          const reader = new FileReader();
+          reader.readAsDataURL(element);
+
+          reader.onload = event => {
+            const fileObj = {};
+            fileObj.name = element.name;
+            fileObj.description = '';
+            fileObj.data = event.target.result;
+            fileObj.size = (element.size / (1024 * 1024)).toFixed(2);
+            fileObj.type = element.type;
+
+            this.form.footerLogo.push(fileObj)
+          }
+        })
+      },
+
+      // Remove Logo Image
+      fileFooterLogoRemoved(file) {
         if (file.dataURL) {
           this.form.logo = this.form.logo.filter(element => element.data !== file.dataURL)
         } else {
