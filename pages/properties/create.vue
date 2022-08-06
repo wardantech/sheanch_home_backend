@@ -198,7 +198,7 @@
                 <!--</b-form-group>-->
                 <!--</b-col>-->
 
-                <b-col lg="4" md="6" sm="12">
+                <b-col md="6">
                   <b-form-group label="Zip Code *">
                     <b-form-input v-model="form.zip_code" class="custom-form-control" type="text"
                                   placeholder="Zip Code"></b-form-input>
@@ -208,7 +208,7 @@
                   </b-form-group>
                 </b-col>
 
-                <b-col lg="4" md="6" sm="12">
+                <b-col md="6" >
                   <b-form-group label="House/Holding/Unit Number">
                     <b-form-input min="1" v-model="form.house_no" class="custom-form-control" type="text"
                                   placeholder="Enter Number"></b-form-input>
@@ -219,6 +219,17 @@
                 </b-col>
               </b-row>
 
+              <b-row>
+                <b-col md="12">
+                  <b-form-group label="Video Link">
+                    <b-form-input min="1" v-model="form.video_link" class="custom-form-control" type="text"
+                                  placeholder="Enter video link"></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px" v-if="errors.video_link">{{
+                      errors.video_link[0]
+                      }}</strong>
+                  </b-form-group>
+                </b-col>
+              </b-row>
 
               <b-row>
                 <b-col md="12">
@@ -447,6 +458,7 @@ export default {
         bed_rooms: '',
         bath_rooms: '',
         zip_code:'',
+        video_link: '',
         address: '',
         area_size: '',
         rent_amount: '',
