@@ -2,87 +2,61 @@
   <div>
     <!--Body Card-->
     <b-row>
-      <b-col md="8">
+      <b-col md="12">
         <div class="card mt-3">
           <div class="card-header">
-            <h5 class="card-title m-0">Edit Property Ad</h5>
+            <h5 class="card-title m-0">Update Property Ad</h5>
           </div>
           <div class="card-body">
-            <b-form @submit.prevent="update">
+            <form @submit.prevent="update">
               <b-row>
                 <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="Name">
-                    <b-form-input v-model="form.name" type="text" placeholder="Name"></b-form-input>
-                    <strong class="text-danger" style="font-size: 12px" v-if="errors.name">{{
-                      errors.name[0]
-                      }}</strong>
-                  </b-form-group>
-                </b-col>
-                <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="Mobile">
-                    <b-form-input type="text" v-model="form.mobile" placeholder="Mobile"></b-form-input>
-                    <strong class="text-danger" style="font-size: 12px"
-                            v-if="errors.mobile">{{ errors.mobile[0] }}</strong>
-                  </b-form-group>
-                </b-col>
-
-              </b-row>
-
-              <b-row>
-                <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="NID">
-                    <b-form-input type="text" v-model="form.nid" placeholder="National ID"></b-form-input>
-                    <strong class="text-danger" style="font-size: 12px" v-if="errors.nid">{{
-                      errors.nid[0]
-                      }}</strong>
-                  </b-form-group>
-                </b-col>
-
-                <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="Email">
-                    <b-form-input v-model="form.email" type="email" placeholder="Email"></b-form-input>
-                    <strong class="text-danger" style="font-size: 12px" v-if="errors.email">{{
-                      errors.email[0]
-                      }}</strong>
-                  </b-form-group>
-                </b-col>
-
-                <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="Division">
-                    <select @change="getDistricts(form.division_id)" v-model="form.division_id" id=""
+                  <b-form-group label="Select Landlord">
+                    <select @change="getProperties(form.landlord_id)" v-model="form.landlord_id" id=""
                             class="form-control">
                       <option value="">Select</option>
-                      <option v-for="(division, i) in divisions" :value="division.id" :key="i">
-                        {{ division.name }}
+                      <option v-for="(landlord, i) in landlords"
+                              :value="landlord.id" :key="i">
+                        {{ landlord.name }}
                       </option>
                     </select>
                     <strong class="text-danger" style="font-size: 12px"
-                            v-if="errors.division_id">{{ errors.division_id[0] }}</strong>
+                            v-if="errors.landlord_id">{{ errors.landlord_id[0] }}</strong>
                   </b-form-group>
                 </b-col>
                 <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="District">
-                    <select @change="getThanas(form.district_id)" v-model="form.district_id" id=""
+                  <b-form-group label="Property">
+                    <select @change="setRent" v-model="form.property_id"
                             class="form-control">
                       <option value="">Select</option>
-                      <option v-for="(district, i) in districts" :value="district.id" :key="i">
-                        {{ district.name }}
+                      <option v-for="(property, i) in properties"
+                              :sale_type="property.sale_type"
+                              :property_category="property.property_category"
+                              :security_money="property.security_money"
+                              :rent_amount="property.rent_amount"
+                              :division_id="property.division_id"
+                              :district_id="property.district_id"
+                              :thana_id="property.thana_id"
+                              :property_type_id="property.property_type_id"
+                              :value="property.id" :key="i">
+                        {{ property.name }}
                       </option>
                     </select>
                     <strong class="text-danger" style="font-size: 12px"
-                            v-if="errors.district_id">{{ errors.district_id[0] }}</strong>
+                            v-if="errors.property_id">{{ errors.property_id[0] }}</strong>
                   </b-form-group>
                 </b-col>
                 <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="Thana">
-                    <select v-model="form.thana_id" id="" class="form-control">
-                      <option value="">Select</option>
-                      <option v-for="(thana, i) in thanas" :value="thana.id" :key="i">
-                        {{ thana.name }}
-                      </option>
-                    </select>
+                  <b-form-group label="Property category">
+                    <b-form-input
+                      v-model="form.property_category"
+                      type="text"
+                      placeholder="Property category"
+                      readonly
+                    >
+                    </b-form-input>
                     <strong class="text-danger" style="font-size: 12px"
-                            v-if="errors.thana_id">{{ errors.thana_id[0] }}</strong>
+                            v-if="errors.property_category">{{ errors.property_category[0] }}</strong>
                   </b-form-group>
                 </b-col>
 
@@ -92,170 +66,166 @@
                       <option value="">Select</option>
                       <option value="1">Active</option>
                       <option value="0">Inactive</option>
+
                     </select>
                     <strong class="text-danger" style="font-size: 12px"
                             v-if="errors.status">{{ errors.status[0] }}</strong>
                   </b-form-group>
                 </b-col>
+
+                <b-col lg="6" md="6" sm="12">
+                  <b-form-group label="Rent amount">
+                    <b-form-input v-model="form.rent_amount" type="text" placeholder="Rent amount"></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px"
+                            v-if="errors.rent_amount">{{ errors.rent_amount[0] }}</strong>
+                  </b-form-group>
+                </b-col>
+
+                <b-col lg="6" md="6" sm="12">
+                  <b-form-group label="Security money">
+                    <b-form-input v-model="form.security_money" type="text" placeholder="Rent amount"></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px"
+                            v-if="errors.security_money">{{ errors.security_money[0] }}</strong>
+                  </b-form-group>
+                </b-col>
+
+                <b-col lg="6" md="6" sm="12">
+                  <b-form-group label="Start date">
+                    <b-form-input v-model="form.start_date" type="date"></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px"
+                            v-if="errors.start_date">{{ errors.start_date[0] }}</strong>
+                  </b-form-group>
+                </b-col>
+
+                <b-col lg="6" md="6" sm="12">
+                  <b-form-group label="End date">
+                    <b-form-input v-model="form.end_date" type="date"></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px"
+                            v-if="errors.end_date">{{ errors.start_date[0] }}</strong>
+                  </b-form-group>
+                </b-col>
               </b-row>
 
-              <b-form-group label="Postal Address">
-                <b-form-textarea
-                  id="postal"
-                  placeholder="Postal Address..."
-                  rows="3"
-                  v-model="form.postal_address"
-                ></b-form-textarea>
-                <strong class="text-danger" style="font-size: 12px"
-                        v-if="errors.postal_address">{{ errors.postal_address[0] }}</strong>
-              </b-form-group>
-
-              <b-form-group label="Residential Address">
-                <b-form-textarea
-                  id="residential"
-                  placeholder="Residential Address..."
-                  rows="3"
-                  v-model="form.residential_address"
-                ></b-form-textarea>
-                <strong class="text-danger" style="font-size: 12px"
-                        v-if="errors.residential_address">{{ errors.residential_address[0] }}</strong>
-              </b-form-group>
+              <b-row>
+                <b-col md="12">
+                  <b-form-group label="Description">
+                    <b-form-textarea
+                      v-model="form.description"
+                      placeholder="Say something..."
+                      rows="3"
+                    ></b-form-textarea>
+                  </b-form-group>
+                </b-col>
+              </b-row>
 
               <b-form-group>
                 <b-button type="submit" variant="dark">Save</b-button>
               </b-form-group>
-
-            </b-form>
+            </form>
           </div>
         </div>
-      </b-col>
-      <b-col md="4">
-        <b-card class="mt-3" header="Image">
-          <td>
-            <img style="height: 200px; width: 300px; object-fit: cover;" v-model="form.oldImage" :src="imageUrl+form.image" alt="">
-          </td>
-          <b-form-group label="Image">
-            <dropzone id="foo" ref="el"
-                      :options="options"
-                      :destroyDropzone="false"
-            >
-            </dropzone>
-          </b-form-group>
-        </b-card>
-
       </b-col>
     </b-row>
   </div>
 </template>
 
 <script>
-import Dropzone from 'nuxt-dropzone'
-import 'nuxt-dropzone/dropzone.css'
+
 
 export default {
-  name: "edit",
-  components: {
-    Dropzone
-  },
-  computed:{
-    imageUrl(){
-      return `${process.env.APP_ROOT_IMG_URL}/`
-    }
-  },
+  name: "create",
+  components: {},
   data() {
     return {
-      options: {
-        url: "url",
-        addRemoveLinks: true,
-        headers: {"Authorization": this.$auth.strategy.token.get()},
-        maxFiles: 1,
-        autoProcessQueue: false,
-        acceptedFiles: ".jpeg,.jpg,.png"
-
-      },
       form: {
-        name: '',
-        mobile: '',
-        nid: '',
-        email: '',
-        image: '',
-        oldImage:'',
+        landlord_id: '',
+        property_id:'',
+        property_category:'',
+        property_category_id:'',
+        property_type_id:'',
+        division_id:'',
+        district_id:'',
+        thana_id:'',
+        rent_amount: '',
+        sale_type: '',
+        security_money: '',
+        start_date: '',
+        end_date:'',
+        description: '',
         status: '',
-        thana_id: '',
-        district_id: '',
-        division_id: '',
-        postal_address: '',
-        residential_address: '',
-        password: '',
-        password_confirmation: '',
       },
-      previewImage: null,
-      landlord: '',
-      divisions: '',
-      districts: '',
-      thanas: '',
+      landlords: '',
+      properties: '',
       errors: {}
     }
   },
   async created() {
 
-    await this.$axios.$get('landlord/show/'+this.$route.params.id)
-      .then(response=>{
-        this.form = response.data;
-        this.form.oldImage = response.data.image;
-        this.getDivisions()
-        this.getDistricts(this.form.division_id)
-        this.getThanas(this.form.district_id)
-      })
-      //.catch(error=>this.errors = error.response.data.errors)
-      //.finally(() =>{this.loading =  false});
+    const propertyAdData = await this.$axios.$post('property/ad/get-property-edit-data', {
+      id: this.$route.params.id,
+    });
+    this.landlords = propertyAdData.data.landlords;
+    this.properties = propertyAdData.data.properties;
+    this.form.landlord_id = propertyAdData.data.propertyAd.landlord_id;
+    this.form.property_id = propertyAdData.data.propertyAd.property_id;
+
+    this.form = propertyAdData.data.propertyAd;
+    this.form.property_category_id = propertyAdData.data.propertyAd.property_category;
 
 
+    propertyAdData.data.propertyAd.property_category == 1
+      ? this.form.property_category = 'Commercial'
+      : this.form.property_category = 'Residential';
   },
 
-
   methods: {
-    async getDivisions() {
-      let divisions = await this.$axios.$get('settings/divisions')
-      this.divisions = divisions.data
-
+    async getProperties(landlord_id) {
+      let properties = await this.$axios.$post('property/ad/get-property-as-landlord', {landlordId: landlord_id});
+      this.properties = properties.data;
     },
 
-    async getDistricts(division_id) {
-      this.thanas = '';
-      let district = await this.$axios.$post('settings/districts', {divisionId: division_id});
-      this.districts = district.data;
-    },
+    setRent(event) {
+      var options = event.target.options
+      if (options.selectedIndex > -1) {
+        this.form.rent_amount = options[options.selectedIndex].getAttribute('rent_amount');
+        this.form.security_money = options[options.selectedIndex].getAttribute('security_money');
+        this.form.sale_type = options[options.selectedIndex].getAttribute('sale_type');
 
-    async getThanas(district_id) {
-      let thanas = await this.$axios.$post('settings/thanas', {districtId: district_id});
-      this.thanas = thanas.data;
+        options[options.selectedIndex].getAttribute('property_category') == 1
+          ? this.form.property_category = 'Commercial'
+          : this.form.property_category = 'Residential';
+
+        console.log(options[options.selectedIndex].getAttribute('property_category'))
+
+        this.form.division_id = options[options.selectedIndex].getAttribute('division_id');
+        this.form.district_id = options[options.selectedIndex].getAttribute('district_id');
+        this.form.thana_id = options[options.selectedIndex].getAttribute('thana_id');
+        this.form.property_category_id = options[options.selectedIndex].getAttribute('property_category');
+        this.form.property_type_id = options[options.selectedIndex].getAttribute('property_type_id');
+
+      }
     },
 
     async update() {
-
-      await this.$axios.$post('landlord/update/'+this.$route.params.id, this.form, )
+      console.log();
+      await this.$axios.$post('property/ad/update/'+ this.$route.params.id, this.form)
         .then(response => {
-
           this.$izitoast.success({
             title: 'Success !!',
-            message: 'Landlord create successfully!'
-          })
-          this.$refs.el.dropzone.options.url = process.env.APP_ROOT_API+'landlord/image-upload/'+response.data.id;
-          this.$refs.el.dropzone.processQueue();
-          this.$router.push({name: 'users-landlords'});
+            message: 'Property Ad update successfully!'
+          });
+
+          this.$router.push({name: 'properties-ads-manager'});
         })
         .catch(error => {
-          if(error.response.status == 422){
+          if (error.response.status == 422) {
             this.errors = error.response.data.errors
-          }
-          else{
+          } else {
             alert(error.response.message)
           }
 
         })
     },
-
   }
 }
 </script>
