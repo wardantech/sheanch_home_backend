@@ -179,7 +179,7 @@ export default {
         await this.$axios.$post('property/ad/delete/' + id)
           .then(response => {
             if (id) {
-              this.values.splice(this.values.indexOf(id), 1);
+              this.getData();
             }
             this.$izitoast.success({
               title: 'Success !!',

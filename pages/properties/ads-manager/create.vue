@@ -30,8 +30,14 @@
                       <option value="">Select</option>
                       <option v-for="(property, i) in properties"
                               :sale_type="property.sale_type"
+                              :property_category="property.property_category"
                               :security_money="property.security_money"
-                              :rent_amount="property.rent_amount" :value="property.id" :key="i">
+                              :rent_amount="property.rent_amount"
+                              :division_id="property.division_id"
+                              :district_id="property.district_id"
+                              :thana_id="property.thana_id"
+                              :property_type_id="property.property_type_id"
+                              :value="property.id" :key="i">
                         {{ property.name }}
                       </option>
                     </select>
@@ -40,18 +46,16 @@
                   </b-form-group>
                 </b-col>
                 <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="Rent amount">
-                    <b-form-input v-model="form.rent_amount" type="text" placeholder="Rent amount"></b-form-input>
+                  <b-form-group label="Property category">
+                    <b-form-input
+                      v-model="form.property_category"
+                      type="text"
+                      placeholder="Property category"
+                      readonly
+                    >
+                    </b-form-input>
                     <strong class="text-danger" style="font-size: 12px"
-                            v-if="errors.rent_amount">{{ errors.rent_amount[0] }}</strong>
-                  </b-form-group>
-                </b-col>
-
-                <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="Security money">
-                    <b-form-input v-model="form.security_money" type="text" placeholder="Rent amount"></b-form-input>
-                    <strong class="text-danger" style="font-size: 12px"
-                            v-if="errors.security_money">{{ errors.security_money[0] }}</strong>
+                            v-if="errors.property_category">{{ errors.property_category[0] }}</strong>
                   </b-form-group>
                 </b-col>
 
@@ -69,10 +73,34 @@
                 </b-col>
 
                 <b-col lg="6" md="6" sm="12">
+                  <b-form-group label="Rent amount">
+                    <b-form-input v-model="form.rent_amount" type="text" placeholder="Rent amount"></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px"
+                            v-if="errors.rent_amount">{{ errors.rent_amount[0] }}</strong>
+                  </b-form-group>
+                </b-col>
+
+                <b-col lg="6" md="6" sm="12">
+                  <b-form-group label="Security money">
+                    <b-form-input v-model="form.security_money" type="text" placeholder="Rent amount"></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px"
+                            v-if="errors.security_money">{{ errors.security_money[0] }}</strong>
+                  </b-form-group>
+                </b-col>
+
+                <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Start date">
                     <b-form-input v-model="form.start_date" type="date"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px"
                             v-if="errors.start_date">{{ errors.start_date[0] }}</strong>
+                  </b-form-group>
+                </b-col>
+
+                <b-col lg="6" md="6" sm="12">
+                  <b-form-group label="End date">
+                    <b-form-input v-model="form.end_date" type="date"></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px"
+                            v-if="errors.end_date">{{ errors.start_date[0] }}</strong>
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -110,11 +138,18 @@ export default {
     return {
       form: {
         landlord_id: '',
-        property_id: '',
+        property_id:'',
+        property_category:'',
+        property_category_id:'',
+        property_type_id:'',
+        division_id:'',
+        district_id:'',
+        thana_id:'',
         rent_amount: '',
         sale_type: '',
         security_money: '',
         start_date: '',
+        end_date:'',
         description: '',
         status: '',
       },
@@ -142,7 +177,20 @@ export default {
         this.form.rent_amount = options[options.selectedIndex].getAttribute('rent_amount');
         this.form.security_money = options[options.selectedIndex].getAttribute('security_money');
         this.form.sale_type = options[options.selectedIndex].getAttribute('sale_type');
-        console.log(this.form.sale_type);
+
+        options[options.selectedIndex].getAttribute('property_category') == 1
+          ? this.form.property_category = 'Commercial'
+          : this.form.property_category = 'Residential';
+
+        console.log(options[options.selectedIndex].getAttribute('property_category'))
+
+        this.form.division_id = options[options.selectedIndex].getAttribute('division_id');
+        this.form.district_id = options[options.selectedIndex].getAttribute('district_id');
+        this.form.thana_id = options[options.selectedIndex].getAttribute('thana_id');
+        this.form.property_category_id = options[options.selectedIndex].getAttribute('property_category');
+        this.form.property_type_id = options[options.selectedIndex].getAttribute('property_type_id');
+
+
       }
     },
 
