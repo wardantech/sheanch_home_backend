@@ -71,42 +71,17 @@
 
                 <b-collapse class="dropdown-container m-2" id="collapse-11">
                   <li>
-                    <a href="#" v-b-toggle.collapse-4>
-                      Utilities
-                    </a>
+                    <nuxt-link :to="{ name: 'settings-utilities' }">
+                      Utility
+                    </nuxt-link>
                   </li>
-
-                  <b-collapse class="dropdown-container m-2" id="collapse-4">
-                    <li>
-                      <nuxt-link :to="{ name: 'settings-utilities-categories' }">
-                        Categories
-                      </nuxt-link>
-                    </li>
-                    <li>
-                      <nuxt-link :to="{ name: 'settings-utilities' }">
-                        Utility
-                      </nuxt-link>
-                    </li>
-                  </b-collapse>
 
                   <li>
-                    <a href="#" v-b-toggle.collapse-6>
-                      Facilities
-                    </a>
+                    <nuxt-link :to="{ name: 'settings-facilities' }">
+                      Facility
+                    </nuxt-link>
                   </li>
 
-                  <b-collapse class="dropdown-container m-2" id="collapse-6">
-                    <li>
-                      <nuxt-link :to="{ name: 'settings-facilities-categories' }">
-                        Categories
-                      </nuxt-link>
-                    </li>
-                    <li>
-                      <nuxt-link :to="{ name: 'settings-facilities' }">
-                        Facility
-                      </nuxt-link>
-                    </li>
-                  </b-collapse>
 
                   <li>
                     <nuxt-link :to="{ name: 'settings-property-type' }">

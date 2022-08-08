@@ -11,7 +11,7 @@
           <div class="card-body">
             <form @submit.prevent="update">
               <b-row>
-                <b-col md="4">
+                <b-col md="6">
                   <b-form-group label="Name">
                     <b-form-input v-model="form.name" type="text" class="custom-form-control"
                                   placeholder="Name"></b-form-input>
@@ -21,21 +21,8 @@
                   </b-form-group>
                 </b-col>
 
-                <b-col md="4">
-                  <b-form-group label="Category">
-                    <select v-model="form.facility_category_id"
-                            class="form-control custom-form-control">
-                      <option value="">Select</option>
-                      <option v-for="(category, i) in facilityCategories" :value="category.id" :key="i">
-                        {{ category.name }}
-                      </option>
-                    </select>
-                    <strong class="text-danger" style="font-size: 12px"
-                            v-if="errors.facility_category_id">{{ errors.facility_category_id[0] }}</strong>
-                  </b-form-group>
-                </b-col>
 
-                <b-col md="4">
+                <b-col md="6">
                   <b-form-group label="Status">
                     <select v-model="form.status" id="" class="form-control custom-form-control">
                       <option value="">Select</option>
@@ -85,15 +72,11 @@
           name: '',
           status: '',
           description: '',
-          facility_category_id: ''
         },
-        facilityCategories: '',
         errors: {}
       }
     },
     async created() {
-      let facilityCategories = await this.$axios.$get('settings/facility/get-categories');
-      this.facilityCategories = facilityCategories.data;
 
       await this.$axios.$get('/settings/facility/show/' + this.$route.params.id)
         .then(response => {

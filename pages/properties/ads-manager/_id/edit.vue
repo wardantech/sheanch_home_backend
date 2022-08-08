@@ -5,7 +5,7 @@
       <b-col md="8">
         <div class="card mt-3">
           <div class="card-header">
-            <h5 class="card-title m-0">Edit Landlord</h5>
+            <h5 class="card-title m-0">Edit Property Ad</h5>
           </div>
           <div class="card-body">
             <b-form @submit.prevent="update">
