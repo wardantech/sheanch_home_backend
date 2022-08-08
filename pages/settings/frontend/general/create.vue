@@ -35,7 +35,7 @@
               </b-form-group>
 
               <b-row>
-                <b-col md="6">
+                <b-col md="4">
                   <b-form-group label="Banner Image">
                     <dropzone id="banner_img" ref="banner_el"
                               :options="options"
@@ -47,21 +47,7 @@
                   </b-form-group>
                 </b-col>
 
-                <b-col md="6">
-                  <b-form-group label="Favicon">
-                    <dropzone id="favicon" ref="favicon_el"
-                              :options="options"
-                              @vdropzone-files-added="processFaviconFile"
-                              @vdropzone-removed-file="fileFaviconRemoved"
-                              :destroyDropzone="false"
-                    >
-                    </dropzone>
-                  </b-form-group>
-                </b-col>
-              </b-row>
-
-              <b-row>
-                <b-col md="6">
+                <b-col md="4">
                   <b-form-group label="Header Logo">
                     <dropzone id="logo" ref="logo_el"
                               :options="options"
@@ -73,7 +59,7 @@
                   </b-form-group>
                 </b-col>
 
-                <b-col md="6">
+                <b-col md="4">
                   <b-form-group label="Footer Logo">
                     <dropzone id="footer" ref="footer_el"
                               :options="options"
@@ -84,6 +70,18 @@
                     </dropzone>
                   </b-form-group>
                 </b-col>
+
+                <!--<b-col md="4">-->
+                  <!--<b-form-group label="Favicon">-->
+                    <!--<dropzone id="favicon" ref="favicon_el"-->
+                              <!--:options="options"-->
+                              <!--@vdropzone-files-added="processFaviconFile"-->
+                              <!--@vdropzone-removed-file="fileFaviconRemoved"-->
+                              <!--:destroyDropzone="false"-->
+                    <!--&gt;-->
+                    <!--</dropzone>-->
+                  <!--</b-form-group>-->
+                <!--</b-col>-->
               </b-row>
 
               <b-form-group>
@@ -134,7 +132,7 @@
     async created() {
       const data = await this.$axios.$post('settings/frontend/get-data');
 
-      if(data.status){
+      if (data.status) {
         this.form.email = data.data.email;
         this.form.phone = data.data.phone;
         this.form.address = data.data.address;
@@ -148,20 +146,21 @@
             size: images[i].size,
             name: images[i].name,
             url: images[i].original_url,
-            data:images[i].data,
+            data: images[i].data,
           };
 
-          if(images[i].collection_name == 'banner'){
-           this.$refs.banner_el.manuallyAddFile(file, images[i].original_url);
+          if (images[i].collection_name == 'banner') {
+            this.$refs.banner_el.manuallyAddFile(file, images[i].original_url);
             this.form.bannerImage.push(file)
           }
-          else if (images[i].collection_name == 'favicon'){
-            this.$refs.favicon_el.manuallyAddFile(file, images[i].original_url);
-            this.form.favicon.push(file)
-          } else if(images[i].collection_name == 'logo') {
+          // else if (images[i].collection_name == 'favicon'){
+          //   this.$refs.favicon_el.manuallyAddFile(file, images[i].original_url);
+          //   this.form.favicon.push(file)
+          // }
+          else if (images[i].collection_name == 'logo') {
             this.$refs.logo_el.manuallyAddFile(file, images[i].original_url);
             this.form.logo.push(file)
-          }else if(images[i].collection_name == 'footerLogo') {
+          } else if (images[i].collection_name == 'footerLogo') {
             this.$refs.footer_el.manuallyAddFile(file, images[i].original_url);
             this.form.footerLogo.push(file)
           }
@@ -200,34 +199,6 @@
         }
       },
 
-      // Catch Favicon Image
-      processFaviconFile(file) {
-        let image = Array.from(file);
-        image.forEach(element => {
-          const reader = new FileReader();
-          reader.readAsDataURL(element);
-
-          reader.onload = event => {
-            const fileObj = {};
-            fileObj.name = element.name;
-            fileObj.description = '';
-            fileObj.data = event.target.result;
-            fileObj.size = (element.size / (1024 * 1024)).toFixed(2);
-            fileObj.type = element.type;
-
-            this.form.favicon.push(fileObj)
-          }
-        })
-      },
-
-      // Remove Favicon Image
-      fileFaviconRemoved(file) {
-        if (file.dataURL) {
-          this.form.favicon = this.form.favicon.filter(element => element.data !== file.dataURL)
-        } else {
-          this.form.favicon = this.form.favicon.filter(element => element.name !== file.name)
-        }
-      },
 
       // Catch Logo Image
       processLogoFile(file) {
