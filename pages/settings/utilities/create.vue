@@ -11,7 +11,7 @@
           <div class="card-body">
             <form @submit.prevent="store">
               <b-row>
-                <b-col md="4">
+                <b-col md="6">
                   <b-form-group label="Name">
                     <b-form-input v-model="form.name" type="text" class="custom-form-control"
                                   placeholder="Name"></b-form-input>
@@ -21,21 +21,8 @@
                   </b-form-group>
                 </b-col>
 
-                <b-col md="4">
-                  <b-form-group label="Category">
-                    <select v-model="form.utility_category_id"
-                            class="form-control custom-form-control">
-                      <option value="">Select</option>
-                      <option v-for="(category, i) in utilityCategories" :value="category.id" :key="i">
-                        {{ category.name }}
-                      </option>
-                    </select>
-                    <strong class="text-danger" style="font-size: 12px"
-                            v-if="errors.utility_category_id">{{ errors.utility_category_id[0] }}</strong>
-                  </b-form-group>
-                </b-col>
 
-                <b-col md="4">
+                <b-col md="6">
                   <b-form-group label="Status">
                     <select v-model="form.status" id="" class="form-control custom-form-control">
                       <option value="">Select</option>
@@ -85,16 +72,12 @@
           name: '',
           status: '',
           description: '',
-          utility_category_id: ''
         },
-        utilityCategories: '',
         errors: {}
       }
     },
     async created() {
-      let utilityCategories = await this.$axios.$get('settings/utility/get-categories');
-      this.utilityCategories = utilityCategories.data;
-      console.log(this.utilityCategories);
+
     },
     methods: {
       async store() {

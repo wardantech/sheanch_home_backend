@@ -29,8 +29,10 @@
             <td>{{ i + 1 }}</td>
 
             <td>{{ value.start_date }}</td>
+            <td>{{ value.end_date }}</td>
             <td>{{ value.landlord.name }}</td>
             <td>{{ value.rent_amount }}</td>
+            <td>{{ value.security_money }}</td>
             <td>
               <div v-if="value.sale_type == 1"> Rent</div>
               <div v-if="value.sale_type == 2"> Sale</div>
@@ -42,11 +44,16 @@
               </b-button>
             </td>
             <td>
-<!--              <nuxt-link :to="{name:'users-landlords-id-edit',params: { id: value.id }}" rel="tooltip"-->
-<!--                         class="btn btn-sm btn-success btn-simple"-->
-<!--                         title="Edit">-->
-<!--                <font-awesome-icon icon="fa-solid fa-pen-to-square"/>-->
-<!--              </nuxt-link>-->
+              <nuxt-link :to="{name:'properties-id-show',params: { id: value.property_id }}" rel="tooltip"
+                         class="btn btn-sm btn-info btn-simple"
+                         title="View property">
+                <font-awesome-icon icon="fa-solid fa-hotel"/>
+              </nuxt-link>
+              <nuxt-link :to="{name:'properties-ads-manager-id-edit',params: { id: value.id }}" rel="tooltip"
+                         class="btn btn-sm btn-success btn-simple"
+                         title="Edit">
+                <font-awesome-icon icon="fa-solid fa-pen-to-square"/>
+              </nuxt-link>
               <!--<a @click="deleteCategory(value.id)"-->
               <!--rel="tooltip" class="btn btn-danger btn-simple"-->
               <!--style="color: white"-->
@@ -91,9 +98,11 @@ export default {
     let sortOrders = {};
     let columns = [
       {width: '', label: 'Sl', name: 'id'},
-      {width: '', label: 'Lease/Rent Start Date', name: 'start_date'},
+      {width: '', label: 'Start Date', name: 'start_date'},
+      {width: '', label: 'End Date', name: 'end_date'},
       {width: '', label: 'Landlord', name: 'landlord'},
-      {width: '', label: 'Lease/Rent Amount', name: 'rent_amount'},
+      {width: '', label: 'Amount', name: 'rent_amount'},
+      {width: '', label: 'Security Am', name: 'security_money'},
       {width: '', label: 'Type', name: 'sale type'},
       {width: '', label: 'Status', name: ''},
       {width: '', label: 'Action', name: ''},
