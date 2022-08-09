@@ -15,14 +15,14 @@
 
               <!-- Users -->
               <li>
-                <b-button class="custom-dropdown-btn" v-b-toggle.collapse-2>
+                <b-button class="custom-dropdown-btn" v-b-toggle.users>
                   <font-awesome-icon icon="fa-solid fa-layer-group"/>
                   Users
                   <font-awesome-icon icon="fa-solid fa-caret-down"/>
                 </b-button>
               </li>
 
-              <b-collapse class="dropdown-container m-2" id="collapse-2">
+              <b-collapse class="dropdown-container m-2" id="users">
                 <li>
                   <nuxt-link :to="{ name: 'users-landlords' }">
                     Landlords
@@ -43,14 +43,14 @@
 
               <!-- Properties -->
               <li>
-                <b-button class="custom-dropdown-btn" v-b-toggle.collapse-7>
+                <b-button class="custom-dropdown-btn" v-b-toggle.properties>
                   <font-awesome-icon icon="fa-solid fa-hotel" />
                   Properties
                   <font-awesome-icon icon="fa-solid fa-caret-down"/>
                 </b-button>
               </li>
 
-              <b-collapse class="dropdown-container m-2" id="collapse-7">
+              <b-collapse class="dropdown-container m-2" id="properties">
                 <li>
                   <nuxt-link :to="{ name: 'properties' }">
                     All Properties
@@ -64,12 +64,12 @@
                 </li>
 
                 <li>
-                  <a href="#" v-b-toggle.collapse-11>
+                  <a href="#" v-b-toggle.property-settings>
                     Settings
                   </a>
                 </li>
 
-                <b-collapse class="dropdown-container m-2" id="collapse-11">
+                <b-collapse class="dropdown-container m-2" id="property-settings">
                   <li>
                     <nuxt-link :to="{ name: 'settings-utilities' }">
                       Utility
@@ -94,14 +94,14 @@
 
               <!-- Property Ad Manager -->
               <li>
-                <b-button class="custom-dropdown-btn" v-b-toggle.collapse-10>
+                <b-button class="custom-dropdown-btn" v-b-toggle.property-ads>
                   <font-awesome-icon icon="fa-solid fa-hotel" />
                   Property Ads
                   <font-awesome-icon icon="fa-solid fa-caret-down"/>
                 </b-button>
               </li>
 
-              <b-collapse class="dropdown-container m-2" id="collapse-10">
+              <b-collapse class="dropdown-container m-2" id="property-ads">
                 <li>
                   <nuxt-link :to="{ name: 'properties-ads-manager' }">
                     All Ads
@@ -117,14 +117,14 @@
 
               <!-- Lease -->
               <li>
-                <b-button class="custom-dropdown-btn" v-b-toggle.collapse-9>
+                <b-button class="custom-dropdown-btn" v-b-toggle.lease>
                   <font-awesome-icon icon="fa-solid fa-hotel" />
                   Lease
                   <font-awesome-icon icon="fa-solid fa-caret-down"/>
                 </b-button>
               </li>
 
-              <b-collapse class="dropdown-container m-2" id="collapse-9">
+              <b-collapse class="dropdown-container m-2" id="lease">
                 <li>
                   <nuxt-link :to="{ name: 'properties-leases' }">
                     All Leases
@@ -138,16 +138,56 @@
               </b-collapse>
               <!--/. Leases -->
 
+              <!-- Pages  -->
+              <li>
+                <b-button class="custom-dropdown-btn" v-b-toggle.pages>
+                  <font-awesome-icon icon="fa-solid fa-newspaper" />
+                  Pages
+                  <font-awesome-icon icon="fa-solid fa-caret-down"/>
+                </b-button>
+              </li>
+
+              <b-collapse class="dropdown-container m-2" id="pages">
+                <li class="custom-dropdown-btn" v-b-toggle.pages-property>
+                  <nuxt-link :to="{ name: 'expense-categories' }">
+                    Property
+                  </nuxt-link>
+                </li>
+
+                <!-- Pages Property -->
+                <b-collapse class="dropdown-container m-2" id="pages-property">
+                  <li>
+                    <nuxt-link :to="{ name: 'expense' }">
+                      FAQ
+                    </nuxt-link>
+                  </li>
+
+                  <li>
+                    <nuxt-link :to="{ name: 'expense' }">
+                      Customer Experiences
+                    </nuxt-link>
+                  </li>
+
+                  <li>
+                    <nuxt-link :to="{ name: 'expense' }">
+                      About Property Selling
+                    </nuxt-link>
+                  </li>
+                </b-collapse>
+                <!-- /.Pages Property -->
+              </b-collapse>
+              <!-- /.Pages  -->
+
               <!-- Expense -->
               <li>
-                <b-button class="custom-dropdown-btn" v-b-toggle.collapse-8>
+                <b-button class="custom-dropdown-btn" v-b-toggle.expense>
                   <font-awesome-icon icon="fa-solid fa-hand-holding-dollar" />
                   Expense
                   <font-awesome-icon icon="fa-solid fa-caret-down"/>
                 </b-button>
               </li>
 
-              <b-collapse class="dropdown-container m-2" id="collapse-8">
+              <b-collapse class="dropdown-container m-2" id="expense">
                 <li>
                   <nuxt-link :to="{ name: 'expense-categories' }">
                     Categories
@@ -163,21 +203,21 @@
 
               <!-- Settings -->
               <li>
-                <b-button class="custom-dropdown-btn" v-b-toggle.collapse-3>
+                <b-button class="custom-dropdown-btn" v-b-toggle.settings>
                   <font-awesome-icon icon="fa-solid fa-gear"/>
                   Settings
                   <font-awesome-icon icon="fa-solid fa-caret-down"/>
                 </b-button>
               </li>
 
-              <b-collapse class="dropdown-container m-2" id="collapse-3">
+              <b-collapse class="dropdown-container m-2" id="settings">
                 <li>
-                  <a href="#" v-b-toggle.collapse-12>
+                  <a href="#" v-b-toggle.frontend-setting>
                     Frontend Setting
                   </a>
                 </li>
 
-                <b-collapse class="dropdown-container m-2" id="collapse-12">
+                <b-collapse class="dropdown-container m-2" id="frontend-setting">
                   <li>
                     <nuxt-link :to="{ name: 'settings-frontend-general-create' }">
                       General
