@@ -157,7 +157,7 @@
                 <!-- Pages Property -->
                 <b-collapse class="dropdown-container m-2" id="pages-property">
                   <li>
-                    <nuxt-link :to="{ name: 'expense' }">
+                    <nuxt-link :to="{ name: 'pages-property-faq' }">
                       FAQ
                     </nuxt-link>
                   </li>
