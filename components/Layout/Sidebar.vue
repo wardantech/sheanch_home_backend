@@ -119,15 +119,15 @@
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.lease>
                   <font-awesome-icon icon="fa-solid fa-hotel" />
-                  Lease
+                  Deed
                   <font-awesome-icon icon="fa-solid fa-caret-down"/>
                 </b-button>
               </li>
 
               <b-collapse class="dropdown-container m-2" id="lease">
                 <li>
-                  <nuxt-link :to="{ name: 'properties-leases' }">
-                    All Leases
+                  <nuxt-link :to="{ name: 'properties-deed' }">
+                    All Deeds
                   </nuxt-link>
                 </li>
 <!--                <li>-->

@@ -2,12 +2,12 @@
   <div>
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="card-title m-0">Property Ad List</h5>
+        <h5 class="card-title m-0">Deed List</h5>
 
-        <nuxt-link :to="{ name: 'properties-ads-manager-create' }" class="btn btn-info">
-          <font-awesome-icon icon="fa-solid fa-plus"/>
-          Add Property Ad
-        </nuxt-link>
+        <!--        <nuxt-link :to="{ name: 'users-landlords-create' }" class="btn btn-info">-->
+        <!--          <font-awesome-icon icon="fa-solid fa-plus" />-->
+        <!--          Add Lease-->
+        <!--        </nuxt-link>-->
       </div>
 
       <div class="card-body">
@@ -26,41 +26,36 @@
                    class="">
           <tbody>
           <tr v-for="(value,i) in values" :key="value.id">
+          <tr v-for="(value,i) in values" :key="value.id">
             <td>{{ i + 1 }}</td>
-
-            <td>{{ value.start_date }}</td>
-            <td>{{ value.end_date }}</td>
             <td>{{ value.landlord.name }}</td>
-            <td>{{ value.rent_amount }}</td>
-            <td>{{ value.security_money }}</td>
+            <td>{{ value.tenant.name }}</td>
+            <td>{{ value.property.name }}</td>
             <td>
-              <div v-if="value.sale_type == 1"> Rent</div>
-              <div v-if="value.sale_type == 2"> Sale</div>
+              <div v-if="value.property.sale_type == 1"> Rent</div>
+              <div v-if="value.property.sale_type == 2"> Sale</div>
             </td>
+            <td>{{ value.property.rent_amount }}</td>
             <td>
-              <b-button @click="statusChange({id:value.id, status:value.status})"
-                        :class="value.status == 1 ? 'btn-sm btn-info': 'btn-sm btn-danger'">
-                {{ value.status == 1 ? 'Active' : 'Inactive' }}
-              </b-button>
+              <select @change="statusChange({id:value.id, status: $event.target.value})" name="" id="status"
+                      class="form-control custom-select-form-control">
+                <option :selected="value.status == 0" value="0">Pending</option>
+                <option :selected="value.status == 1" value="1">Send to landlord</option>
+                <option :selected="value.status == 2" value="2">Completed</option>
+                <option :selected="value.status == 3" value="3">Decline</option>
+              </select>
             </td>
             <td>
               <nuxt-link :to="{name:'properties-id-show',params: { id: value.property_id }}" rel="tooltip"
-                         class="btn btn-sm btn-info btn-warning"
+                         class="btn btn-sm btn-info btn-simple"
                          title="View property">
                 <font-awesome-icon icon="fa-solid fa-hotel"/>
               </nuxt-link>
-
-              <nuxt-link :to="{name:'properties-ads-manager-id-edit',params: { id: value.id }}" rel="tooltip"
-                         class="btn btn-sm btn-success btn-simple"
-                         title="Edit">
-                <font-awesome-icon icon="fa-solid fa-pen-to-square"/>
-              </nuxt-link>
-              <!--<a @click="deleteCategory(value.id)"-->
-              <!--rel="tooltip" class="btn btn-danger btn-simple"-->
-              <!--style="color: white"-->
-              <!--title="Delete">-->
-              <!--<i class="material-icons">close</i>-->
-              <!--</a>-->
+              <!--              <nuxt-link :to="{name:'properties-id-edit',params: { id: value.id }}" rel="tooltip"-->
+              <!--                         class="btn btn-sm btn-success btn-simple"-->
+              <!--                         title="Edit">-->
+              <!--                <font-awesome-icon icon="fa-solid fa-edit"/>-->
+              <!--              </nuxt-link>-->
               <b-button class="btn btn-sm btn-danger" @click="deleteItem(value.id)">
                 <font-awesome-icon icon="fa-solid fa-trash"/>
               </b-button>
@@ -99,19 +94,19 @@ export default {
     let sortOrders = {};
     let columns = [
       {width: '', label: 'Sl', name: 'id'},
-      {width: '', label: 'Start Date', name: 'start_date'},
-      {width: '', label: 'End Date', name: 'end_date'},
-      {width: '', label: 'Landlord', name: 'landlord'},
+      {width: '', label: 'Landlord', name: 'landlord_id'},
+      {width: '', label: 'Tenant', name: 'tenant_id'},
+      {width: '', label: 'Property', name: 'property_id'},
+      {width: '', label: 'Type', name: 'lease_type'},
       {width: '', label: 'Amount', name: 'rent_amount'},
-      {width: '', label: 'Security Am', name: 'security_money'},
-      {width: '', label: 'Type', name: 'sale type'},
-      {width: '', label: 'Status', name: ''},
+      {width: '', label: 'Status', name: 'status'},
       {width: '', label: 'Action', name: ''},
     ];
     columns.forEach((column) => {
       sortOrders[column.name] = -1;
     });
     return {
+      status: '',
       values: [],
       sum: [],
       columns: columns,
@@ -138,7 +133,7 @@ export default {
     }
   },
   methods: {
-    getData(url = '/property/ad/list') {
+    getData(url = 'property/deed/list') {
       this.tableData.draw++;
       this.$axios.post(url, {params: this.tableData})
         .then(response => {
@@ -156,11 +151,11 @@ export default {
     },
 
     async statusChange(params) {
-      await this.$axios.$post('property/ad/change-status/' + params.id, params)
+      await this.$axios.$post('property/deed/change-status/' + params.id, params)
         .then(response => {
           this.$izitoast.success({
             title: 'Success !!',
-            message: 'Property ad status change successfully!'
+            message: 'Deed status change successfully!'
           })
           this.getData()
         })
@@ -173,25 +168,25 @@ export default {
         })
     },
 
+    // Landloard Delete logic
     async deleteItem(id) {
       let result = confirm("Want to delete?");
 
       if (result) {
-        await this.$axios.$post('property/ad/delete/' + id)
+        await this.$axios.$post('property/deed/delete/' + id)
           .then(response => {
             if (id) {
-              this.getData();
+              this.getData()
             }
             this.$izitoast.success({
               title: 'Success !!',
-              message: 'Property Ad deleted successfully!'
+              message: 'Property deed deleted successfully!'
             });
           })
           .catch(error => {
             if (error.response.status == 422) {
               this.errors = error.response.data.errors
-            }
-            else {
+            } else {
               alert(error.response.message)
             }
           })
@@ -219,6 +214,8 @@ export default {
     getIndex(array, key, value) {
       return array.findIndex(i => i[key] == value)
     },
+
+
   }
 }
 </script>
