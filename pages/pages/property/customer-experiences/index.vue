@@ -2,11 +2,11 @@
   <div>
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="card-title m-0">Property Faq List</h5>
+        <h5 class="card-title m-0">Customer Experiences List</h5>
 
-        <nuxt-link :to="{ name: 'pages-property-faq-create' }" class="btn btn-info btn-sm">
+        <nuxt-link :to="{ name: 'pages-property-customer-experiences-create' }" class="btn btn-info btn-sm">
           <font-awesome-icon icon="fa-solid fa-plus"/>
-          Add Faq
+          Add Property Customer Experiences
         </nuxt-link>
       </div>
 
@@ -27,7 +27,11 @@
           <tbody>
           <tr v-for="(value,i) in values" :key="i">
             <td>{{ i + 1 }}</td>
-            <td>{{ value.title }}</td>
+            <td>
+              <a target="_blank" :href="value.video_link">
+                {{ value.video_link }}
+              </a>
+            </td>
             <td>
               <b-button @click="statusChange({id:value.id, status:value.status})"
                         :class="value.status == 1 ? 'btn-sm btn-info': 'btn-sm btn-danger'">
@@ -35,7 +39,7 @@
               </b-button>
             </td>
             <td>
-              <nuxt-link :to="{name:'pages-property-faq-id-edit', params: { id: value.id }}" rel="tooltip"
+              <nuxt-link :to="{name:'pages-property-customer-experiences-id-edit', params: { id: value.id }}" rel="tooltip"
                          class="btn btn-sm btn-info btn-simple"
                          title="Edit">
                 <font-awesome-icon icon="fa-solid fa-pen-to-square"/>
@@ -72,7 +76,7 @@
       let sortOrders = {};
       let columns = [
         {width: '', label: 'Sl', name: 'id'},
-        {width: '', label: 'Title', name: 'title'},
+        {width: '', label: 'Video Link', name: 'video_link'},
         {width: '', label: 'Status', name: ''},
         {width: '', label: 'Action', name: ''},
       ];
@@ -106,7 +110,7 @@
       }
     },
     methods: {
-      getData(url = 'pages/property/faq/get-list') {
+      getData(url = 'pages/property/customer-experiences/get-list') {
         this.tableData.draw++;
         this.$axios.post(url, {params: this.tableData})
           .then(response => {
@@ -124,11 +128,11 @@
       },
 
       async statusChange(params) {
-        await this.$axios.$post('pages/property/faq/change-status/' + params.id, params)
+        await this.$axios.$post('pages/property/customer-experiences/change-status/' + params.id, params)
           .then(response => {
             this.$izitoast.success({
               title: 'Success !!',
-              message: 'Faq status change successfully!'
+              message: 'Customer Experiences status change successfully!'
             });
             this.getData()
           })
@@ -146,12 +150,12 @@
         let result = confirm("Want to delete?");
 
         if (result) {
-          await this.$axios.$post('pages/property/faq/delete/' + id)
+          await this.$axios.$post('pages/property/customer-experiences/delete/' + id)
             .then(response => {
               this.getData();
               this.$izitoast.success({
                 title: 'Success !!',
-                message: 'Faq deleted successfully!'
+                message: 'Customer Experiences deleted successfully!'
               });
             })
             .catch(error => {

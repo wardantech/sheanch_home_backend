@@ -163,13 +163,13 @@
                   </li>
 
                   <li>
-                    <nuxt-link :to="{ name: 'expense' }">
+                    <nuxt-link :to="{ name: 'pages-property-customer-experiences' }">
                       Customer Experiences
                     </nuxt-link>
                   </li>
 
                   <li>
-                    <nuxt-link :to="{ name: 'expense' }">
+                    <nuxt-link :to="{ name: 'pages-property-about-selling' }">
                       About Property Selling
                     </nuxt-link>
                   </li>

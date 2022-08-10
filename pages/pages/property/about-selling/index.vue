@@ -2,11 +2,11 @@
   <div>
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="card-title m-0">Property Faq List</h5>
+        <h5 class="card-title m-0">About Property Selling List</h5>
 
-        <nuxt-link :to="{ name: 'pages-property-faq-create' }" class="btn btn-info btn-sm">
+        <nuxt-link :to="{ name: 'pages-property-about-selling-create' }" class="btn btn-info btn-sm">
           <font-awesome-icon icon="fa-solid fa-plus"/>
-          Add Faq
+          Add About Property Selling
         </nuxt-link>
       </div>
 
@@ -35,7 +35,7 @@
               </b-button>
             </td>
             <td>
-              <nuxt-link :to="{name:'pages-property-faq-id-edit', params: { id: value.id }}" rel="tooltip"
+              <nuxt-link :to="{name:'pages-property-about-selling-id-edit', params: { id: value.id }}" rel="tooltip"
                          class="btn btn-sm btn-info btn-simple"
                          title="Edit">
                 <font-awesome-icon icon="fa-solid fa-pen-to-square"/>
@@ -106,7 +106,7 @@
       }
     },
     methods: {
-      getData(url = 'pages/property/faq/get-list') {
+      getData(url = 'pages/property/about-selling/get-list') {
         this.tableData.draw++;
         this.$axios.post(url, {params: this.tableData})
           .then(response => {
@@ -124,11 +124,11 @@
       },
 
       async statusChange(params) {
-        await this.$axios.$post('pages/property/faq/change-status/' + params.id, params)
+        await this.$axios.$post('pages/property/about-selling/change-status/' + params.id, params)
           .then(response => {
             this.$izitoast.success({
               title: 'Success !!',
-              message: 'Faq status change successfully!'
+              message: 'About property selling status change successfully!'
             });
             this.getData()
           })
@@ -146,12 +146,12 @@
         let result = confirm("Want to delete?");
 
         if (result) {
-          await this.$axios.$post('pages/property/faq/delete/' + id)
+          await this.$axios.$post('pages/property/about-selling/delete/' + id)
             .then(response => {
               this.getData();
               this.$izitoast.success({
                 title: 'Success !!',
-                message: 'Faq deleted successfully!'
+                message: 'About property selling deleted successfully!'
               });
             })
             .catch(error => {

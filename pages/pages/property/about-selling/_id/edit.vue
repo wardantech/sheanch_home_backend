@@ -2,20 +2,20 @@
   <div>
     <!--Body Card-->
     <b-row>
-      <b-col md="12">
+      <b-col md="8">
         <div class="card mt-3">
           <div class="card-header">
-            <h5 class="card-title m-0">Edit Property Faq</h5>
+            <h5 class="card-title m-0">Edit About Property Selling</h5>
           </div>
           <div class="card-body">
             <form @submit.prevent="update">
               <b-row>
-                <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="Name">
+                <b-col lg="6" md="6">
+                  <b-form-group label="Title">
                     <b-form-input class="custom-form-control" v-model="form.title" type="text"
-                                  placeholder="Name"></b-form-input>
-                    <strong class="text-danger" style="font-size: 12px" v-if="errors.name">{{
-                      errors.name[0]
+                                  placeholder="Title"></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px" v-if="errors.title">{{
+                      errors.title[0]
                       }}</strong>
                   </b-form-group>
                 </b-col>
@@ -56,38 +56,82 @@
           </div>
         </div>
       </b-col>
+
+      <b-col md="4">
+        <div class="card mt-3">
+          <div class="card-header">
+            <h5 class="card-title m-0">Image Upload</h5>
+          </div>
+          <div class="card-body">
+            <img style="height: 200px; width: 300px; object-fit: cover;" v-model="form.oldImage" :src="imageUrl+form.image" alt="">
+
+            <b-form-group label="Image">
+              <dropzone id="foo" ref="el"
+                        :options="options"
+                        :destroyDropzone="false"
+              >
+              </dropzone>
+            </b-form-group>
+          </div>
+        </div>
+      </b-col>
     </b-row>
   </div>
 </template>
 
 <script>
+  import Dropzone from 'nuxt-dropzone'
+  import 'nuxt-dropzone/dropzone.css'
+
   export default {
     name: "edit",
+    components: {
+      Dropzone
+    },
+    computed:{
+      imageUrl(){
+        return `${process.env.APP_ROOT_IMG_URL}`
+      }
+    },
     data() {
       return {
+        options: {
+          url: "url",
+          addRemoveLinks: true,
+          headers: {"Authorization": this.$auth.strategy.token.get()},
+          maxFiles: 1,
+          autoProcessQueue: false,
+          acceptedFiles: ".jpeg,.jpg,.png"
+        },
         form: {
           title: '',
           status: '',
+          image: '',
+          oldImage:'',
           description: ''
         },
+        previewImage: null,
         errors: {}
       }
     },
     async created() {
-      await this.$axios.$get('pages/property/faq/edit/'+this.$route.params.id)
+      await this.$axios.$get('pages/property/about-selling/edit/'+this.$route.params.id)
         .then(response=>{
           this.form = response.data;
+          this.form.oldImage = response.data.image;
         })
     },
     methods: {
       async update() {
-        await this.$axios.$post('pages/property/faq/update/'+this.$route.params.id, this.form, )
+        await this.$axios.$post('pages/property/about-selling/update/'+this.$route.params.id, this.form, )
           .then(response => {
             this.$izitoast.success({
               title: 'Success !!',
-              message: 'Faq updated successfully!'
+              message: 'About property selling updated successfully!'
             });
-            this.$router.push({name: 'pages-property-faq'});
+            this.$refs.el.dropzone.options.url = process.env.APP_ROOT_API+'pages/property/about-selling/image-upload/'+response.data.id;
+            this.$refs.el.dropzone.processQueue();
+            this.$router.push({name: 'pages-property-about-selling'});
           })
           .catch(error => {
             if(error.response.status == 422){

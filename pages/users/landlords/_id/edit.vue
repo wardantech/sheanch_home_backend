@@ -239,7 +239,7 @@ export default {
 
           this.$izitoast.success({
             title: 'Success !!',
-            message: 'Landlord create successfully!'
+            message: 'Landlord updated successfully!'
           })
           this.$refs.el.dropzone.options.url = process.env.APP_ROOT_API+'landlord/image-upload/'+response.data.id;
           this.$refs.el.dropzone.processQueue();

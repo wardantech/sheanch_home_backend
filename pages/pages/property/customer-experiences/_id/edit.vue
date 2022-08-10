@@ -5,14 +5,14 @@
       <b-col md="12">
         <div class="card mt-3">
           <div class="card-header">
-            <h5 class="card-title m-0">Edit Property Faq</h5>
+            <h5 class="card-title m-0">Edit Property Customer Experiences</h5>
           </div>
           <div class="card-body">
             <form @submit.prevent="update">
               <b-row>
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Name">
-                    <b-form-input class="custom-form-control" v-model="form.title" type="text"
+                    <b-form-input class="custom-form-control" v-model="form.video_link" type="text"
                                   placeholder="Name"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px" v-if="errors.name">{{
                       errors.name[0]
@@ -29,22 +29,6 @@
                     </select>
                     <strong class="text-danger" style="font-size: 12px"
                             v-if="errors.status">{{ errors.status[0] }}</strong>
-                  </b-form-group>
-                </b-col>
-              </b-row>
-
-              <b-row>
-                <b-col md="12">
-                  <b-form-group label="Description">
-                    <b-form-textarea
-                      id="residential"
-                      class="custom-form-control"
-                      placeholder="Description..."
-                      rows="3"
-                      v-model="form.description"
-                    ></b-form-textarea>
-                    <strong class="text-danger" style="font-size: 12px"
-                            v-if="errors.description">{{ errors.description[0] }}</strong>
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -66,28 +50,27 @@
     data() {
       return {
         form: {
-          title: '',
-          status: '',
-          description: ''
+          video_link: '',
+          status: ''
         },
         errors: {}
       }
     },
     async created() {
-      await this.$axios.$get('pages/property/faq/edit/'+this.$route.params.id)
+      await this.$axios.$get('pages/property/customer-experiences/edit/'+this.$route.params.id)
         .then(response=>{
           this.form = response.data;
         })
     },
     methods: {
       async update() {
-        await this.$axios.$post('pages/property/faq/update/'+this.$route.params.id, this.form, )
+        await this.$axios.$post('pages/property/customer-experiences/update/'+this.$route.params.id, this.form, )
           .then(response => {
             this.$izitoast.success({
               title: 'Success !!',
-              message: 'Faq updated successfully!'
+              message: 'Customer Experiences updated successfully!'
             });
-            this.$router.push({name: 'pages-property-faq'});
+            this.$router.push({name: 'pages-property-customer-experiences'});
           })
           .catch(error => {
             if(error.response.status == 422){
