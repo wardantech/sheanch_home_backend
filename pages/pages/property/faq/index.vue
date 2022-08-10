@@ -35,7 +35,7 @@
               </b-button>
             </td>
             <td>
-              <nuxt-link :to="{name:'users-landlords-id-edit',params: { id: value.id }}" rel="tooltip"
+              <nuxt-link :to="{name:'pages-property-faq-id-edit', params: { id: value.id }}" rel="tooltip"
                          class="btn btn-sm btn-info btn-simple"
                          title="Edit">
                 <font-awesome-icon icon="fa-solid fa-pen-to-square"/>
@@ -106,7 +106,7 @@
       }
     },
     methods: {
-      getData(url = '/pages/faq/get-list') {
+      getData(url = '/pages/property/faq/get-list') {
         this.tableData.draw++;
         this.$axios.post(url, {params: this.tableData})
           .then(response => {
@@ -124,7 +124,7 @@
       },
 
       async statusChange(params) {
-        await this.$axios.$post('pages/faq/change-status/' + params.id, params)
+        await this.$axios.$post('pages/property/faq/change-status/' + params.id, params)
           .then(response => {
             this.$izitoast.success({
               title: 'Success !!',
@@ -139,6 +139,29 @@
               alert(error.response.message)
             }
           })
+      },
+
+      // Landloard Delete logic
+      async deleteItem(id) {
+        let result = confirm("Want to delete?");
+
+        if (result) {
+          await this.$axios.$post('pages/property/faq/delete/' + id)
+            .then(response => {
+              this.getData();
+              this.$izitoast.success({
+                title: 'Success !!',
+                message: 'Faq deleted successfully!'
+              });
+            })
+            .catch(error => {
+              if (error.response.status == 422) {
+                this.errors = error.response.data.errors
+              } else {
+                alert(error.response.message)
+              }
+            })
+        }
       },
 
       configPagination(data) {

@@ -5,14 +5,15 @@
       <b-col md="12">
         <div class="card mt-3">
           <div class="card-header">
-            <h5 class="card-title m-0">Create Faq</h5>
+            <h5 class="card-title m-0">Edit Faq</h5>
           </div>
           <div class="card-body">
-            <form @submit.prevent="store">
+            <form @submit.prevent="update">
               <b-row>
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Name">
-                    <b-form-input class="custom-form-control" v-model="form.title" type="text" placeholder="Name"></b-form-input>
+                    <b-form-input class="custom-form-control" v-model="form.title" type="text"
+                                  placeholder="Name"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px" v-if="errors.name">{{
                       errors.name[0]
                       }}</strong>
@@ -49,7 +50,7 @@
               </b-row>
 
               <b-form-group>
-                <b-button type="submit" variant="dark">Save</b-button>
+                <b-button type="submit" variant="dark">Update</b-button>
               </b-form-group>
             </form>
           </div>
@@ -61,7 +62,7 @@
 
 <script>
   export default {
-    name: "create",
+    name: "edit",
     data() {
       return {
         form: {
@@ -72,23 +73,30 @@
         errors: {}
       }
     },
+    async created() {
+      await this.$axios.$get('pages/property/faq/edit/'+this.$route.params.id)
+        .then(response=>{
+          this.form = response.data;
+        })
+    },
     methods: {
-      async store() {
-        await this.$axios.$post('/pages/property/faq/store', this.form)
+      async update() {
+        await this.$axios.$post('pages/property/faq/update/'+this.$route.params.id, this.form, )
           .then(response => {
             this.$izitoast.success({
               title: 'Success !!',
-              message: 'Faq create successfully!'
+              message: 'Faq updated successfully!'
             });
             this.$router.push({name: 'pages-property-faq'});
           })
           .catch(error => {
-            if (error.response.status == 422) {
+            if(error.response.status == 422){
               this.errors = error.response.data.errors
             }
-            else {
+            else{
               alert(error.response.message)
             }
+
           })
       },
     }
