@@ -123,6 +123,28 @@
 
               <b-row>
                 <b-col lg="6" md="6" sm="12">
+                  <b-form-group label="Balcony">
+                    <b-form-input min="0" v-model="form.balcony" class="custom-form-control" type="number"
+                                  placeholder="Enter Quantity"></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px" v-if="errors.balcony">{{
+                        errors.balcony[0]
+                      }}</strong>
+                  </b-form-group>
+                </b-col>
+
+                <b-col lg="6" md="6" sm="12">
+                  <b-form-group label="Floor">
+                    <b-form-input v-model="form.floor" class="custom-form-control" type="number"
+                                  placeholder="Enter Floor"></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px" v-if="errors.floor">{{
+                        errors.floor[0]
+                      }}</strong>
+                  </b-form-group>
+                </b-col>
+              </b-row>
+
+              <b-row>
+                <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Rent Amount *">
                     <b-form-input min="0" v-model="form.rent_amount" class="custom-form-control" type="number"
                                   placeholder="Rent Amount"></b-form-input>
@@ -227,6 +249,16 @@
                       }}</strong>
                   </b-form-group>
                 </b-col>
+
+                <b-col md="12">
+                  <b-form-group label="Google map location">
+                    <b-form-input min="1" v-model="form.google_map_location" class="custom-form-control" type="text"
+                                  placeholder="Enter Google map location"></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px" v-if="errors.google_map_location">{{
+                        errors.google_map_location[0]
+                      }}</strong>
+                  </b-form-group>
+                </b-col>
               </b-row>
 
               <b-row>
@@ -309,13 +341,10 @@
                   <b-form-group label="Paid By">
                     <select @click="utilityPaidBy(n, utility)" name="" :id="'utility_paid_by'+n"
                             class="form-control custom-select-form-control">
-                      <option value="0">select</option>
-                      <option :selected="utility.utility_paid_by == 1" value="1">Paid By Landlord</option>
-                      <option :selected="utility.utility_paid_by == 2" value="2">Paid By Tenant</option>
+                      <option :selected="utility.utility_paid_by == 1" value="1">Landlord</option>
+                      <option :selected="utility.utility_paid_by == 2" value="2">Tenant</option>
                     </select>
-                    <strong class="text-danger" style="font-size: 12px" v-if="errors.area_size">{{
-                        errors.area_size[0]
-                      }}</strong>
+
                   </b-form-group>
                 </b-col>
 
@@ -451,28 +480,32 @@ export default {
       },
 
       form: {
+        status: '',
         name: '',
+        landlord_id: '',
+        property_category: '',
+        property_type_id: '',
+        sale_type: '',
+        area_size: '',
+        bed_rooms: '',
+        bath_rooms: '',
+        balcony: '',
+        floor: '',
+        video_link: '',
+        rent_amount: '',
+        security_money: '',
+        house_no: '',
+        zip_code:'',
         thana_id: '',
         district_id: '',
         division_id: '',
-        property_type_id: '',
-        property_category: '',
-        bed_rooms: '',
-        bath_rooms: '',
-        video_link: '',
         address: '',
-        area_size: '',
-        rent_amount: '',
-        security_money: '',
-        status: '',
+        google_map_location:'',
         description: '',
-        landlord_id: '',
-        images: [],
-        oldImages: [],
-        sale_type: '',
-        house_no: '',
         facilities: [],
         utilities: [],
+        images: [],
+        oldImages: [],
       },
 
       propertyTypes: '',
