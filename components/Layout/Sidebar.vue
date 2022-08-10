@@ -157,19 +157,19 @@
                 <!-- Pages Property -->
                 <b-collapse class="dropdown-container m-2" id="pages-property">
                   <li>
-                    <nuxt-link :to="{ name: 'expense' }">
+                    <nuxt-link :to="{ name: 'pages-property-faq' }">
                       FAQ
                     </nuxt-link>
                   </li>
 
                   <li>
-                    <nuxt-link :to="{ name: 'expense' }">
+                    <nuxt-link :to="{ name: 'pages-property-customer-experiences' }">
                       Customer Experiences
                     </nuxt-link>
                   </li>
 
                   <li>
-                    <nuxt-link :to="{ name: 'expense' }">
+                    <nuxt-link :to="{ name: 'pages-property-about-selling' }">
                       About Property Selling
                     </nuxt-link>
                   </li>
