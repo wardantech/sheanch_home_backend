@@ -238,7 +238,6 @@
       },
 
       async store() {
-
         await this.$axios.$post('landlord/store', this.form,)
           .then(response => {
             this.$izitoast.success({
@@ -257,7 +256,6 @@
             else {
               alert(error.response.message)
             }
-
           })
       },
 
