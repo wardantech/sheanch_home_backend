@@ -178,6 +178,24 @@
               </b-collapse>
               <!-- /.Pages  -->
 
+              <!-- Widgets -->
+              <li>
+                <b-button class="custom-dropdown-btn" v-b-toggle.widgets>
+                  <font-awesome-icon icon="fa-solid fa-newspaper" />
+                  Widgets
+                  <font-awesome-icon icon="fa-solid fa-caret-down"/>
+                </b-button>
+              </li>
+
+              <b-collapse class="dropdown-container m-2" id="widgets">
+                <li>
+                  <nuxt-link :to="{ name: 'widgets-how-to-work' }">
+                    How to works
+                  </nuxt-link>
+                </li>
+              </b-collapse>
+              <!-- /.Widgets -->
+
               <!-- Expense -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.expense>
