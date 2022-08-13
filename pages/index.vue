@@ -5,7 +5,7 @@
         <b-col lg="4" md="6" sm="12">
           <div class="dashboard-status status-success">
             <div class="dashboard-status-content">
-              <h4>288,999</h4>
+              <h4>{{ data.totalProperties }}</h4>
               <span>Approved properties</span>
             </div>
             <div class="dashboard-status-icon">
@@ -17,11 +17,11 @@
         <b-col lg="4" md="6" sm="12">
           <div class="dashboard-status status-warning">
             <div class="dashboard-status-content">
-              <h4>100,000</h4>
-              <span>Pending approve properties</span>
+              <h4>{{ data.totalPropertyAds }}</h4>
+              <span>Approved Ads</span>
             </div>
             <div class="dashboard-status-icon">
-              <font-awesome-icon icon="fa-solid fa-circle-dollar-to-slot" />
+              <font-awesome-icon icon="fa-solid fa-circle-check" />
             </div>
           </div>
         </b-col>
@@ -29,11 +29,11 @@
         <b-col lg="4" md="6" sm="12">
           <div class="dashboard-status status-info">
             <div class="dashboard-status-content">
-              <h4>200,000</h4>
-              <span>Rejected properties</span>
+              <h4>{{ data.totalCompleteDeed }}</h4>
+              <span>Complete Deeds</span>
             </div>
             <div class="dashboard-status-icon">
-              <font-awesome-icon icon="fa-solid fa-circle-nodes" />
+              <font-awesome-icon icon="fa-solid fa-circle-check" />.
             </div>
           </div>
         </b-col>
@@ -53,14 +53,17 @@ import Login from "@/pages/login";
 export default {
   name: 'IndexPage',
   components: {Login, Default},
-  //middleware: 'auth',
-  //middleware: ['authenticated'],
+  data() {
+    return {
+      data:'',
+    }
+  },
   computed: {
     loggedInUser() {
       return this.$auth.loggedIn
     }
   },
-  async mounted() {
+  mounted() {
     //console.log(this.$store.state.auth.user)
     console.log(this.$auth.loggedIn)
     //await this.$auth.logout();
@@ -68,6 +71,13 @@ export default {
     if (!this.$auth.loggedIn) {
       this.$router.push({name: 'login'});
     }
+  },
+
+  async created(){
+    await this.$axios.$post('get-dashboard-data')
+      .then(response=>{
+          this.data = response.data;
+      })
   }
 }
 </script>
