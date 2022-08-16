@@ -30,10 +30,11 @@
             <td>{{ value.name }}</td>
             <td>{{ value.description }}</td>
             <td>
-              <b-button @click="statusChange({id:value.id, status:value.status})" title="Deactivate"
-                        :class="value.status === 1 ? 'btn-sm btn-info': 'btn-sm btn-danger'">
-                {{ value.status === 1 ? 'Active' : 'Inactive' }}
-              </b-button>
+              <select @change="statusChange({id:value.id, status: $event.target.value})" name="" id="status"
+                      class="form-control custom-select-form-control">
+                <option :selected="value.status == 1" value="1">Active</option>
+                <option :selected="value.status == 0" value="0">Inactive</option>
+              </select>
             </td>
             <td>
               <nuxt-link :to="{name:'settings-property-type-id-edit',params: { id: value.id }}" rel="tooltip"
@@ -76,7 +77,7 @@
         {width: '', label: 'Sl', name: 'id'},
         {width: '', label: 'Name', name: 'name'},
         {width: '', label: 'Description', name: 'description'},
-        {width: '', label: 'Status', name: 'status'},
+        {width: '15%', label: 'Status', name: 'status'},
         {width: '', label: 'Action', name: ''},
       ];
       columns.forEach((column) => {
