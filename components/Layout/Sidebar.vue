@@ -33,11 +33,11 @@
                     Tenants
                   </nuxt-link>
                 </li>
-                <li>
-                  <nuxt-link :to="{ name: 'users-admins' }">
-                    Admins
-                  </nuxt-link>
-                </li>
+<!--                <li>-->
+<!--                  <nuxt-link :to="{ name: 'users-admins' }">-->
+<!--                    Admins-->
+<!--                  </nuxt-link>-->
+<!--                </li>-->
               </b-collapse>
               <!--/. Users -->
 
