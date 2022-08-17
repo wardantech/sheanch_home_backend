@@ -44,6 +44,11 @@
                          title="Edit">
                 <font-awesome-icon icon="fa-solid fa-pen-to-square"/>
               </nuxt-link>
+              <nuxt-link :to="{name:'users-landlords-id-show',params: { id: value.id }}" rel="tooltip"
+                         class="btn btn-sm btn-success btn-simple"
+                         title="Show">
+                <font-awesome-icon icon="fa-solid fa-eye"/>
+              </nuxt-link>
               <b-button class="btn btn-sm btn-danger" @click="deleteItem(value.id)">
                 <font-awesome-icon icon="fa-solid fa-trash"/>
               </b-button>
