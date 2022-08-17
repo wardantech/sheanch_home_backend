@@ -299,7 +299,7 @@
       },
 
       async store() {
-        await this.$axios.$post('tenant', this.form,)
+        await this.$axios.$post('tenant/store', this.form,)
           .then(response => {
             console.log(response);
             // this.$toast.success('Tenants create successfully!');
