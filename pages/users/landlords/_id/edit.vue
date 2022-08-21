@@ -199,7 +199,9 @@ export default {
   },
   async created() {
 
-    await this.$axios.$get('landlord/show/'+this.$route.params.id)
+    await this.$axios.$post('landlord/show',{
+      landlordId: this.$route.params.id,
+    })
       .then(response=>{
         this.form = response.data;
         this.form.oldImage = response.data.image;
