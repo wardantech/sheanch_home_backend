@@ -273,7 +273,9 @@
       }
     },
     async created() {
-      await this.$axios.$get('tenant/show/' + this.$route.params.id)
+      await this.$axios.$post('tenant/show' ,{
+        tenantId: this.$route.params.id,
+      })
         .then(response => {
           this.form = response.data;
           this.form.oldImage = response.data.image;
