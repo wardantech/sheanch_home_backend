@@ -100,7 +100,7 @@
 
         <b-row>
           <b-col md="4" lg="3" sm="12" v-for="(img, i) in images" :key="i">
-            <img :src="img.original_url" alt="property.name" width="100%" height="100%" style="object-fit: cover;">
+            <b-img thumbnail fluid :src="img.original_url" :alt="property.name"></b-img>
           </b-col>
         </b-row>
       </div>
