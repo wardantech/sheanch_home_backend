@@ -90,10 +90,9 @@ export default {
 
   async created() {
     await this.$axios.$post('/landlord/show', {
-      landlord_id: this.$route.params.id
+      landlordId: this.$route.params.id
     })
       .then(response => {
-        console.log(response);
 
         this.landlord = response.data;
         this.division = this.landlord.division.name;
