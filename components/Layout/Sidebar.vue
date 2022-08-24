@@ -196,6 +196,24 @@
               </b-collapse>
               <!-- /.Widgets -->
 
+              <!-- Wishlists -->
+              <li>
+                <b-button class="custom-dropdown-btn" v-b-toggle.wishlists>
+                  <font-awesome-icon icon="fa-solid fa-newspaper" />
+                  Wishlists
+                  <font-awesome-icon icon="fa-solid fa-caret-down"/>
+                </b-button>
+              </li>
+
+              <b-collapse class="dropdown-container m-2" id="wishlists">
+                <li>
+                  <nuxt-link :to="{ name: 'wishlists' }">
+                    All Wishlists
+                  </nuxt-link>
+                </li>
+              </b-collapse>
+              <!--/. Wishlists -->
+
               <!-- Expense -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.expense>
