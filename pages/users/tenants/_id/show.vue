@@ -107,7 +107,7 @@
       }
     },
     async created() {
-      const response = await this.$axios.$post('tenant/show',  {tenant_id: this.$route.params.id});
+      const response = await this.$axios.$post('tenant/show',  {tenantId: this.$route.params.id});
 
       this.tenant = response.data;
       this.division = response.data.division.name;
