@@ -2,7 +2,7 @@
   <div>
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="card-title m-0">All property reviews</h5>
+        <h5 class="card-title m-0">All landlord reviews</h5>
       </div>
 
       <div class="card-body">
@@ -23,14 +23,8 @@
           <tbody>
           <tr v-for="(value,i) in values" :key="value.id">
             <td>{{i+1}}</td>
-            <td>
-              <nuxt-link  :to="{name:'properties-id-show',params: { id: value.property.id }}" rel="tooltip"
-                          title="View property details">
-                {{ value.property.name }}
-              </nuxt-link>
-            </td>
 
-            <td v-if="value.review_type === 1">
+            <td v-if="value.review_type === 2">
               <nuxt-link  :to="{name:'users-landlords-id-show',params: { id: value.property.landlord.id }}" rel="tooltip"
                           title="View landlord details">
                 {{ value.property.landlord.name }}
@@ -39,7 +33,7 @@
 
             <td v-if="value.reviewer_type === 3">
               <nuxt-link  :to="{name:'users-tenants-id-show',params: { id: value.tenant.id }}" rel="tooltip"
-                         title="View tenant details">
+                          title="View tenant details">
                 {{ value.tenant.name }}
               </nuxt-link>
             </td>
@@ -50,9 +44,9 @@
 
             <td>
               <!--<nuxt-link v-if="value.review_type === 1" :to="{name:'properties-id-show',params: { id: value.review_type_id }}" rel="tooltip"-->
-                         <!--class="btn btn-sm btn-primary btn-simple"-->
-                         <!--title="View property details">-->
-                <!--<font-awesome-icon icon="fa-solid fa-building-circle-arrow-right" />-->
+              <!--class="btn btn-sm btn-primary btn-simple"-->
+              <!--title="View property details">-->
+              <!--<font-awesome-icon icon="fa-solid fa-building-circle-arrow-right" />-->
               <!--</nuxt-link>-->
 
               <b-button
@@ -81,14 +75,13 @@
   import Pagination from "@/components/Datatable/Pagination";
 
   export default {
-    name: "property-review",
+    name: "landlord-review",
     components: {DataTable, Pagination},
     data() {
       let sortOrders = {};
       let columns = [
         {width: '', label: 'Sl', name: 'id'},
-        {width: '', label: 'Property', name: 'property'},
-        {width: '', label: 'Property owner name', name: 'property_owner_name'},
+        {width: '', label: 'Landlord', name: 'landlord'},
         {width: '', label: 'Tenant', name: 'tenant'},
         {width: '', label: 'Rating', name: 'rating'},
         {width: '', label: 'Action', name: ''},
@@ -127,7 +120,7 @@
     },
     methods: {
       // Gell all property lists
-      getData(url = '/reviews/get-properties') {
+      getData(url = '/reviews/get-landlords') {
         this.tableData.draw++;
         this.$axios.post(url, {params: this.tableData})
           .then(response => {
@@ -189,7 +182,6 @@
       getIndex(array, key, value) {
         return array.findIndex(i => i[key] == value)
       },
-
     }
   }
 </script>
