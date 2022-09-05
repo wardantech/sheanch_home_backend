@@ -196,6 +196,24 @@
               </b-collapse>
               <!-- /.Widgets -->
 
+              <!-- Reviews -->
+              <li>
+                <b-button class="custom-dropdown-btn" v-b-toggle.reviews>
+                  <font-awesome-icon icon="fa-solid fa-newspaper" />
+                  Reviews
+                  <font-awesome-icon icon="fa-solid fa-caret-down"/>
+                </b-button>
+              </li>
+
+              <b-collapse class="dropdown-container m-2" id="reviews">
+                <li>
+                  <nuxt-link :to="{ name: 'reviews-property-review' }">
+                    Property Reviews
+                  </nuxt-link>
+                </li>
+              </b-collapse>
+              <!--/. Reviews -->
+
               <!-- Wishlists -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.wishlists>
