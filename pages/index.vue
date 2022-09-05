@@ -33,7 +33,7 @@
               <span>Complete Deeds</span>
             </div>
             <div class="dashboard-status-icon">
-              <font-awesome-icon icon="fa-solid fa-circle-check" />.
+              <font-awesome-icon icon="fa-solid fa-circle-check" />
             </div>
           </div>
         </b-col>
