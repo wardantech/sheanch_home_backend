@@ -33,18 +33,18 @@
                     Tenants
                   </nuxt-link>
                 </li>
-<!--                <li>-->
-<!--                  <nuxt-link :to="{ name: 'users-admins' }">-->
-<!--                    Admins-->
-<!--                  </nuxt-link>-->
-<!--                </li>-->
+                <!--                <li>-->
+                <!--                  <nuxt-link :to="{ name: 'users-admins' }">-->
+                <!--                    Admins-->
+                <!--                  </nuxt-link>-->
+                <!--                </li>-->
               </b-collapse>
               <!--/. Users -->
 
               <!-- Properties -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.properties>
-                  <font-awesome-icon icon="fa-solid fa-hotel" />
+                  <font-awesome-icon icon="fa-solid fa-hotel"/>
                   Properties
                   <font-awesome-icon icon="fa-solid fa-caret-down"/>
                 </b-button>
@@ -95,7 +95,7 @@
               <!-- Property Ad Manager -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.property-ads>
-                  <font-awesome-icon icon="fa-solid fa-hotel" />
+                  <font-awesome-icon icon="fa-solid fa-hotel"/>
                   Property Ads
                   <font-awesome-icon icon="fa-solid fa-caret-down"/>
                 </b-button>
@@ -118,7 +118,7 @@
               <!-- Lease -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.lease>
-                  <font-awesome-icon icon="fa-solid fa-hotel" />
+                  <font-awesome-icon icon="fa-solid fa-hotel"/>
                   Deed
                   <font-awesome-icon icon="fa-solid fa-caret-down"/>
                 </b-button>
@@ -130,18 +130,18 @@
                     All Deeds
                   </nuxt-link>
                 </li>
-<!--                <li>-->
-<!--                  <nuxt-link :to="{ name: 'properties-leases-create' }">-->
-<!--                    Add Lease-->
-<!--                  </nuxt-link>-->
-<!--                </li>-->
+                <!--                <li>-->
+                <!--                  <nuxt-link :to="{ name: 'properties-leases-create' }">-->
+                <!--                    Add Lease-->
+                <!--                  </nuxt-link>-->
+                <!--                </li>-->
               </b-collapse>
               <!--/. Leases -->
 
               <!-- Pages  -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.pages>
-                  <font-awesome-icon icon="fa-solid fa-newspaper" />
+                  <font-awesome-icon icon="fa-solid fa-newspaper"/>
                   Pages
                   <font-awesome-icon icon="fa-solid fa-caret-down"/>
                 </b-button>
@@ -181,7 +181,7 @@
               <!-- Widgets -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.widgets>
-                  <font-awesome-icon icon="fa-solid fa-newspaper" />
+                  <font-awesome-icon icon="fa-solid fa-newspaper"/>
                   Widgets
                   <font-awesome-icon icon="fa-solid fa-caret-down"/>
                 </b-button>
@@ -199,7 +199,7 @@
               <!-- Reviews -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.reviews>
-                  <font-awesome-icon icon="fa-solid fa-newspaper" />
+                  <font-awesome-icon icon="fa-solid fa-newspaper"/>
                   Reviews
                   <font-awesome-icon icon="fa-solid fa-caret-down"/>
                 </b-button>
@@ -211,13 +211,19 @@
                     Property Reviews
                   </nuxt-link>
                 </li>
+
+                <li>
+                  <nuxt-link :to="{ name: 'reviews-landlord-review' }">
+                    Landlord Reviews
+                  </nuxt-link>
+                </li>
               </b-collapse>
               <!--/. Reviews -->
 
               <!-- Wishlists -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.wishlists>
-                  <font-awesome-icon icon="fa-solid fa-newspaper" />
+                  <font-awesome-icon icon="fa-solid fa-newspaper"/>
                   Wishlists
                   <font-awesome-icon icon="fa-solid fa-caret-down"/>
                 </b-button>
@@ -235,7 +241,7 @@
               <!-- Expense -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.expense>
-                  <font-awesome-icon icon="fa-solid fa-hand-holding-dollar" />
+                  <font-awesome-icon icon="fa-solid fa-hand-holding-dollar"/>
                   Expense
                   <font-awesome-icon icon="fa-solid fa-caret-down"/>
                 </b-button>
@@ -292,5 +298,5 @@
 </template>
 
 <script>
-export default {}
+  export default {}
 </script>
