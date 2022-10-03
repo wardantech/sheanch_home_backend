@@ -45,6 +45,7 @@
     }
 
     .custom-dropdown-btn {
+      position: relative;
       padding: 10px;
       line-height: 30px;
       border-radius: 5px;
@@ -55,14 +56,10 @@
       background: none;
       width: 100%;
       text-align: left;
+      letter-spacing: 0.5px;
       cursor: pointer;
       outline: none;
       transition: background-color 0.5s ease;
-
-      svg {
-        font-size: 18px;
-        margin-left: 5.2rem;
-      }
 
       &:hover {
         background-color: $gray-600;
@@ -76,14 +73,27 @@
         border: none !important;
       }
 
-      svg {
-        position: relative;
-        margin-right: 6px;
-        top: 0;
-        font-size: 22px;
-        color: $gray-50;
-        margin-left: 10px;
+      .menu-icon {
+        margin-right: 15px;
+        font-size: 16px;
       }
+
+      .custom-angle-right {
+        position: absolute;
+        right: 0;
+        margin: 8px 10px;
+      }
+
+      // svg {
+      //   position: relative;
+      //   font-size: 18px;
+      //   margin-left: 5.2rem;
+      //   margin-right: 6px;
+      //   top: 0;
+      //   font-size: 22px;
+      //   color: $gray-50;
+      //   margin-left: 10px;
+      // }
     }
 
     .dropdown-container {

@@ -16,9 +16,9 @@
               <!-- Users -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.users>
-                  <font-awesome-icon icon="fa-solid fa-layer-group"/>
+                  <font-awesome-icon icon="fa-solid fa-layer-group" class="menu-icon"/>
                   Users
-                  <font-awesome-icon icon="fa-solid fa-caret-down"/>
+                  <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
                 </b-button>
               </li>
 
@@ -33,20 +33,15 @@
                     Tenants
                   </nuxt-link>
                 </li>
-                <!--                <li>-->
-                <!--                  <nuxt-link :to="{ name: 'users-admins' }">-->
-                <!--                    Admins-->
-                <!--                  </nuxt-link>-->
-                <!--                </li>-->
               </b-collapse>
               <!--/. Users -->
 
               <!-- Properties -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.properties>
-                  <font-awesome-icon icon="fa-solid fa-hotel"/>
+                  <font-awesome-icon icon="fa-solid fa-hotel" class="menu-icon"/>
                   Properties
-                  <font-awesome-icon icon="fa-solid fa-caret-down"/>
+                  <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
                 </b-button>
               </li>
 
@@ -95,9 +90,9 @@
               <!-- Property Ad Manager -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.property-ads>
-                  <font-awesome-icon icon="fa-solid fa-hotel"/>
+                  <font-awesome-icon icon="fa-solid fa-hotel" class="menu-icon"/>
                   Property Ads
-                  <font-awesome-icon icon="fa-solid fa-caret-down"/>
+                  <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
                 </b-button>
               </li>
 
@@ -118,9 +113,9 @@
               <!-- Lease -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.lease>
-                  <font-awesome-icon icon="fa-solid fa-hotel"/>
+                  <font-awesome-icon icon="fa-solid fa-hotel" class="menu-icon"/>
                   Deed
-                  <font-awesome-icon icon="fa-solid fa-caret-down"/>
+                  <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
                 </b-button>
               </li>
 
@@ -130,20 +125,15 @@
                     All Deeds
                   </nuxt-link>
                 </li>
-                <!--                <li>-->
-                <!--                  <nuxt-link :to="{ name: 'properties-leases-create' }">-->
-                <!--                    Add Lease-->
-                <!--                  </nuxt-link>-->
-                <!--                </li>-->
               </b-collapse>
               <!--/. Leases -->
 
               <!-- Pages  -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.pages>
-                  <font-awesome-icon icon="fa-solid fa-newspaper"/>
+                  <font-awesome-icon icon="fa-solid fa-newspaper" class="menu-icon"/>
                   Pages
-                  <font-awesome-icon icon="fa-solid fa-caret-down"/>
+                  <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
                 </b-button>
               </li>
 
@@ -181,9 +171,9 @@
               <!-- Widgets -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.widgets>
-                  <font-awesome-icon icon="fa-solid fa-newspaper"/>
+                  <font-awesome-icon icon="fa-solid fa-newspaper" class="menu-icon"/>
                   Widgets
-                  <font-awesome-icon icon="fa-solid fa-caret-down"/>
+                  <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
                 </b-button>
               </li>
 
@@ -199,9 +189,9 @@
               <!-- Reviews -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.reviews>
-                  <font-awesome-icon icon="fa-solid fa-newspaper"/>
+                  <font-awesome-icon icon="fa-solid fa-newspaper" class="menu-icon"/>
                   Reviews
-                  <font-awesome-icon icon="fa-solid fa-caret-down"/>
+                  <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
                 </b-button>
               </li>
 
@@ -223,9 +213,9 @@
               <!-- Wishlists -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.wishlists>
-                  <font-awesome-icon icon="fa-solid fa-newspaper"/>
+                  <font-awesome-icon icon="fa-solid fa-newspaper" class="menu-icon"/>
                   Wishlists
-                  <font-awesome-icon icon="fa-solid fa-caret-down"/>
+                  <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
                 </b-button>
               </li>
 
@@ -241,9 +231,9 @@
               <!-- Expense -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.expense>
-                  <font-awesome-icon icon="fa-solid fa-hand-holding-dollar"/>
+                  <font-awesome-icon icon="fa-solid fa-hand-holding-dollar" class="menu-icon"/>
                   Expense
-                  <font-awesome-icon icon="fa-solid fa-caret-down"/>
+                  <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
                 </b-button>
               </li>
 
@@ -264,9 +254,9 @@
               <!-- Settings -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.settings>
-                  <font-awesome-icon icon="fa-solid fa-gear"/>
+                  <font-awesome-icon icon="fa-solid fa-gear" class="menu-icon"/>
                   Settings
-                  <font-awesome-icon icon="fa-solid fa-caret-down"/>
+                  <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
                 </b-button>
               </li>
 
@@ -285,9 +275,7 @@
                   </li>
                 </b-collapse>
               </b-collapse>
-
               <!--/. Settings -->
-
             </ul>
           </nav>
         </div>
