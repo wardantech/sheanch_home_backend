@@ -4,7 +4,7 @@
       <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="card-title m-0">Tenants List</h5>
 
-        <nuxt-link :to="{ name: 'users-tenants-create' }" class="btn btn-info">
+        <nuxt-link :to="{ name: 'users-tenants-create' }" class="btn btn-sm btn-info">
           <font-awesome-icon icon="fa-solid fa-plus"/>
           Add Tenants
         </nuxt-link>
@@ -30,8 +30,8 @@
             <td>{{value.name}}</td>
             <td>{{value.mobile}}</td>
             <td>
-              <b-button @click="statusChange({id:value.id, status:value.status})"
-                        :class="value.status == 1 ? 'btn-sm btn-info': 'btn-sm btn-danger'">
+              <b-button size="sm" @click="statusChange({id:value.id, status:value.status})"
+                        :class="value.status == 1 ? 'btn-info': 'btn-danger'">
                 {{value.status == 1 ? 'Active': 'Inactive'}}
               </b-button>
             </td>
@@ -155,7 +155,7 @@
             }
           })
       },
-          
+
       async deleteItem(id) {
         let result = confirm("Want to delete?");
 

@@ -5,10 +5,14 @@
       <template #default="{ hide }">
         <div class="padding-top">
           <nav class="mb-3 sidebar-nav">
+            <div class="sidebar-brand">
+              <b-img width="160" src="../../assets/images/logo_white.png"></b-img>
+            </div>
+
             <ul class="list-unstyled components">
               <li class="active">
                 <nuxt-link :to="{ name: 'index' }" class="dashboard">
-                  <font-awesome-icon icon="fa-solid fa-house-chimney"/>
+                  <i class='bx bxs-dashboard'></i>
                   <span>Dashboard</span>
                 </nuxt-link>
               </li>
@@ -16,7 +20,7 @@
               <!-- Users -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.users>
-                  <font-awesome-icon icon="fa-solid fa-layer-group" class="menu-icon"/>
+                  <i class='bx bx-group'></i>
                   Users
                   <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
                 </b-button>
@@ -39,7 +43,7 @@
               <!-- Properties -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.properties>
-                  <font-awesome-icon icon="fa-solid fa-hotel" class="menu-icon"/>
+                  <i class='bx bx-buildings'></i>
                   Properties
                   <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
                 </b-button>
@@ -77,7 +81,6 @@
                     </nuxt-link>
                   </li>
 
-
                   <li>
                     <nuxt-link :to="{ name: 'settings-property-type' }">
                       Property Type
@@ -90,7 +93,7 @@
               <!-- Property Ad Manager -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.property-ads>
-                  <font-awesome-icon icon="fa-solid fa-hotel" class="menu-icon"/>
+                  <i class='bx bx-user-voice'></i>
                   Property Ads
                   <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
                 </b-button>
@@ -113,7 +116,7 @@
               <!-- Lease -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.lease>
-                  <font-awesome-icon icon="fa-solid fa-hotel" class="menu-icon"/>
+                  <i class='bx bx-news'></i>
                   Deed
                   <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
                 </b-button>
@@ -131,7 +134,7 @@
               <!-- Pages  -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.pages>
-                  <font-awesome-icon icon="fa-solid fa-newspaper" class="menu-icon"/>
+                  <i class='bx bxs-news' ></i>
                   Pages
                   <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
                 </b-button>
@@ -171,7 +174,7 @@
               <!-- Widgets -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.widgets>
-                  <font-awesome-icon icon="fa-solid fa-newspaper" class="menu-icon"/>
+                  <i class='bx bxs-widget'></i>
                   Widgets
                   <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
                 </b-button>
@@ -189,7 +192,7 @@
               <!-- Reviews -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.reviews>
-                  <font-awesome-icon icon="fa-solid fa-newspaper" class="menu-icon"/>
+                  <i class='bx bx-like'></i>
                   Reviews
                   <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
                 </b-button>
@@ -213,7 +216,7 @@
               <!-- Wishlists -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.wishlists>
-                  <font-awesome-icon icon="fa-solid fa-newspaper" class="menu-icon"/>
+                  <i class='bx bx-heart' ></i>
                   Wishlists
                   <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
                 </b-button>
@@ -231,7 +234,7 @@
               <!-- Expense -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.expense>
-                  <font-awesome-icon icon="fa-solid fa-hand-holding-dollar" class="menu-icon"/>
+                  <i class='bx bx-wallet-alt'></i>
                   Expense
                   <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
                 </b-button>
@@ -254,7 +257,7 @@
               <!-- Settings -->
               <li>
                 <b-button class="custom-dropdown-btn" v-b-toggle.settings>
-                  <font-awesome-icon icon="fa-solid fa-gear" class="menu-icon"/>
+                  <i class='bx bx-cog'></i>
                   Settings
                   <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
                 </b-button>

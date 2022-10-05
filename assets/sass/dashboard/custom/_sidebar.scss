@@ -3,15 +3,18 @@
   background-color: $gray-900 !important;
   color: $white !important;
 
-  .padding-top {
-    padding-top: 5rem;
-  }
 }
 
 .sidebar-nav {
+  .sidebar-brand {
+    background: #182236;
+    padding: 11px;
+  }
+
   ul {
     &.components {
-      padding: 0 0;
+      padding: 8px 0 0 0;
+      border-top: 1px solid #182236;
     }
 
     li {
@@ -28,11 +31,11 @@
         display: block;
         text-decoration: none;
 
-        svg {
+        i {
           position: relative;
-          margin-right: 6px;
-          top: 0;
-          font-size: 22px;
+          margin-right: 15px;
+          top: 1px;
+          font-size: 16px;
           color: $gray-50;
           margin-left: 10px;
         }
@@ -73,7 +76,9 @@
         border: none !important;
       }
 
-      .menu-icon {
+      i {
+        top: 1px;
+        position: relative;
         margin-right: 15px;
         font-size: 16px;
       }
@@ -81,19 +86,9 @@
       .custom-angle-right {
         position: absolute;
         right: 0;
-        margin: 8px 10px;
+        margin: 8px 15px;
+        transition: all 0.3s ease;
       }
-
-      // svg {
-      //   position: relative;
-      //   font-size: 18px;
-      //   margin-left: 5.2rem;
-      //   margin-right: 6px;
-      //   top: 0;
-      //   font-size: 22px;
-      //   color: $gray-50;
-      //   margin-left: 10px;
-      // }
     }
 
     .dropdown-container {
@@ -126,5 +121,33 @@
         }
       }
     }
+
+    .not-collapsed {
+      .custom-angle-right {
+        rotate: 90deg;
+      }
+    }
   }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #182236;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #182236;
 }

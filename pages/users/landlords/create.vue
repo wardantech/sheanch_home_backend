@@ -141,7 +141,7 @@
               </b-form-group>
 
               <b-form-group>
-                <b-button type="submit" variant="dark">Save</b-button>
+                <b-button size="sm" type="submit" variant="dark">Save</b-button>
               </b-form-group>
             </form>
           </div>

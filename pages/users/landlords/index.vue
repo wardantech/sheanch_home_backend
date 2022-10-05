@@ -4,7 +4,7 @@
       <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="card-title m-0">Landlord List</h5>
 
-        <nuxt-link :to="{ name: 'users-landlords-create' }" class="btn btn-info">
+        <nuxt-link :to="{ name: 'users-landlords-create' }" class="btn btn-sm btn-info">
           <font-awesome-icon icon="fa-solid fa-plus"/>
           Add Landlord
         </nuxt-link>
@@ -27,14 +27,11 @@
           <tbody>
           <tr v-for="(value,i) in values" :key="i">
             <td>{{ i + 1 }}</td>
-            <!--              <td>-->
-            <!--                <img style="height: 50px; width: 50px" :src="imageUrl+value.image" alt="">-->
-            <!--              </td>-->
             <td>{{ value.name }}</td>
             <td>{{ value.mobile }}</td>
             <td>
-              <b-button @click="statusChange({id:value.id, status:value.status})"
-                        :class="value.status == 1 ? 'btn-sm btn-info': 'btn-sm btn-danger'">
+              <b-button size="sm" @click="statusChange({id:value.id, status:value.status})"
+                        :class="value.status == 1 ? 'btn-info': 'btn-danger'">
                 {{ value.status == 1 ? 'Active' : 'Inactive' }}
               </b-button>
             </td>
