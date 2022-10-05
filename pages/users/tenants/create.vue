@@ -211,7 +211,7 @@
               <b-row>
                 <b-col>
                   <b-form-group>
-                    <b-button type="submit" variant="dark">Save</b-button>
+                    <b-button size="sm" type="submit" variant="dark">Save</b-button>
                   </b-form-group>
                 </b-col>
               </b-row>

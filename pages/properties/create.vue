@@ -444,7 +444,7 @@
               </b-form-group>
 
               <b-form-group>
-                <b-button type="submit" variant="info">Save</b-button>
+                <b-button size="sm" type="submit" variant="info">Save</b-button>
               </b-form-group>
             </div>
           </div>
@@ -519,7 +519,6 @@ export default {
   },
 
   async created() {
-
     const data = await this.$axios.$post('property/get-create-data');
 
     this.divisions = data.data.divisions;
@@ -559,7 +558,6 @@ export default {
           this.form.images.push(fileObj)
         }
       })
-
     },
 
     fileRemoved(file) {

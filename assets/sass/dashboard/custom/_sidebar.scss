@@ -3,15 +3,18 @@
   background-color: $gray-900 !important;
   color: $white !important;
 
-  .padding-top {
-    padding-top: 5rem;
-  }
 }
 
 .sidebar-nav {
+  .sidebar-brand {
+    background: #182236;
+    padding: 11px;
+  }
+
   ul {
     &.components {
-      padding: 0 0;
+      padding: 8px 0 0 0;
+      border-top: 1px solid #182236;
     }
 
     li {
@@ -28,11 +31,11 @@
         display: block;
         text-decoration: none;
 
-        svg {
+        i {
           position: relative;
-          margin-right: 6px;
-          top: 0;
-          font-size: 22px;
+          margin-right: 15px;
+          top: 1px;
+          font-size: 16px;
           color: $gray-50;
           margin-left: 10px;
         }
@@ -45,6 +48,7 @@
     }
 
     .custom-dropdown-btn {
+      position: relative;
       padding: 10px;
       line-height: 30px;
       border-radius: 5px;
@@ -55,14 +59,10 @@
       background: none;
       width: 100%;
       text-align: left;
+      letter-spacing: 0.5px;
       cursor: pointer;
       outline: none;
       transition: background-color 0.5s ease;
-
-      svg {
-        font-size: 18px;
-        margin-left: 5.2rem;
-      }
 
       &:hover {
         background-color: $gray-600;
@@ -76,13 +76,18 @@
         border: none !important;
       }
 
-      svg {
+      i {
+        top: 1px;
         position: relative;
-        margin-right: 6px;
-        top: 0;
-        font-size: 22px;
-        color: $gray-50;
-        margin-left: 10px;
+        margin-right: 15px;
+        font-size: 16px;
+      }
+
+      .custom-angle-right {
+        position: absolute;
+        right: 0;
+        margin: 8px 15px;
+        transition: all 0.3s ease;
       }
     }
 
@@ -116,5 +121,33 @@
         }
       }
     }
+
+    .not-collapsed {
+      .custom-angle-right {
+        rotate: 90deg;
+      }
+    }
   }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #182236;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #182236;
 }

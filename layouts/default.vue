@@ -4,7 +4,7 @@
 
     <div class="wrapper" v-if="$route.path === '/login' ? false : true">
       <!-- Navabar -->
-      <Navbar/>
+      <Navbar :is-padding="isPadding"/>
       <!--/. Navabar -->
 
       <!-- Sidebar -->
@@ -14,7 +14,9 @@
       <b-button
         v-b-toggle.sidebar-variant
         class="sidebar-toggle-btn"
-        @click="addPadding">
+        :class="(isPadding) ? '': 'sidebar-toggle-btn-left'"
+        @click="addPadding"
+        >
         <font-awesome-icon icon="fa-solid fa-bars" />
       </b-button>
       <main class="pt-3" :class="(isPadding) ? 'add-padding': ''" style="margin-top: 55px">
@@ -41,12 +43,7 @@
     },
     methods: {
       addPadding() {
-        if(this.isPadding) {
-          this.isPadding = false;
-        }else {
-          this.isPadding = true;
-        }
-        console.log(this.isPadding);
+        this.isPadding = !this.isPadding;
       }
     }
   }
