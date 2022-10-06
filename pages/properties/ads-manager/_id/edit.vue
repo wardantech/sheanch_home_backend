@@ -13,7 +13,7 @@
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Select Landlord">
                     <select @change="getProperties(form.landlord_id)" v-model="form.landlord_id" id=""
-                            class="form-control">
+                            class="form-control custom-select-form-control">
                       <option value="">Select</option>
                       <option v-for="(landlord, i) in landlords"
                               :value="landlord.id" :key="i">
@@ -27,7 +27,7 @@
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Property">
                     <select @change="setRent" v-model="form.property_id"
-                            class="form-control">
+                            class="form-control custom-select-form-control">
                       <option value="">Select</option>
                       <option v-for="(property, i) in properties"
                               :sale_type="property.sale_type"
@@ -49,6 +49,7 @@
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Property category">
                     <b-form-input
+                      class="custom-form-control"
                       v-model="form.property_category"
                       type="text"
                       placeholder="Property category"
@@ -66,7 +67,6 @@
                       <option value="">Select</option>
                       <option value="1">Active</option>
                       <option value="0">Inactive</option>
-
                     </select>
                     <strong class="text-danger" style="font-size: 12px"
                             v-if="errors.status">{{ errors.status[0] }}</strong>
@@ -75,7 +75,7 @@
 
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Rent amount">
-                    <b-form-input v-model="form.rent_amount" type="text" placeholder="Rent amount"></b-form-input>
+                    <b-form-input class="custom-form-control" v-model="form.rent_amount" type="text" placeholder="Rent amount"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px"
                             v-if="errors.rent_amount">{{ errors.rent_amount[0] }}</strong>
                   </b-form-group>
@@ -83,7 +83,7 @@
 
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Security money">
-                    <b-form-input v-model="form.security_money" type="text" placeholder="Rent amount"></b-form-input>
+                    <b-form-input class="custom-form-control" v-model="form.security_money" type="text" placeholder="Rent amount"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px"
                             v-if="errors.security_money">{{ errors.security_money[0] }}</strong>
                   </b-form-group>
@@ -91,7 +91,7 @@
 
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Start date">
-                    <b-form-input v-model="form.start_date" type="date"></b-form-input>
+                    <b-form-input class="custom-form-control" v-model="form.start_date" type="date"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px"
                             v-if="errors.start_date">{{ errors.start_date[0] }}</strong>
                   </b-form-group>
@@ -99,7 +99,7 @@
 
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="End date">
-                    <b-form-input v-model="form.end_date" type="date"></b-form-input>
+                    <b-form-input class="custom-form-control" v-model="form.end_date" type="date"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px"
                             v-if="errors.end_date">{{ errors.start_date[0] }}</strong>
                   </b-form-group>
@@ -110,6 +110,7 @@
                 <b-col md="12">
                   <b-form-group label="Description">
                     <b-form-textarea
+                      class="custom-form-control"
                       v-model="form.description"
                       placeholder="Say something..."
                       rows="3"
@@ -119,7 +120,7 @@
               </b-row>
 
               <b-form-group>
-                <b-button type="submit" variant="dark">Save</b-button>
+                <b-button size="sm" type="submit" variant="dark">Save</b-button>
               </b-form-group>
             </form>
           </div>

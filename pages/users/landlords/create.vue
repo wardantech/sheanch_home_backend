@@ -12,7 +12,7 @@
               <b-row>
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Name">
-                    <b-form-input v-model="form.name" type="text" placeholder="Name"></b-form-input>
+                    <b-form-input class="custom-form-control" v-model="form.name" type="text" placeholder="Name"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px" v-if="errors.name">{{
                       errors.name[0]
                       }}</strong>
@@ -20,7 +20,7 @@
                 </b-col>
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Mobile">
-                    <b-form-input type="text" v-model="form.mobile" placeholder="Mobile"></b-form-input>
+                    <b-form-input class="custom-form-control" type="text" v-model="form.mobile" placeholder="Mobile"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px"
                             v-if="errors.mobile">{{ errors.mobile[0] }}</strong>
                   </b-form-group>
@@ -30,7 +30,7 @@
               <b-row>
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="NID">
-                    <b-form-input type="text" v-model="form.nid" placeholder="National ID"></b-form-input>
+                    <b-form-input class="custom-form-control" type="text" v-model="form.nid" placeholder="National ID"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px" v-if="errors.nid">{{
                       errors.nid[0]
                       }}</strong>
@@ -39,7 +39,7 @@
 
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Email">
-                    <b-form-input v-model="form.email" type="email" placeholder="Email"></b-form-input>
+                    <b-form-input class="custom-form-control" v-model="form.email" type="email" placeholder="Email"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px" v-if="errors.email">{{
                       errors.email[0]
                       }}</strong>
@@ -49,7 +49,7 @@
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Division">
                     <select @change="getDistricts(form.division_id)" v-model="form.division_id" id=""
-                            class="form-control">
+                            class="form-control custom-select-form-control">
                       <option value="">Select</option>
                       <option v-for="(division, i) in divisions" :value="division.id" :key="i">
                         {{ division.name }}
@@ -62,7 +62,7 @@
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="District">
                     <select @change="getThanas(form.district_id)" v-model="form.district_id" id=""
-                            class="form-control">
+                            class="form-control custom-select-form-control">
                       <option value="">Select</option>
                       <option v-for="(district, i) in districts" :value="district.id" :key="i">
                         {{ district.name }}
@@ -74,7 +74,7 @@
                 </b-col>
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Thana">
-                    <select v-model="form.thana_id" id="" class="form-control">
+                    <select v-model="form.thana_id" id="" class="form-control custom-select-form-control">
                       <option value="">Select</option>
                       <option v-for="(thana, i) in thanas" :value="thana.id" :key="i">
                         {{ thana.name }}
@@ -87,11 +87,10 @@
 
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Status">
-                    <select v-model="form.status" id="" class="form-control">
+                    <select v-model="form.status" id="" class="form-control custom-select-form-control">
                       <option value="">Select</option>
                       <option value="1">Active</option>
                       <option value="0">Inactive</option>
-
                     </select>
                     <strong class="text-danger" style="font-size: 12px"
                             v-if="errors.status">{{ errors.status[0] }}</strong>
@@ -102,7 +101,7 @@
               <b-row>
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Password">
-                    <b-form-input v-model="form.password" type="text" placeholder="Password"></b-form-input>
+                    <b-form-input class="custom-form-control" v-model="form.password" type="text" placeholder="Password"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px"
                             v-if="errors.password">{{ errors.password[0] }}</strong>
                   </b-form-group>
@@ -110,7 +109,7 @@
 
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Confirm Password">
-                    <b-form-input v-model="form.password_confirmation" type="text"
+                    <b-form-input class="custom-form-control" v-model="form.password_confirmation" type="text"
                                   placeholder="Password"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px"
                             v-if="errors.password_confirmation">{{ errors.password_confirmation[0] }}</strong>
@@ -120,6 +119,7 @@
 
               <b-form-group label="Postal Address">
                 <b-form-textarea
+                  class="custom-form-control"
                   id="postal"
                   placeholder="Postal Address..."
                   rows="3"
@@ -131,6 +131,7 @@
 
               <b-form-group label="Residential Address">
                 <b-form-textarea
+                  class="custom-form-control"
                   id="residential"
                   placeholder="Residential Address..."
                   rows="3"

@@ -21,7 +21,7 @@
                 </b-col>
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Status">
-                    <select v-model="form.status" id="" class="form-control custom-form-control">
+                    <select v-model="form.status" id="" class="form-control custom-select-form-control">
                       <option value="">Select</option>
                       <option value="1">Active</option>
                       <option value="0">Inactive</option>
@@ -50,7 +50,7 @@
               </b-row>
 
               <b-form-group>
-                <b-button type="submit" variant="dark">Update</b-button>
+                <b-button size="sm" type="submit" variant="dark">Update</b-button>
               </b-form-group>
             </form>
           </div>

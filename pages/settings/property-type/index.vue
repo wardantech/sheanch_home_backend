@@ -4,7 +4,7 @@
       <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="card-title m-0">Property Type List</h5>
 
-        <nuxt-link :to="{ name: 'settings-property-type-create' }" class="btn btn-info">
+        <nuxt-link :to="{ name: 'settings-property-type-create' }" class="btn btn-sm btn-info">
           <font-awesome-icon icon="fa-solid fa-plus"/>
           Add Property Type
         </nuxt-link>
