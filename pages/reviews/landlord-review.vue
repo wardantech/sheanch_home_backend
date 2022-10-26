@@ -25,9 +25,9 @@
             <td>{{i+1}}</td>
 
             <td v-if="value.review_type === 2">
-              <nuxt-link  :to="{name:'users-landlords-id-show',params: { id: value.property.landlord.id }}" rel="tooltip"
+              <nuxt-link  :to="{name:'users-landlords-id-show',params: { id: value.landlord.id }}" rel="tooltip"
                           title="View landlord details">
-                {{ value.property.landlord.name }}
+                {{ value.landlord.name }}
               </nuxt-link>
             </td>
 
@@ -132,8 +132,7 @@
           })
           .catch(errors => {
             //console.log(errors);
-          }).finally(() => {
-        });
+          });
       },
       // Delete review
       async deleteItem(id) {
