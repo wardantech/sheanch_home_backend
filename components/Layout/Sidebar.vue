@@ -210,6 +210,12 @@
                     Landlord Reviews
                   </nuxt-link>
                 </li>
+
+                <li>
+                  <nuxt-link :to="{ name: 'reviews-tenant-review' }">
+                    Tenant Reviews
+                  </nuxt-link>
+                </li>
               </b-collapse>
               <!--/. Reviews -->
 
