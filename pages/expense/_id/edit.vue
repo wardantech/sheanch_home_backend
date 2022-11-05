@@ -24,7 +24,7 @@
                 <b-col md="4">
                   <b-form-group label="Category">
                     <select v-model="form.utility_category_id"
-                            class="form-control custom-form-control">
+                            class="form-control custom-select-form-control">
                       <option value="">Select</option>
                       <option v-for="(category, i) in utilityCategories" :value="category.id" :key="i">
                         {{ category.name }}
@@ -37,7 +37,7 @@
 
                 <b-col md="4">
                   <b-form-group label="Status">
-                    <select v-model="form.status" id="" class="form-control custom-form-control">
+                    <select v-model="form.status" id="" class="form-control custom-select-form-control">
                       <option value="">Select</option>
                       <option value="1">Active</option>
                       <option value="0">Inactive</option>
@@ -53,6 +53,7 @@
                 <b-col md="12">
                   <b-form-group label="Description">
                     <b-form-textarea
+                      class="custom-form-control"
                       v-model="form.description"
                       placeholder="Say something..."
                       rows="3"

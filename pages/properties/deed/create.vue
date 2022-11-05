@@ -14,7 +14,7 @@
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Select Landlord">
                     <select  @change="getProperties(form.landlord_id)" v-model="form.landlord_id" id=""
-                            class="form-control">
+                            class="form-control custom-select-form-control">
                       <option value="">Select</option>
                       <option v-for="(landlord, i) in landlords" :value="landlord.id" :key="i">
                         {{ landlord.name }}
@@ -27,7 +27,7 @@
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Property">
                     <select v-model="form.property_id" id=""
-                            class="form-control">
+                            class="form-control custom-select-form-control">
                       <option value="">Select</option>
                       <option v-for="(property, i) in properties" :value="property.id" :key="i">
                         {{ property.name }}
@@ -40,7 +40,7 @@
 
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Status">
-                    <select v-model="form.status" id="" class="form-control">
+                    <select v-model="form.status" id="" class="form-control custom-select-form-control">
                       <option value="">Select</option>
                       <option value="1">Active</option>
                       <option value="0">Inactive</option>
@@ -73,6 +73,7 @@
 
               <b-form-group label="Postal Address">
                 <b-form-textarea
+                  class="custom-form-control"
                   id="postal"
                   placeholder="Postal Address..."
                   rows="3"
@@ -84,6 +85,7 @@
 
               <b-form-group label="Residential Address">
                 <b-form-textarea
+                  class="custom-form-control"
                   id="residential"
                   placeholder="Residential Address..."
                   rows="3"

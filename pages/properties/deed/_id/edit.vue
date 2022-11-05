@@ -50,7 +50,7 @@
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Division">
                     <select @change="getDistricts(form.division_id)" v-model="form.division_id" id=""
-                            class="form-control">
+                            class="form-control custom-select-form-control">
                       <option value="">Select</option>
                       <option v-for="(division, i) in divisions" :value="division.id" :key="i">
                         {{ division.name }}
@@ -63,7 +63,7 @@
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="District">
                     <select @change="getThanas(form.district_id)" v-model="form.district_id" id=""
-                            class="form-control">
+                            class="form-control custom-select-form-control">
                       <option value="">Select</option>
                       <option v-for="(district, i) in districts" :value="district.id" :key="i">
                         {{ district.name }}
@@ -75,7 +75,7 @@
                 </b-col>
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Thana">
-                    <select v-model="form.thana_id" id="" class="form-control">
+                    <select v-model="form.thana_id" id="" class="form-control custom-select-form-control">
                       <option value="">Select</option>
                       <option v-for="(thana, i) in thanas" :value="thana.id" :key="i">
                         {{ thana.name }}
@@ -88,7 +88,7 @@
 
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Status">
-                    <select v-model="form.status" id="" class="form-control">
+                    <select v-model="form.status" id="" class="form-control custom-select-form-control">
                       <option value="">Select</option>
                       <option value="1">Active</option>
                       <option value="0">Inactive</option>
@@ -101,6 +101,7 @@
 
               <b-form-group label="Postal Address">
                 <b-form-textarea
+                  class="custom-form-control"
                   id="postal"
                   placeholder="Postal Address..."
                   rows="3"
@@ -112,6 +113,7 @@
 
               <b-form-group label="Residential Address">
                 <b-form-textarea
+                  class="custom-form-control"
                   id="residential"
                   placeholder="Residential Address..."
                   rows="3"

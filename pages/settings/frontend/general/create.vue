@@ -10,14 +10,14 @@
           <div class="card-body">
             <form @submit.prevent="store">
               <b-form-group label="E-mail">
-                <b-form-input v-model="form.email" type="email" placeholder="Enter E-mail"></b-form-input>
+                <b-form-input class="custom-form-control" v-model="form.email" type="email" placeholder="Enter E-mail"></b-form-input>
                 <strong class="text-danger" style="font-size: 12px" v-if="errors.email">{{
                   errors.email[0]
                   }}</strong>
               </b-form-group>
 
               <b-form-group label="Phone">
-                <b-form-input v-model="form.phone" type="text" placeholder="Enter Phone Number"></b-form-input>
+                <b-form-input class="custom-form-control" v-model="form.phone" type="text" placeholder="Enter Phone Number"></b-form-input>
                 <strong class="text-danger" style="font-size: 12px" v-if="errors.phone">{{
                   errors.phone[0]
                   }}</strong>
@@ -25,6 +25,7 @@
 
               <b-form-group label="Address">
                 <b-form-textarea
+                  class="custom-form-control"
                   id="address"
                   placeholder="Enter Address..."
                   rows="3"
@@ -70,22 +71,10 @@
                     </dropzone>
                   </b-form-group>
                 </b-col>
-
-                <!--<b-col md="4">-->
-                  <!--<b-form-group label="Favicon">-->
-                    <!--<dropzone id="favicon" ref="favicon_el"-->
-                              <!--:options="options"-->
-                              <!--@vdropzone-files-added="processFaviconFile"-->
-                              <!--@vdropzone-removed-file="fileFaviconRemoved"-->
-                              <!--:destroyDropzone="false"-->
-                    <!--&gt;-->
-                    <!--</dropzone>-->
-                  <!--</b-form-group>-->
-                <!--</b-col>-->
               </b-row>
 
               <b-form-group>
-                <b-button type="submit" variant="dark">Save</b-button>
+                <b-button size="sm" type="submit" variant="dark">Save</b-button>
               </b-form-group>
             </form>
           </div>

@@ -2,12 +2,7 @@
   <div>
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="card-title m-0">Utility List</h5>
-
-        <nuxt-link :to="{ name: 'settings-utilities-create' }" class="btn btn-sm btn-info">
-          <font-awesome-icon icon="fa-solid fa-plus"/>
-          Add Utility
-        </nuxt-link>
+        <h5 class="card-title m-0">All tenant reviews</h5>
       </div>
 
       <div class="card-body">
@@ -22,32 +17,44 @@
             </select>
           </div>
         </div>
+
         <DataTable id="dataTable" :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy"
                    class="">
           <tbody>
           <tr v-for="(value,i) in values" :key="value.id">
             <td>{{i+1}}</td>
-            <td>{{value.name}}</td>
-            <td>{{value.description}}</td>
-            <td>
-              <select @change="statusChange({id:value.id, status: $event.target.value})" name="" id="status"
-                      class="form-control custom-select-form-control">
-                <option :selected="value.status == 1" value="1">Active</option>
-                <option :selected="value.status == 0" value="0">Inactive</option>
-              </select>
 
-            </td>
-            <td>
-              <nuxt-link :to="{name:'settings-utilities-id-edit',params: { id: value.id }}" rel="tooltip"
-                         class="btn btn-sm btn-info btn-simple"
-                         title="Edit">
-                <font-awesome-icon icon="fa-solid fa-pen-to-square"/>
+            <td v-if="value.reviewer_type === 2">
+              <nuxt-link  :to="{name:'users-tenants-id-show',params: { id: value.tenant.id }}" rel="tooltip"
+                          title="View tenant details">
+                {{ value.tenant.name }}
               </nuxt-link>
+            </td>
 
-              <b-button class="btn btn-sm btn-danger" @click="deleteItem(value.id)">
+            <td v-if="value.review_type === 3">
+              <nuxt-link  :to="{name:'users-landlords-id-show',params: { id: value.landlord.id }}" rel="tooltip"
+                          title="View landlord details">
+                {{ value.landlord.name }}
+              </nuxt-link>
+            </td>
+
+            <td>
+              <b-badge variant="primary">{{ value.rating }} Star</b-badge>
+            </td>
+
+            <td>
+              <!--<nuxt-link v-if="value.review_type === 1" :to="{name:'properties-id-show',params: { id: value.review_type_id }}" rel="tooltip"-->
+              <!--class="btn btn-sm btn-primary btn-simple"-->
+              <!--title="View property details">-->
+              <!--<font-awesome-icon icon="fa-solid fa-building-circle-arrow-right" />-->
+              <!--</nuxt-link>-->
+
+              <b-button
+                class="btn btn-sm btn-danger"
+                title="Delete review"
+                @click="deleteItem(value.id)">
                 <font-awesome-icon icon="fa-solid fa-trash"/>
               </b-button>
-
             </td>
           </tr>
           </tbody>
@@ -68,18 +75,15 @@
   import Pagination from "@/components/Datatable/Pagination";
 
   export default {
-    name: "index",
-    components: {Pagination, DataTable},
-    created() {
-      this.getData();
-    },
+    name: "landlord-review",
+    components: {DataTable, Pagination},
     data() {
       let sortOrders = {};
       let columns = [
         {width: '', label: 'Sl', name: 'id'},
-        {width: '', label: 'Name', name: 'name'},
-        {width: '', label: 'Description', name: 'description'},
-        {width: '15%', label: 'Status', name: 'status'},
+        {width: '', label: 'Tenant', name: 'tenant'},
+        {width: '', label: 'Landlord', name: 'landlord'},
+        {width: '', label: 'Rating', name: 'rating'},
         {width: '', label: 'Action', name: ''},
       ];
       columns.forEach((column) => {
@@ -111,36 +115,38 @@
         },
       }
     },
+    created() {
+      this.getData();
+    },
     methods: {
-      getData(url = '/settings/utility/list') {
+      // Gell all property lists
+      getData(url = '/reviews/get-tenant') {
         this.tableData.draw++;
         this.$axios.post(url, {params: this.tableData})
           .then(response => {
             let data = response.data;
             if (this.tableData.draw == data.draw) {
               this.values = data.data.data;
-              console.log(this.values);
               this.configPagination(data.data);
             }
           })
           .catch(errors => {
             //console.log(errors);
-          }).finally(() => {
-        });
+          });
       },
-
+      // Delete review
       async deleteItem(id) {
         let result = confirm("Want to delete?");
 
         if (result) {
-          await this.$axios.$post('settings/utility/delete/' + id)
+          await this.$axios.$post('review/delete/' + id)
             .then(response => {
               if (id) {
                 this.values.splice(this.values.indexOf(id), 1);
               }
               this.$izitoast.success({
                 title: 'Success !!',
-                message: 'Utility deleted successfully!'
+                message: 'Wishlist deleted successfully!'
               });
             })
             .catch(error => {
@@ -153,7 +159,6 @@
             })
         }
       },
-
       configPagination(data) {
         this.pagination.lastPage = data.last_page;
         this.pagination.currentPage = data.current_page;
@@ -176,27 +181,7 @@
       getIndex(array, key, value) {
         return array.findIndex(i => i[key] == value)
       },
-
-      async statusChange(params) {
-        await this.$axios.$post('/settings/utility/change-status/' + params.id, params)
-          .then(response => {
-            this.$izitoast.success({
-              title: 'Success !!',
-              message: 'Utility deactivated successfully!'
-            })
-            this.getData();
-          })
-          .catch(error => {
-            if (error.response.status == 422) {
-              this.errors = error.response.data.errors
-            }
-            else {
-              alert(error.response.message)
-            }
-          })
-      },
-    },
-
+    }
   }
 </script>
 
