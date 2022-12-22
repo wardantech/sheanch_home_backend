@@ -86,6 +86,11 @@
                       Property Type
                     </nuxt-link>
                   </li>
+                  <li>
+                    <nuxt-link :to="{ name: 'settings-area' }">
+                      Area
+                    </nuxt-link>
+                  </li>
                 </b-collapse>
               </b-collapse>
               <!--/. Properties -->
