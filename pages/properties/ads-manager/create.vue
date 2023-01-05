@@ -11,16 +11,16 @@
             <form @submit.prevent="store">
               <b-row>
                 <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="Select Landlord">
-                    <select @change="getProperties(form.landlord_id)" v-model="form.landlord_id" id=""
+                  <b-form-group label="Select Users">
+                    <select @change="getProperties" v-model="form.user_id" id=""
                             class="form-control custom-select-form-control">
                       <option value="">Select</option>
-                      <option v-for="(landlord, i) in landlords" :value="landlord.id" :key="i">
-                        {{ landlord.name }}
+                      <option v-for="(user, index) in users" :value="user.id" :key="index">
+                        {{ user.name }}
                       </option>
                     </select>
                     <strong class="text-danger" style="font-size: 12px"
-                            v-if="errors.landlord_id">{{ errors.landlord_id[0] }}</strong>
+                            v-if="errors.user_id">{{ errors.user_id[0] }}</strong>
                   </b-form-group>
                 </b-col>
                 <b-col lg="6" md="6" sm="12">
@@ -139,7 +139,7 @@ export default {
   data() {
     return {
       form: {
-        landlord_id: '',
+        user_id: '',
         property_id:'',
         property_category:'',
         property_category_id:'',
@@ -155,24 +155,28 @@ export default {
         description: '',
         status: '',
       },
-      landlords: '',
+      users: '',
       properties: '',
       errors: {}
     }
   },
   async created() {
-    let landlords = await this.$axios.$get('landlord/get-landlords')
-    this.landlords = landlords.data;
-
+    await this.$axios.$get('landlord/get-landlords')
+      .then(res => {
+        this.users = res.data;
+      }).catch(err => {
+        alert(err);
+      });
   },
-
   methods: {
-    async getProperties(landlord_id) {
-      let properties = await this.$axios.$post('property/ad/get-property-as-landlord', {landlordId: landlord_id});
-      this.properties = properties.data;
-
+    async getProperties(event) {
+      await this.$axios.$post('property/ad/get-property-as-landlord', {userId: event.target.value})
+        .then(res => {
+          this.properties = res.data;
+        }).catch(err => {
+          alert(err);
+        });
     },
-
     setRent(event) {
       var options = event.target.options
       if (options.selectedIndex > -1) {
@@ -184,20 +188,14 @@ export default {
           ? this.form.property_category = 'Commercial'
           : this.form.property_category = 'Residential';
 
-        console.log(options[options.selectedIndex].getAttribute('property_category'))
-
         this.form.division_id = options[options.selectedIndex].getAttribute('division_id');
         this.form.district_id = options[options.selectedIndex].getAttribute('district_id');
         this.form.thana_id = options[options.selectedIndex].getAttribute('thana_id');
         this.form.property_category_id = options[options.selectedIndex].getAttribute('property_category');
         this.form.property_type_id = options[options.selectedIndex].getAttribute('property_type_id');
-
-
       }
     },
-
     async store() {
-      console.log();
       await this.$axios.$post('property/ad/store', this.form)
         .then(response => {
           this.$izitoast.success({
