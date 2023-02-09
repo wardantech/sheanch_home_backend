@@ -126,15 +126,12 @@
             let data = response.data;
             if (this.tableData.draw == data.draw) {
               this.values = data.data.data;
-              console.log(this.values);
               this.configPagination(data.data);
             }
           })
           .catch(errors => {
-            //console.log(errors);
-          }).finally(() => {
-
-        });
+            alert(errors);
+          });
       },
 
       async statusChange(params) {
