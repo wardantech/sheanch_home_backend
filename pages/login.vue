@@ -19,31 +19,17 @@
                 </div>
                 <b-form @submit.prevent="userLogin" class="signin-form">
                   <b-form-group label="Your E-mail" label-for="email">
-                    <b-form-input
-                      type="email"
-                      id="email"
-                      name="email"
-                      v-model="form.email"
-                      placeholder="Enter E-mail"
-                      required>
-
-                    </b-form-input>
+                    <b-form-input type="email" id="email" name="email" v-model="form.email" placeholder="Enter E-mail" required></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px" v-if="errors.email">{{ errors.email[0] }}</strong>
                   </b-form-group>
 
                   <b-form-group label="Your Password" label-for="password">
-                    <b-form-input
-                      type="password"
-                      id="password"
-                      name="password"
-                      v-model="form.password"
-                      placeholder="Enter Password"
-                      required>
-
-                    </b-form-input>
+                    <b-form-input type="password" id="password" name="password" v-model="form.password" placeholder="Enter Password" required></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px" v-if="errors.password">{{ errors.password[0] }}</strong>
                   </b-form-group>
 
                   <b-form-group>
-                    <b-button type="submit" block variant="primary">Login</b-button>
+                    <b-button type="submit" block variant="primary" :disabled="loader">Login</b-button>
                   </b-form-group>
                 </b-form>
               </div>
@@ -70,36 +56,29 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$store.state.auth.user)
-    console.log(this.$auth.loggedIn)
     if (this.$auth.loggedIn) {
-      this.$router.push({name: '/'});
+      this.$router.push({ name: '/' });
     }
   },
   methods: {
-
     async userLogin() {
       this.loader = true;
-
-      await this.$auth.loginWith('local', {data: this.form})
+      await this.$auth.loginWith('local', { data: this.form })
         .then(response => {
           this.$izitoast.success({
             title: 'Success !!',
             message: 'Logged In successfully!'
           })
-
-          //console.log(response)
-          //this.$nuxt.$loading.finish();
-          //this.$store.dispatch('auth/storeAuthToken', response.data.data.token)
-          //console.log(this.$store.getters['auth/getAuthToken']);
-          //console.log(response);
-          //console.log(this.$auth.user)
-          this.$nuxt.$options.router.push({path: '/'})
-          //console.log(this.$auth.user)
-          //console.log(this.$auth.loggedIn)
+          this.$nuxt.$options.router.push({ path: '/' })
+        }).catch(error => {
+          this.loader = false;
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+          }
+          else {
+            alert(error.response.message)
+          }
         });
-
-
     },
   }
 }

@@ -23,6 +23,18 @@
 
               <b-collapse id="users" class="dropdown-container dropdown-list-item m-2">
                 <li>
+                  <NuxtLink :to="{ name: 'users' }">
+                    <font-awesome-icon icon="fa-solid fa-right-long" />
+                    All users
+                  </NuxtLink>
+                </li>
+                <li>
+                  <NuxtLink :to="{ name: 'users-create' }">
+                    <font-awesome-icon icon="fa-solid fa-right-long" />
+                    Add user
+                  </NuxtLink>
+                </li>
+                <li>
                   <NuxtLink :to="{ name: 'users-landlords' }">
                     <font-awesome-icon icon="fa-solid fa-right-long" />
                     Landlords
