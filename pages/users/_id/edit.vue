@@ -1,13 +1,16 @@
 <template>
   <div>
-    <b-row>
+    <div v-if="isloading" class="text-center">
+      <p style="font-size: 20px;">Loading...</p>
+    </div>
+    <b-row v-else>
       <b-col md="8">
         <div class="card mt-3">
           <div class="card-header">
-            <h5 class="card-title m-0">Create user</h5>
+            <h5 class="card-title m-0">Edit user</h5>
           </div>
           <div class="card-body">
-            <b-form @submit.prevent="store">
+            <b-form @submit.prevent="update">
               <b-row>
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Name">
@@ -106,26 +109,6 @@
                   </b-form-group>
                 </b-col>
 
-                <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="Password">
-                    <b-form-input v-model="form.password" type="password" class="custom-form-control"
-                      placeholder="Password"></b-form-input>
-                    <strong class="text-danger" style="font-size: 12px" v-if="errors.password">{{
-                      errors.password[0]
-                    }}</strong>
-                  </b-form-group>
-                </b-col>
-
-                <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="Confirm Password">
-                    <b-form-input v-model="form.password_confirmation" class="custom-form-control" type="password"
-                      placeholder="Password"></b-form-input>
-                    <strong class="text-danger" style="font-size: 12px" v-if="errors.password_confirmation">{{
-                      errors.password_confirmation[0]
-                    }}</strong>
-                  </b-form-group>
-                </b-col>
-
                 <b-col md="12">
                   <b-form-group label="Postal Address">
                     <b-form-textarea class="custom-form-control" id="postal" placeholder="Postal Address..." rows="3"
@@ -150,7 +133,7 @@
               <b-row>
                 <b-col>
                   <b-form-group>
-                    <b-button type="submit" variant="success" :disabled="loading" size="sm">Save</b-button>
+                    <b-button type="submit" variant="success" :disabled="loading" size="sm">Update</b-button>
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -161,6 +144,9 @@
 
       <b-col md="4">
         <b-card class="mt-3" header="Upload Image">
+          <td>
+            <img v-model="form.oldImage" :src="imageUrl+form.image" alt="" style="height: 200px;">
+          </td>
           <b-form-group label="Image">
             <Dropzone id="foo" ref="el" :options="options" :destroyDropzone="false">
             </Dropzone>
@@ -178,6 +164,11 @@ import 'nuxt-dropzone/dropzone.css';
 export default {
   name: 'user-create',
   components: { Dropzone },
+  computed:{
+    imageUrl(){
+      return `${process.env.APP_ROOT_IMG_URL}`
+    }
+  },
   data() {
     return {
       options: {
@@ -193,15 +184,15 @@ export default {
         mobile: '',
         nid: '',
         email: '',
+        oldImage: '',
         division_id: '',
         district_id: '',
         thana_id: '',
         status: '',
-        password: '123456',
-        password_confirmation: '123456',
         postal_address: '',
         residential_address: ''
       },
+      isloading: true,
       loading: false,
       previewImage: null,
       divisions: '',
@@ -211,14 +202,27 @@ export default {
     }
   },
   async created() {
-    await this.$axios.$get('settings/divisions')
+    await this.$axios.$post('users/edit', { userId: this.$route.params.id })
       .then(response => {
-        this.divisions = response.data;
+        this.form = response.data.user;
+        this.form.oldImage = response.data.user.image;
+        this.getDivisions();
+        this.getDistricts(this.form.division_id);
+        this.getThanas(this.form.district_id);
+        this.isloading = false;
       }).catch(error => {
         alert(error);
       });
   },
   methods: {
+    async getDivisions() {
+      await this.$axios.$get('settings/divisions')
+        .then(response => {
+          this.divisions = response.data;
+        }).catch(error => {
+          alert(error);
+        });
+    },
     async getDistricts(division_id) {
       this.thanas = '';
       await this.$axios.$post('settings/districts', { divisionId: division_id })
@@ -236,9 +240,9 @@ export default {
           alert(error);
         })
     },
-    async store() {
+    async update() {
       this.loading = true;
-      await this.$axios.$post('users/store', this.form)
+      await this.$axios.$put('users/update/' + this.$route.params.id, this.form)
         .then(response => {
           this.loading = false;
           this.$refs.el.dropzone.options.url = process.env.APP_ROOT_API + 'users/image/' + response.user.id;

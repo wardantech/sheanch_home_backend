@@ -34,18 +34,6 @@
                     Add user
                   </NuxtLink>
                 </li>
-                <li>
-                  <NuxtLink :to="{ name: 'users-landlords' }">
-                    <font-awesome-icon icon="fa-solid fa-right-long" />
-                    Landlords
-                  </NuxtLink>
-                </li>
-                <li>
-                  <NuxtLink :to="{ name: 'users-tenants' }">
-                    <font-awesome-icon icon="fa-solid fa-right-long" />
-                    Tenants
-                  </NuxtLink>
-                </li>
               </b-collapse>
               <!--./ User -->
 

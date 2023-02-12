@@ -42,46 +42,46 @@
 </template>
 
 <script>
-export default {
-  name: "login",
-  auth: false,
-  data() {
-    return {
-      loader: false,
-      form: {
-        email: 'admin@gmail.com',
-        password: '123456',
-      },
-      errors: {}
-    }
-  },
-  mounted() {
-    if (this.$auth.loggedIn) {
-      this.$router.push({ name: '/' });
-    }
-  },
-  methods: {
-    async userLogin() {
-      this.loader = true;
-      await this.$auth.loginWith('local', { data: this.form })
-        .then(response => {
-          this.$izitoast.success({
-            title: 'Success !!',
-            message: 'Logged In successfully!'
-          })
-          this.$nuxt.$options.router.push({ path: '/' })
-        }).catch(error => {
-          this.loader = false;
-          if (error.response.status == 422) {
-            this.errors = error.response.data.errors
-          }
-          else {
-            alert(error.response.message)
-          }
-        });
+  export default {
+    name: "login",
+    auth: false,
+    data() {
+      return {
+        loader: false,
+        form: {
+          email: 'admin@gmail.com',
+          password: '123456',
+        },
+        errors: {}
+      }
     },
+    mounted() {
+      if (this.$auth.loggedIn) {
+        this.$router.push({ name: '/' });
+      }
+    },
+    methods: {
+      async userLogin() {
+        this.loader = true;
+        await this.$auth.loginWith('local', { data: this.form })
+          .then(response => {
+            this.$izitoast.success({
+              title: 'Success !!',
+              message: 'Logged In successfully!'
+            })
+            this.$nuxt.$options.router.push({ path: '/' })
+          }).catch(error => {
+            this.loader = false;
+            if (error.response.status == 422) {
+              this.errors = error.response.data.errors
+            }
+            else {
+              alert(error.response.message)
+            }
+          });
+      },
+    }
   }
-}
 </script>
 
 <style scoped>

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="card">
+    <div v-if="isloading" class="text-center">
+      <p style="font-size: 20px;">Loading...</p>
+    </div>
+    <div v-else class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="card-title m-0">All Users List</h5>
 
@@ -36,11 +39,11 @@
                 </b-button>
               </td>
               <td>
-                <nuxt-link :to="{ name: 'users-tenants-id-show', params: { id: value.id } }" rel="tooltip"
+                <nuxt-link :to="{ name: 'users-id-show', params: { id: value.id } }" rel="tooltip"
                   class="btn btn-sm btn-info btn-simple" title="View">
                   <font-awesome-icon icon="fa-solid fa-eye" />
                 </nuxt-link>
-                <nuxt-link :to="{ name: 'users-tenants-id-edit', params: { id: value.id } }" rel="tooltip"
+                <nuxt-link :to="{ name: 'users-id-edit', params: { id: value.id } }" rel="tooltip"
                   class="btn btn-sm btn-success btn-simple" title="Edit">
                   <font-awesome-icon icon="fa-solid fa-pen-to-square" />
                 </nuxt-link>
@@ -62,111 +65,108 @@
 </template>
 
 <script>
-  import DataTable from "@/components/Datatable/DataTable";
-  import Pagination from "@/components/Datatable/Pagination";
+import DataTable from "@/components/Datatable/DataTable";
+import Pagination from "@/components/Datatable/Pagination";
 
-  export default {
-    name: 'users',
-    components: {Pagination, DataTable},
-    data() {
-      let sortOrders = {};
-      let columns = [
-        {width: '', label: 'Sl', name: 'id'},
-        {width: '', label: 'Name', name: 'name'},
-        {width: '', label: 'Mobile', name: 'mobile'},
-        {width: '', label: 'Status', name: 'status'},
-        {width: '', label: 'Action', name: ''},
-      ];
-      columns.forEach((column) => {
-        sortOrders[column.name] = -1;
-      });
-      return {
-        values: [],
-        sum: [],
-        columns: columns,
-        sortKey: 'id',
-        sortOrders: sortOrders,
-        perPage: ['10', '25', '50', '100', '500', '2000', 'all'],
-        tableData: {
-          draw: 0,
-          length: 10,
-          search: '',
-          column: 0,
-          dir: 'desc',
-        },
-        pagination: {
-          lastPage: '',
-          currentPage: '',
-          total: '',
-          lastPageUrl: '',
-          nextPageUrl: '',
-          prevPageUrl: '',
-          from: '',
-          to: '',
-        },
-      }
+export default {
+  name: 'users',
+  components: { Pagination, DataTable },
+  data() {
+    let sortOrders = {};
+    let columns = [
+      { width: '', label: 'Sl', name: 'id' },
+      { width: '', label: 'Name', name: 'name' },
+      { width: '', label: 'Mobile', name: 'mobile' },
+      { width: '', label: 'Status', name: 'status' },
+      { width: '', label: 'Action', name: '' },
+    ];
+    columns.forEach((column) => {
+      sortOrders[column.name] = -1;
+    });
+    return {
+      isloading: true,
+      values: [],
+      sum: [],
+      columns: columns,
+      sortKey: 'id',
+      sortOrders: sortOrders,
+      perPage: ['10', '25', '50', '100', '500', '2000', 'all'],
+      tableData: {
+        draw: 0,
+        length: 10,
+        search: '',
+        column: 0,
+        dir: 'desc',
+      },
+      pagination: {
+        lastPage: '',
+        currentPage: '',
+        total: '',
+        lastPageUrl: '',
+        nextPageUrl: '',
+        prevPageUrl: '',
+        from: '',
+        to: '',
+      },
+    }
+  },
+  created() {
+    this.getData();
+  },
+  methods: {
+    getData(url = '/users') {
+      this.tableData.draw++;
+      this.$axios.post(url, { params: this.tableData })
+        .then(response => {
+          let data = response.data;
+          if (this.tableData.draw == data.draw) {
+            this.values = data.data.data;
+            this.configPagination(data.data);
+          }
+          this.isloading = false;
+        }).catch(errors => {
+          alert(errors);
+        });
     },
-    created() {
+    configPagination(data) {
+      this.pagination.lastPage = data.last_page;
+      this.pagination.currentPage = data.current_page;
+      this.pagination.total = data.total;
+      this.pagination.lastPageUrl = data.last_page_url;
+      this.pagination.nextPageUrl = data.next_page_url;
+      this.pagination.prevPageUrl = data.prev_page_url;
+      this.pagination.from = data.from;
+      this.pagination.to = data.to;
+    },
+    sortBy(key) {
+      this.sortKey = key;
+      this.sortOrders[key] = this.sortOrders[key] * -1;
+      this.tableData.column = this.getIndex(this.columns, 'name', key);
+      this.tableData.dir = this.sortOrders[key] === 1 ? 'asc' : 'desc';
       this.getData();
     },
-    methods: {
-      getData(url = '/users') {
-        this.tableData.draw++;
-        this.$axios.post(url, {params: this.tableData})
+    getIndex(array, key, value) {
+      return array.findIndex(i => i[key] == value)
+    },
+    async deleteItem(id) {
+      let result = confirm("Want to delete?");
+      if (result) {
+        await this.$axios.$delete('users/delete/' + id)
           .then(response => {
-            let data = response.data;
-            if (this.tableData.draw == data.draw) {
-              this.values = data.data.data;
-              this.configPagination(data.data);
-            }
-          })
-          .catch(errors => {
-            alert(errors);
-          });
-      },
-      configPagination(data) {
-        this.pagination.lastPage = data.last_page;
-        this.pagination.currentPage = data.current_page;
-        this.pagination.total = data.total;
-        this.pagination.lastPageUrl = data.last_page_url;
-        this.pagination.nextPageUrl = data.next_page_url;
-        this.pagination.prevPageUrl = data.prev_page_url;
-        this.pagination.from = data.from;
-        this.pagination.to = data.to;
-      },
-      sortBy(key) {
-        this.sortKey = key;
-        this.sortOrders[key] = this.sortOrders[key] * -1;
-        this.tableData.column = this.getIndex(this.columns, 'name', key);
-        this.tableData.dir = this.sortOrders[key] === 1 ? 'asc' : 'desc';
-        this.getData();
-      },
-      getIndex(array, key, value) {
-        return array.findIndex(i => i[key] == value)
-      },
-      async deleteItem(id) {
-        let result = confirm("Want to delete?");
-        if (result) {
-          await this.$axios.$delete('users/delete/' + id)
-            .then(response => {
+            if (response.success) {
               this.getData();
               this.$izitoast.success({
                 title: 'Success !!',
-                message: 'User deleted successfully!'
+                message: response.message
               });
-            })
-            .catch(error => {
-              if (error.response.status == 422) {
-                this.errors = error.response.data.errors
-              }
-              else {
-                alert(error.response.message)
-              }
-            })
-        }
-      },
-    }
+            }
+          }).catch(error => {
+            alert(error);
+          })
+      }
+    },
   }
+}
 </script>
 
 <style lang="scss" scoped>
