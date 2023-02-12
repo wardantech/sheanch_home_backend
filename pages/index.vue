@@ -52,10 +52,10 @@ import Login from "@/pages/login";
 
 export default {
   name: 'IndexPage',
-  components: {Login, Default},
+  components: { Login, Default },
   data() {
     return {
-      data:'',
+      data: '',
     }
   },
   computed: {
@@ -64,19 +64,15 @@ export default {
     }
   },
   mounted() {
-    //console.log(this.$store.state.auth.user)
-    console.log(this.$auth.loggedIn)
-    //await this.$auth.logout();
-
     if (!this.$auth.loggedIn) {
-      this.$router.push({name: 'login'});
+      this.$router.push({ name: 'login' });
     }
   },
 
-  async created(){
+  async created() {
     await this.$axios.$post('get-dashboard-data')
-      .then(response=>{
-          this.data = response.data;
+      .then(response => {
+        this.data = response.data;
       })
   }
 }

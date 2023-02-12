@@ -1,88 +1,83 @@
 <template>
   <div>
     <b-sidebar :no-close-on-route-change="true" id="sidebar-variant" aria-labelledby="sidebar-no-header-title"
-               style="display: block !important" no-header shadow visible>
-      <template #default="{ hide }">
+      style="display: block !important" no-header shadow visible>
+      <template>
         <div class="padding-top">
           <nav class="mb-3 sidebar-nav">
             <div class="sidebar-brand">
               <b-img width="160" src="../../assets/images/logo_white.png"></b-img>
             </div>
 
-            <ul class="list-unstyled components">
-              <li class="active">
-                <nuxt-link :to="{ name: 'index' }" class="dashboard">
-                  <i class='bx bxs-dashboard'></i>
-                  <span>Dashboard</span>
-                </nuxt-link>
-              </li>
+            <b-list-group>
+              <b-list-group-item>
+                <i class='bx bxs-dashboard'></i>
+                Dashboard
+              </b-list-group-item>
+              <!-- User -->
+              <b-list-group-item v-b-toggle.users>
+                <i class='bx bx-group'></i>
+                Users
+                <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
+              </b-list-group-item>
 
-              <!-- Users -->
-              <li>
-                <b-button class="custom-dropdown-btn" v-b-toggle.users>
-                  <i class='bx bx-group'></i>
-                  Users
-                  <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
-                </b-button>
-              </li>
-
-              <b-collapse class="dropdown-container m-2" id="users">
+              <b-collapse id="users" class="dropdown-container dropdown-list-item m-2">
                 <li>
-                  <nuxt-link :to="{ name: 'users-landlords' }">
-                    Landlords
-                  </nuxt-link>
+                  <NuxtLink :to="{ name: 'users' }">
+                    <font-awesome-icon icon="fa-solid fa-right-long" />
+                    All users
+                  </NuxtLink>
                 </li>
                 <li>
-                  <nuxt-link :to="{ name: 'users-tenants' }">
-                    Tenants
-                  </nuxt-link>
+                  <NuxtLink :to="{ name: 'users-create' }">
+                    <font-awesome-icon icon="fa-solid fa-right-long" />
+                    Add user
+                  </NuxtLink>
                 </li>
               </b-collapse>
-              <!--/. Users -->
+              <!--./ User -->
 
               <!-- Properties -->
-              <li>
-                <b-button class="custom-dropdown-btn" v-b-toggle.properties>
-                  <i class='bx bx-buildings'></i>
-                  Properties
-                  <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
-                </b-button>
-              </li>
-
-              <b-collapse class="dropdown-container m-2" id="properties">
+              <b-list-group-item v-b-toggle.properties>
+                <i class='bx bx-buildings'></i>
+                Properties
+                <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
+              </b-list-group-item>
+              <b-collapse class="dropdown-container dropdown-list-item m-2" id="properties">
                 <li>
                   <nuxt-link :to="{ name: 'properties' }">
+                    <font-awesome-icon icon="fa-solid fa-right-long" />
                     All Properties
                   </nuxt-link>
                 </li>
-
                 <li>
                   <nuxt-link :to="{ name: 'properties-create' }">
+                    <font-awesome-icon icon="fa-solid fa-right-long" />
                     Add Property
                   </nuxt-link>
                 </li>
-
                 <li>
                   <a href="#" v-b-toggle.property-settings>
+                    <font-awesome-icon icon="fa-solid fa-right-long" />
                     Settings
                   </a>
                 </li>
-
-                <b-collapse class="dropdown-container m-2" id="property-settings">
+                <b-collapse class="dropdown-container dropdown-list-item-sub m-2" id="property-settings">
                   <li>
                     <nuxt-link :to="{ name: 'settings-utilities' }">
+                      <font-awesome-icon icon="fa-solid fa-right-long" />
                       Utility
                     </nuxt-link>
                   </li>
-
                   <li>
                     <nuxt-link :to="{ name: 'settings-facilities' }">
+                      <font-awesome-icon icon="fa-solid fa-right-long" />
                       Facility
                     </nuxt-link>
                   </li>
-
                   <li>
                     <nuxt-link :to="{ name: 'settings-property-type' }">
+                      <font-awesome-icon icon="fa-solid fa-right-long" />
                       Property Type
                     </nuxt-link>
                   </li>
@@ -93,212 +88,209 @@
                   </li>
                 </b-collapse>
               </b-collapse>
-              <!--/. Properties -->
+              <!-- ./ Properties -->
 
               <!-- Property Ad Manager -->
-              <li>
-                <b-button class="custom-dropdown-btn" v-b-toggle.property-ads>
-                  <i class='bx bx-user-voice'></i>
-                  Property Ads
-                  <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
-                </b-button>
-              </li>
-
-              <b-collapse class="dropdown-container m-2" id="property-ads">
+              <b-list-group-item v-b-toggle.property-ads>
+                <i class='bx bx-user-voice'></i>
+                Property Ads
+                <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
+              </b-list-group-item>
+              <b-collapse id="property-ads" class="dropdown-container dropdown-list-item m-2">
                 <li>
-                  <nuxt-link :to="{ name: 'properties-ads-manager' }">
+                  <NuxtLink :to="{ name: 'properties-ads-manager' }">
+                    <font-awesome-icon icon="fa-solid fa-right-long" />
                     All Ads
-                  </nuxt-link>
+                  </NuxtLink>
                 </li>
                 <li>
-                  <nuxt-link :to="{ name: 'properties-ads-manager-create' }">
-                    Add Ad
-                  </nuxt-link>
+                  <NuxtLink :to="{ name: 'properties-ads-manager-create' }">
+                    <font-awesome-icon icon="fa-solid fa-right-long" />
+                    Create ad
+                  </NuxtLink>
                 </li>
               </b-collapse>
-              <!--/. Property Ad Manager -->
+              <!--./ Property Ad Manager -->
 
-              <!-- Lease -->
-              <li>
-                <b-button class="custom-dropdown-btn" v-b-toggle.lease>
-                  <i class='bx bx-news'></i>
-                  Deed
-                  <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
-                </b-button>
-              </li>
-
-              <b-collapse class="dropdown-container m-2" id="lease">
+              <!-- Deeds -->
+              <b-list-group-item v-b-toggle.deed>
+                <i class='bx bx-news'></i>
+                Deeds
+                <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
+              </b-list-group-item>
+              <b-collapse id="deed" class="dropdown-container dropdown-list-item m-2">
                 <li>
-                  <nuxt-link :to="{ name: 'properties-deed' }">
+                  <NuxtLink :to="{ name: 'properties-deed' }">
+                    <font-awesome-icon icon="fa-solid fa-right-long" />
                     All Deeds
-                  </nuxt-link>
+                  </NuxtLink>
                 </li>
               </b-collapse>
-              <!--/. Leases -->
+              <!--./ Deeds -->
 
-              <!-- Pages  -->
-              <li>
-                <b-button class="custom-dropdown-btn" v-b-toggle.pages>
-                  <i class='bx bxs-news' ></i>
-                  Pages
-                  <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
-                </b-button>
-              </li>
-
-              <b-collapse class="dropdown-container m-2" id="pages">
-                <li class="custom-dropdown-btn" v-b-toggle.pages-property>
-                  <nuxt-link :to="{ name: 'expense-categories' }">
+              <!-- Pages -->
+              <b-list-group-item v-b-toggle.pages>
+                <i class='bx bxs-news'></i>
+                Pages
+                <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
+              </b-list-group-item>
+              <b-collapse id="pages" class="dropdown-container dropdown-list-item m-2">
+                <li>
+                  <a href="#" v-b-toggle.pages-property>
+                    <font-awesome-icon icon="fa-solid fa-right-long" />
                     Property
-                  </nuxt-link>
+                  </a>
                 </li>
-
-                <!-- Pages Property -->
-                <b-collapse class="dropdown-container m-2" id="pages-property">
+                <b-collapse id="pages-property" class="dropdown-container dropdown-list-item-sub m-2">
                   <li>
                     <nuxt-link :to="{ name: 'pages-property-faq' }">
-                      FAQ
+                      <font-awesome-icon icon="fa-solid fa-right-long" />
+                      Faq
                     </nuxt-link>
                   </li>
-
                   <li>
                     <nuxt-link :to="{ name: 'pages-property-customer-experiences' }">
-                      Customer Experiences
+                      <font-awesome-icon icon="fa-solid fa-right-long" />
+                      Experiences
                     </nuxt-link>
                   </li>
-
                   <li>
                     <nuxt-link :to="{ name: 'pages-property-about-selling' }">
-                      About Property Selling
+                      <font-awesome-icon icon="fa-solid fa-right-long" />
+                      About Selling
                     </nuxt-link>
                   </li>
                 </b-collapse>
-                <!-- /.Pages Property -->
               </b-collapse>
-              <!-- /.Pages  -->
+              <!-- ./ Pages -->
 
               <!-- Widgets -->
-              <li>
-                <b-button class="custom-dropdown-btn" v-b-toggle.widgets>
-                  <i class='bx bxs-widget'></i>
-                  Widgets
-                  <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
-                </b-button>
-              </li>
+              <b-list-group-item v-b-toggle.widgets>
+                <i class='bx bxs-widget'></i>
+                Widgets
+                <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
+              </b-list-group-item>
 
-              <b-collapse class="dropdown-container m-2" id="widgets">
+              <b-collapse id="widgets" class="dropdown-container dropdown-list-item m-2">
                 <li>
-                  <nuxt-link :to="{ name: 'widgets-how-to-work' }">
+                  <NuxtLink :to="{ name: 'widgets-how-to-work' }">
+                    <font-awesome-icon icon="fa-solid fa-right-long" />
                     How to works
-                  </nuxt-link>
+                  </NuxtLink>
                 </li>
               </b-collapse>
-              <!-- /.Widgets -->
+              <!-- ./ Widgets -->
 
               <!-- Reviews -->
-              <li>
-                <b-button class="custom-dropdown-btn" v-b-toggle.reviews>
-                  <i class='bx bx-like'></i>
-                  Reviews
-                  <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
-                </b-button>
-              </li>
+              <b-list-group-item v-b-toggle.reviews>
+                <i class='bx bx-like'></i>
+                Reviews
+                <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
+              </b-list-group-item>
 
-              <b-collapse class="dropdown-container m-2" id="reviews">
+              <b-collapse id="reviews" class="dropdown-container dropdown-list-item m-2">
                 <li>
-                  <nuxt-link :to="{ name: 'reviews-property-review' }">
+                  <NuxtLink :to="{ name: 'reviews-property-review' }">
+                    <font-awesome-icon icon="fa-solid fa-right-long" />
                     Property Reviews
-                  </nuxt-link>
+                  </NuxtLink>
                 </li>
-
                 <li>
-                  <nuxt-link :to="{ name: 'reviews-landlord-review' }">
+                  <NuxtLink :to="{ name: 'reviews-landlord-review' }">
+                    <font-awesome-icon icon="fa-solid fa-right-long" />
                     Landlord Reviews
-                  </nuxt-link>
+                  </NuxtLink>
                 </li>
-
                 <li>
-                  <nuxt-link :to="{ name: 'reviews-tenant-review' }">
+                  <NuxtLink :to="{ name: 'reviews-tenant-review' }">
+                    <font-awesome-icon icon="fa-solid fa-right-long" />
                     Tenant Reviews
-                  </nuxt-link>
+                  </NuxtLink>
                 </li>
               </b-collapse>
-              <!--/. Reviews -->
+              <!--./ Reviews -->
 
               <!-- Wishlists -->
-              <li>
-                <b-button class="custom-dropdown-btn" v-b-toggle.wishlists>
-                  <i class='bx bx-heart' ></i>
-                  Wishlists
-                  <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
-                </b-button>
-              </li>
+              <b-list-group-item v-b-toggle.wishlists>
+                <i class='bx bx-heart'></i>
+                Wishlists
+                <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
+              </b-list-group-item>
 
-              <b-collapse class="dropdown-container m-2" id="wishlists">
+              <b-collapse id="wishlists" class="dropdown-container dropdown-list-item m-2">
                 <li>
-                  <nuxt-link :to="{ name: 'wishlists' }">
+                  <NuxtLink :to="{ name: 'wishlists' }">
+                    <font-awesome-icon icon="fa-solid fa-right-long" />
                     All Wishlists
-                  </nuxt-link>
+                  </NuxtLink>
                 </li>
               </b-collapse>
-              <!--/. Wishlists -->
+              <!--./ Wishlists -->
 
               <!-- Expense -->
-              <li>
-                <b-button class="custom-dropdown-btn" v-b-toggle.expense>
-                  <i class='bx bx-wallet-alt'></i>
-                  Expense
-                  <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
-                </b-button>
-              </li>
+              <b-list-group-item v-b-toggle.expense>
+                <i class='bx bx-wallet-alt'></i>
+                Expense
+                <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
+              </b-list-group-item>
 
-              <b-collapse class="dropdown-container m-2" id="expense">
+              <b-collapse id="expense" class="dropdown-container dropdown-list-item m-2">
                 <li>
-                  <nuxt-link :to="{ name: 'expense-categories' }">
+                  <NuxtLink :to="{ name: 'expense-categories' }">
+                    <font-awesome-icon icon="fa-solid fa-right-long" />
                     Categories
-                  </nuxt-link>
+                  </NuxtLink>
                 </li>
                 <li>
-                  <nuxt-link :to="{ name: 'expense' }">
+                  <NuxtLink :to="{ name: 'expense' }">
+                    <font-awesome-icon icon="fa-solid fa-right-long" />
                     Expenses
-                  </nuxt-link>
+                  </NuxtLink>
                 </li>
               </b-collapse>
-              <!--/. Expense -->
+              <!--./ Expense -->
 
               <!-- Settings -->
-              <li>
-                <b-button class="custom-dropdown-btn" v-b-toggle.settings>
-                  <i class='bx bx-cog'></i>
-                  Settings
-                  <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
-                </b-button>
-              </li>
-
-              <b-collapse class="dropdown-container m-2" id="settings">
+              <b-list-group-item v-b-toggle.settings>
+                <i class='bx bx-cog'></i>
+                Settings
+                <font-awesome-icon icon="fa-solid fa-angle-right" class="custom-angle-right" />
+              </b-list-group-item>
+              <b-collapse id="settings" class="dropdown-container dropdown-list-item m-2">
                 <li>
                   <a href="#" v-b-toggle.frontend-setting>
-                    Frontend Setting
+                    <font-awesome-icon icon="fa-solid fa-right-long" />
+                    Frontend
                   </a>
                 </li>
-
-                <b-collapse class="dropdown-container m-2" id="frontend-setting">
+                <b-collapse id="frontend-setting" class="dropdown-container dropdown-list-item-sub m-2">
                   <li>
                     <nuxt-link :to="{ name: 'settings-frontend-general-create' }">
+                      <font-awesome-icon icon="fa-solid fa-right-long" />
                       General
                     </nuxt-link>
                   </li>
                 </b-collapse>
               </b-collapse>
-              <!--/. Settings -->
-            </ul>
+              <!--./ Settings -->
+            </b-list-group>
           </nav>
         </div>
       </template>
     </b-sidebar>
   </div>
-
 </template>
 
 <script>
-  export default {}
+export default {
+  name: 'Sidebar',
+  data() {
+    return {
+      visible: false,
+      items: [
+        { title: 'Dashboard', icon: 'bxs-dashboard', right_icon: 'fa-angle-right' }
+      ]
+    }
+  }
+}
 </script>
