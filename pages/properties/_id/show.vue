@@ -1,12 +1,16 @@
 <template>
   <div>
-    <div class="card">
+    <div v-if="isloading" class="text-center">
+      <p style="font-size: 20px;">Loading...</p>
+    </div>
+    <div v-else class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="card-title m-0">{{ property.name }}</h5>
 
-        <nuxt-link :to="{ name: 'properties-create' }" class="btn btn-info">
-          <font-awesome-icon icon="fa-solid fa-plus"/>
-          Add Property
+        <nuxt-link :to="{ name: 'properties-id-edit', params: { id: this.$route.params.id } }"
+          class="btn btn-sm btn-info">
+          <font-awesome-icon icon="fa-solid fa-edit" />
+          Edit property
         </nuxt-link>
       </div>
 
@@ -15,78 +19,78 @@
           <b-col md="12">
             <table class="table table-bordered table-hover">
               <tbody>
-              <tr>
-                <td>Landlord Name</td>
-                <td>{{ landlord_name }}</td>
-              </tr>
-              <tr>
-                <td>Thana</td>
-                <td>{{ thana_name }}</td>
-              </tr>
-              <tr>
-                <td>District</td>
-                <td>{{ district_name }}</td>
-              </tr>
-              <tr>
-                <td>Division</td>
-                <td>{{ division_name }}</td>
-              </tr>
-              <tr>
-                <td>Property Type</td>
-                <td>{{ property_type_name }}</td>
-              </tr>
-              <tr>
-                <td>Lease Type</td>
-                <td>{{ (property.lease_type == 1) ? 'Commercial' : 'Residential' }}</td>
-              </tr>
-              <tr>
-                <td>Sale Type</td>
-                <td>{{ (property.sale_type == 1) ? 'For Rent' : 'For Sale' }}</td>
-              </tr>
-              <tr>
-                <td>House No</td>
-                <td>{{ property.house_no }}</td>
-              </tr>
-              <tr>
-                <td>ZIP Code</td>
-                <td>{{ property.zip_code }}</td>
-              </tr>
-              <tr>
-                <td>Address</td>
-                <td>{{ property.address }}</td>
-              </tr>
-              <tr>
-                <td>Bed Rooms</td>
-                <td>{{ property.bed_rooms }}</td>
-              </tr>
-              <tr>
-                <td>Bath Rooms</td>
-                <td>{{ property.bath_rooms }}</td>
-              </tr>
-              <tr>
-                <td>Units</td>
-                <td>{{ property.units }}</td>
-              </tr>
-              <tr>
-                <td>Area Size</td>
-                <td>{{ property.area_size }}</td>
-              </tr>
-              <tr>
-                <td>Rent amount</td>
-                <td>৳ {{ property.rent_amount }}</td>
-              </tr>
-              <tr>
-                <td>Security Money</td>
-                <td>৳ {{ property.security_money }}</td>
-              </tr>
-              <tr>
-                <td>Status</td>
-                <td> {{ (property.status == 1) ? 'Active' : 'Inactive' }}</td>
-              </tr>
-              <tr>
-                <td>Descriptions</td>
-                <td> {{ property.description }}</td>
-              </tr>
+                <tr>
+                  <td>Landlord Name</td>
+                  <td>{{ landlord_name }}</td>
+                </tr>
+                <tr>
+                  <td>Thana</td>
+                  <td>{{ thana_name }}</td>
+                </tr>
+                <tr>
+                  <td>District</td>
+                  <td>{{ district_name }}</td>
+                </tr>
+                <tr>
+                  <td>Division</td>
+                  <td>{{ division_name }}</td>
+                </tr>
+                <tr>
+                  <td>Property Type</td>
+                  <td>{{ property_type_name }}</td>
+                </tr>
+                <tr>
+                  <td>Lease Type</td>
+                  <td>{{ (property.lease_type == 1) ? 'Commercial' : 'Residential' }}</td>
+                </tr>
+                <tr>
+                  <td>Sale Type</td>
+                  <td>{{ (property.sale_type == 1) ? 'For Rent' : 'For Sale' }}</td>
+                </tr>
+                <tr>
+                  <td>House No</td>
+                  <td>{{ property.house_no }}</td>
+                </tr>
+                <tr>
+                  <td>ZIP Code</td>
+                  <td>{{ property.zip_code }}</td>
+                </tr>
+                <tr>
+                  <td>Address</td>
+                  <td>{{ property.address }}</td>
+                </tr>
+                <tr>
+                  <td>Bed Rooms</td>
+                  <td>{{ property.bed_rooms }}</td>
+                </tr>
+                <tr>
+                  <td>Bath Rooms</td>
+                  <td>{{ property.bath_rooms }}</td>
+                </tr>
+                <tr>
+                  <td>Units</td>
+                  <td>{{ property.units }}</td>
+                </tr>
+                <tr>
+                  <td>Area Size</td>
+                  <td>{{ property.area_size }}</td>
+                </tr>
+                <tr>
+                  <td>Rent amount</td>
+                  <td>৳ {{ property.rent_amount }}</td>
+                </tr>
+                <tr>
+                  <td>Security Money</td>
+                  <td>৳ {{ property.security_money }}</td>
+                </tr>
+                <tr>
+                  <td>Status</td>
+                  <td> {{ (property.status == 1) ? 'Active' : 'Inactive' }}</td>
+                </tr>
+                <tr>
+                  <td>Descriptions</td>
+                  <td> {{ property.description }}</td>
+                </tr>
               </tbody>
             </table>
           </b-col>
@@ -118,6 +122,7 @@ export default {
   },
   data() {
     return {
+      isloading: true,
       property: '',
       thana_name: '',
       district_name: '',
@@ -131,7 +136,6 @@ export default {
   async created() {
     await this.$axios.$get('property/show/' + this.$route.params.id)
       .then(response => {
-        console.log();
         this.property = response.data;
 
         this.images = response.data.media;
@@ -140,7 +144,10 @@ export default {
         this.division_name = this.property.division.name;
         this.property_type_name = this.property.property_type.name;
         this.landlord_name = this.property.landlord.name;
-      })
+        this.isloading = false;
+      }).catch(error => {
+        alert(error);
+      });
   },
 }
 </script>
