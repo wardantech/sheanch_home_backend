@@ -148,6 +148,22 @@ export default {
     getIndex(array, key, value) {
       return array.findIndex(i => i[key] == value)
     },
+    async statusChange(params) {
+      await this.$axios.$post('users/change-status/' + params.id, params)
+        .then(response => {
+          this.$izitoast.success({
+            title: 'Success !!',
+            message: 'Property ad status change successfully!'
+          })
+          this.getData()
+        }).catch(error => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+          } else {
+            alert(error.response.message)
+          }
+        });
+    },
     async deleteItem(id) {
       let result = confirm("Want to delete?");
       if (result) {
