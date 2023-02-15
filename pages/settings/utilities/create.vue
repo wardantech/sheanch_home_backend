@@ -14,10 +14,10 @@
                 <b-col md="6">
                   <b-form-group label="Name">
                     <b-form-input v-model="form.name" type="text" class="custom-form-control"
-                                  placeholder="Name"></b-form-input>
+                      placeholder="Name"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px" v-if="errors.name">{{
                       errors.name[0]
-                      }}</strong>
+                    }}</strong>
                   </b-form-group>
                 </b-col>
 
@@ -30,8 +30,9 @@
                       <option value="0">Inactive</option>
 
                     </select>
-                    <strong class="text-danger" style="font-size: 12px"
-                            v-if="errors.status">{{ errors.status[0] }}</strong>
+                    <strong class="text-danger" style="font-size: 12px" v-if="errors.status">{{
+                      errors.status[0]
+                    }}</strong>
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -39,12 +40,8 @@
               <b-row>
                 <b-col md="12">
                   <b-form-group label="Description">
-                    <b-form-textarea
-                      class="custom-form-control"
-                      v-model="form.description"
-                      placeholder="Say something..."
-                      rows="3"
-                    ></b-form-textarea>
+                    <b-form-textarea class="custom-form-control" v-model="form.description"
+                      placeholder="Say something..." rows="3"></b-form-textarea>
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -52,7 +49,7 @@
               <b-row>
                 <b-col>
                   <b-form-group>
-                    <b-button size="sm" type="submit" variant="info">Save</b-button>
+                    <b-button size="sm" type="submit" variant="info" :disabled="isDisable">Save</b-button>
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -65,44 +62,41 @@
 </template>
 
 <script>
-  export default {
-    name: "create",
-    data() {
-      return {
-        form: {
-          name: '',
-          status: '',
-          description: '',
-        },
-        errors: {}
-      }
-    },
-    async created() {
-
-    },
-    methods: {
-      async store() {
-        await this.$axios.$post('settings/utility', this.form,)
-          .then(response => {
-            console.log(response);
-            this.$izitoast.success({
-              title: 'Success !!',
-              message: 'Utility create successfully!'
-            })
-            // this.$toast.success('Utility create successfully!');
-            this.$router.push({name: 'settings-utilities'});
+export default {
+  name: "create",
+  data() {
+    return {
+      form: {
+        name: '',
+        status: '',
+        description: '',
+      },
+      isDisable: false,
+      errors: {}
+    }
+  },
+  methods: {
+    async store() {
+      this.isDisable = true;
+      await this.$axios.$post('settings/utility', this.form,)
+        .then(response => {
+          this.$izitoast.success({
+            title: 'Success !!',
+            message: 'Utility create successfully!'
           })
-          .catch(error => {
-            if(error.response.status == 422){
-              this.errors = error.response.data.errors
-            }
-            else{
-              alert(error.response.message)
-            }
-          })
-      }
+          this.$router.push({ name: 'settings-utilities' });
+        }).catch(error => {
+          this.isDisable = false;
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+          }
+          else {
+            alert(error.response.message)
+          }
+        })
     }
   }
+}
 </script>
 
 <style scoped>

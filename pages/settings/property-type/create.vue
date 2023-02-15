@@ -14,13 +14,12 @@
                 <b-col md="6">
                   <b-form-group label="Name">
                     <b-form-input v-model="form.name" type="text" class="custom-form-control"
-                                  placeholder="Name"></b-form-input>
+                      placeholder="Name"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px" v-if="errors.name">{{
-                        errors.name[0]
-                      }}</strong>
+                      errors.name[0]
+                    }}</strong>
                   </b-form-group>
                 </b-col>
-
 
                 <b-col md="6">
                   <b-form-group label="Status">
@@ -30,8 +29,9 @@
                       <option value="0">Inactive</option>
 
                     </select>
-                    <strong class="text-danger" style="font-size: 12px"
-                            v-if="errors.status">{{ errors.status[0] }}</strong>
+                    <strong class="text-danger" style="font-size: 12px" v-if="errors.status">{{
+                      errors.status[0]
+                    }}</strong>
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -39,12 +39,8 @@
               <b-row>
                 <b-col md="12">
                   <b-form-group label="Description">
-                    <b-form-textarea
-                      class="custom-form-control"
-                      v-model="form.description"
-                      placeholder="Say something..."
-                      rows="3"
-                    ></b-form-textarea>
+                    <b-form-textarea class="custom-form-control" v-model="form.description"
+                      placeholder="Say something..." rows="3"></b-form-textarea>
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -52,7 +48,7 @@
               <b-row>
                 <b-col>
                   <b-form-group>
-                    <b-button size="sm" type="submit" variant="info">Save</b-button>
+                    <b-button size="sm" type="submit" variant="info" :disabled="isDisable">Save</b-button>
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -74,32 +70,29 @@ export default {
         status: '',
         description: '',
       },
+      isDisable: false,
       errors: {}
     }
   },
-  async created() {
-
-  },
   methods: {
     async store() {
-      await this.$axios.$post('settings/property-type', this.form,)
+      this.isDisable = true;
+      await this.$axios.$post('settings/property-type', this.form)
         .then(response => {
-          console.log(response);
           this.$izitoast.success({
             title: 'Success !!',
             message: 'Property type create successfully!'
-          })
+          });
 
-          this.$router.push({name: 'settings-property-type'});
-        })
-        .catch(error => {
+          this.$router.push({ name: 'settings-property-type' });
+        }).catch(error => {
+          this.isDisable = false;
           if (error.response.status == 422) {
             this.errors = error.response.data.errors
-          }
-          else {
+          }else {
             alert(error.response.message)
           }
-        })
+        });
     }
   }
 }
