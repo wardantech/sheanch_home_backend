@@ -11,10 +11,10 @@
             <form @submit.prevent="store">
               <b-row>
                 <b-col lg="6" md="6" sm="12">
-                  <b-form-group label="Name">
-                    <b-form-input class="custom-form-control" v-model="form.title" type="text" placeholder="Name"></b-form-input>
-                    <strong class="text-danger" style="font-size: 12px" v-if="errors.name">{{
-                      errors.name[0]
+                  <b-form-group label="Title">
+                    <b-form-input class="custom-form-control" v-model="form.title" type="text" placeholder="Title"></b-form-input>
+                    <strong class="text-danger" style="font-size: 12px" v-if="errors.title">{{
+                      errors.title[0]
                       }}</strong>
                   </b-form-group>
                 </b-col>
@@ -49,7 +49,7 @@
               </b-row>
 
               <b-form-group>
-                <b-button size="sm" type="submit" variant="dark">Save</b-button>
+                <b-button size="sm" type="submit" variant="dark" :disabled="isDisable">Save</b-button>
               </b-form-group>
             </form>
           </div>
@@ -64,6 +64,7 @@
     name: "create",
     data() {
       return {
+        isDisable: false,
         form: {
           title: '',
           status: '',
@@ -74,6 +75,7 @@
     },
     methods: {
       async store() {
+        this.isDisable = true;
         await this.$axios.$post('pages/property/faq/store', this.form)
           .then(response => {
             this.$izitoast.success({
@@ -81,8 +83,8 @@
               message: 'Faq create successfully!'
             });
             this.$router.push({name: 'pages-property-faq'});
-          })
-          .catch(error => {
+          }).catch(error => {
+            this.isDisable = false;
             if (error.response.status == 422) {
               this.errors = error.response.data.errors
             }
