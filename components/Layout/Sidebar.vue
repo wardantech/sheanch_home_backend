@@ -190,7 +190,7 @@
                     Property Reviews
                   </NuxtLink>
                 </li>
-                <li>
+                <!-- <li>
                   <NuxtLink :to="{ name: 'reviews-landlord-review' }">
                     <font-awesome-icon icon="fa-solid fa-right-long" />
                     Landlord Reviews
@@ -201,7 +201,7 @@
                     <font-awesome-icon icon="fa-solid fa-right-long" />
                     Tenant Reviews
                   </NuxtLink>
-                </li>
+                </li> -->
               </b-collapse>
               <!--./ Reviews -->
 
