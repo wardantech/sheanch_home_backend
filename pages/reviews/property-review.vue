@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="card">
+    <div v-if="isloading" class="text-center">
+      <p style="font-size: 20px;">Loading...</p>
+    </div>
+    <div v-else class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="card-title m-0">All property reviews</h5>
       </div>
@@ -18,8 +21,7 @@
           </div>
         </div>
 
-        <DataTable id="dataTable" :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy"
-          class="">
+        <DataTable id="dataTable" :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy" class="">
           <tbody>
             <tr v-for="(value, i) in values" :key="value.id">
               <td>{{ i + 1 }}</td>
@@ -31,14 +33,14 @@
               </td>
 
               <td v-if="value.review_type === 1">
-                <nuxt-link :to="{ name: 'users-landlords-id-show', params: { id: value.property.landlord.id } }"
+                <nuxt-link :to="{ name: 'users-id-show', params: { id: value.property.landlord.id } }"
                   rel="tooltip" title="View landlord details">
                   {{ value.property.landlord.name }}
                 </nuxt-link>
               </td>
 
               <td v-if="value.reviewer_type === 3">
-                <nuxt-link :to="{ name: 'users-tenants-id-show', params: { id: value.tenant.id } }" rel="tooltip"
+                <nuxt-link :to="{ name: 'users-id-show', params: { id: value.tenant.id } }" rel="tooltip"
                   title="View tenant details">
                   {{ value.tenant.name }}
                 </nuxt-link>
@@ -93,6 +95,7 @@ export default {
       sortOrders[column.name] = -1;
     });
     return {
+      isloading: true,
       values: [],
       sum: [],
       columns: columns,
@@ -132,13 +135,11 @@ export default {
             this.values = data.data.data;
             this.configPagination(data.data);
           }
-        })
-        .catch(errors => {
-          //console.log(errors);
+          this.isloading = false;
+        }).catch(error => {
+          alert(error);
         });
     },
-
-    // Delete review
     async deleteItem(id) {
       let result = confirm("Want to delete?");
 
@@ -163,7 +164,6 @@ export default {
           })
       }
     },
-
     configPagination(data) {
       this.pagination.lastPage = data.last_page;
       this.pagination.currentPage = data.current_page;
@@ -174,7 +174,6 @@ export default {
       this.pagination.from = data.from;
       this.pagination.to = data.to;
     },
-
     sortBy(key) {
       this.sortKey = key;
       this.sortOrders[key] = this.sortOrders[key] * -1;
@@ -182,15 +181,11 @@ export default {
       this.tableData.dir = this.sortOrders[key] === 1 ? 'asc' : 'desc';
       this.getData();
     },
-
     getIndex(array, key, value) {
       return array.findIndex(i => i[key] == value)
     },
-
   }
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
