@@ -54,7 +54,7 @@
 
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Division">
-                    <select @change="getDistricts(form.division_id)" v-model="form.division_id" id=""
+                    <select @change="getDistricts" v-model="form.division_id" id=""
                       class="form-control custom-select-form-control">
                       <option value="">Select</option>
                       <option v-for="(division, i) in divisions" :value="division.id" :key="i">
@@ -69,7 +69,7 @@
 
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="District">
-                    <select @change="getThanas(form.district_id)" v-model="form.district_id" id=""
+                    <select @change="getThanas" v-model="form.district_id" id=""
                       class="form-control custom-select-form-control">
                       <option value="">Select</option>
                       <option v-for="(district, i) in districts" :value="district.id" :key="i">
@@ -121,8 +121,8 @@
 
                 <b-col md="12">
                   <b-form-group label="Residential Address">
-                    <b-form-textarea class="custom-form-control" id="postal" placeholder="Residential Address..."
-                      rows="3" v-model="form.residential_address"></b-form-textarea>
+                    <b-form-textarea class="custom-form-control" id="postal" placeholder="Residential Address..." rows="3"
+                      v-model="form.residential_address"></b-form-textarea>
                     <strong class="text-danger" style="font-size: 12px" v-if="errors.residential_address">{{
                       errors.residential_address[0]
                     }}</strong>
@@ -145,7 +145,7 @@
       <b-col md="4">
         <b-card class="mt-3" header="Upload Image">
           <td>
-            <img v-model="form.oldImage" :src="imageUrl+form.image" alt="" style="height: 200px;">
+            <img v-model="form.oldImage" :src="imageUrl + form.image" alt="" style="height: 200px;">
           </td>
           <b-form-group label="Image">
             <Dropzone id="foo" ref="el" :options="options" :destroyDropzone="false">
@@ -164,8 +164,8 @@ import 'nuxt-dropzone/dropzone.css';
 export default {
   name: 'user-create',
   components: { Dropzone },
-  computed:{
-    imageUrl(){
+  computed: {
+    imageUrl() {
       return `${process.env.APP_ROOT_IMG_URL}`
     }
   },
@@ -206,39 +206,36 @@ export default {
       .then(response => {
         this.form = response.data.user;
         this.form.oldImage = response.data.user.image;
-        this.getDivisions();
-        this.getDistricts(this.form.division_id);
-        this.getThanas(this.form.district_id);
+        this.divisions = response.data.divisions;
+        this.districts = response.data.districts;
+        this.thanas = response.data.thanas;
         this.isloading = false;
       }).catch(error => {
         alert(error);
       });
   },
   methods: {
-    async getDivisions() {
-      await this.$axios.$get('settings/divisions')
+    async getDistricts(event) {
+      let value = event.target.value;
+
+      await this.$axios.$post('areas/get-districts', { divisionId: value })
         .then(response => {
-          this.divisions = response.data;
+          this.districts = '';
+          this.districts = response.data.districts;
         }).catch(error => {
           alert(error);
         });
     },
-    async getDistricts(division_id) {
-      this.thanas = '';
-      await this.$axios.$post('settings/districts', { divisionId: division_id })
+    async getThanas(event) {
+      let value = event.target.value;
+
+      await this.$axios.$post('areas/get-thanas', { thanaId: value })
         .then(response => {
-          this.districts = response.data;
+          this.thanas = '';
+          this.thanas = response.data.thanas;
         }).catch(error => {
           alert(error);
         });
-    },
-    async getThanas(district_id) {
-      await this.$axios.$post('settings/thanas', { districtId: district_id })
-        .then(response => {
-          this.thanas = response.data;
-        }).catch(error => {
-          alert(error);
-        })
     },
     async update() {
       this.loading = true;
@@ -267,6 +264,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

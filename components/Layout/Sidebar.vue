@@ -64,6 +64,12 @@
                 </li>
                 <b-collapse class="dropdown-container dropdown-list-item-sub m-2" id="property-settings">
                   <li>
+                    <nuxt-link :to="{ name: 'settings-areas' }">
+                      <font-awesome-icon icon="fa-solid fa-right-long" />
+                      Areas
+                    </nuxt-link>
+                  </li>
+                  <li>
                     <nuxt-link :to="{ name: 'settings-utilities' }">
                       <font-awesome-icon icon="fa-solid fa-right-long" />
                       Utility
