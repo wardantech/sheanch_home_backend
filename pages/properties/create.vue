@@ -222,7 +222,7 @@
                 <b-col md="6">
                   <b-form-group label="Select Area">
                     <select v-model="form.area_id" class="form-control ">
-                      <option value="">Select Thana</option>
+                      <option value="">Select Area</option>
                       <option v-for="(area, i) in areas" :value="area.id" :key="i">
                         {{ area.name }}
                       </option>
