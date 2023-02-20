@@ -51,7 +51,7 @@
 
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="Division">
-                    <select @change="getDistricts(form.division_id)" v-model="form.division_id" id=""
+                    <select @change="getDistricts" v-model="form.division_id" id=""
                       class="form-control custom-select-form-control">
                       <option value="">Select</option>
                       <option v-for="(division, i) in divisions" :value="division.id" :key="i">
@@ -66,7 +66,7 @@
 
                 <b-col lg="6" md="6" sm="12">
                   <b-form-group label="District">
-                    <select @change="getThanas(form.district_id)" v-model="form.district_id" id=""
+                    <select @change="getThanas" v-model="form.district_id" id=""
                       class="form-control custom-select-form-control">
                       <option value="">Select</option>
                       <option v-for="(district, i) in districts" :value="district.id" :key="i">
@@ -211,30 +211,35 @@ export default {
     }
   },
   async created() {
-    await this.$axios.$get('settings/divisions')
+    await this.$axios.$post('users/create')
       .then(response => {
-        this.divisions = response.data;
+        this.divisions = response.data.divisions;
       }).catch(error => {
         alert(error);
       });
   },
   methods: {
-    async getDistricts(division_id) {
-      this.thanas = '';
-      await this.$axios.$post('settings/districts', { divisionId: division_id })
+    async getDistricts(event) {
+      let value = event.target.value;
+
+      await this.$axios.$post('areas/get-districts', { divisionId: value })
         .then(response => {
-          this.districts = response.data;
+          this.districts = '';
+          this.districts = response.data.districts;
         }).catch(error => {
           alert(error);
         });
     },
-    async getThanas(district_id) {
-      await this.$axios.$post('settings/thanas', { districtId: district_id })
+    async getThanas(event) {
+      let value = event.target.value;
+
+      await this.$axios.$post('areas/get-thanas', { thanaId: value })
         .then(response => {
-          this.thanas = response.data;
+          this.thanas = '';
+          this.thanas = response.data.thanas;
         }).catch(error => {
           alert(error);
-        })
+        });
     },
     async store() {
       this.loading = true;

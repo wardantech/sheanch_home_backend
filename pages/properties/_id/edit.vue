@@ -125,7 +125,7 @@
                 </b-col>
                 <b-col md="4">
                   <b-form-group label="Select division">
-                    <select @change="getDistricts(form.division_id)" v-model="form.division_id" id=""
+                    <select @change="getDistricts" v-model="form.division_id" id=""
                       class="form-control ">
                       <option value="">Select division</option>
                       <option v-for="(division, i) in divisions" :value="division.id" :key="i">
@@ -139,7 +139,7 @@
                 </b-col>
                 <b-col md="4">
                   <b-form-group label="Select district">
-                    <select @change="getThanas(form.district_id)" v-model="form.district_id" id=""
+                    <select @change="getThanas" v-model="form.district_id" id=""
                       class="form-control ">
                       <option value="">Select district</option>
                       <option v-for="(district, i) in districts" :value="district.id" :key="i">
@@ -207,9 +207,9 @@
                   </b-form-group>
                 </b-col>
                 <b-col md="4">
-                  <b-form-group label="Holding Number">
+                  <b-form-group :label="propertyCategory">
                     <b-form-input min="1" v-model="form.holding_number" class="form-control" type="text"
-                      placeholder="House Number"></b-form-input>
+                      :placeholder="propertyCategory"></b-form-input>
                     <strong class="text-danger" style="font-size: 12px" v-if="errors.holding_number">
                       {{ errors.holding_number[0] }}
                     </strong>
@@ -218,7 +218,21 @@
               </b-row>
 
               <b-row>
-                <b-col md="12">
+                <b-col md="6">
+                  <b-form-group label="Select Area">
+                    <select v-model="form.area_id" class="form-control ">
+                      <option value="">Select Thana</option>
+                      <option v-for="(area, i) in areas" :value="area.id" :key="i">
+                        {{ area.name }}
+                      </option>
+                    </select>
+                    <strong class="text-danger" style="font-size: 12px" v-if="errors.area_id">
+                      {{ errors.area_id[0] }}
+                    </strong>
+                  </b-form-group>
+                </b-col>
+
+                <b-col md="6">
                   <b-form-group label="Video Link">
                     <b-form-input min="1" v-model="form.video_link" class="form-control" type="text"
                       placeholder="Enter video link"></b-form-input>
@@ -227,7 +241,9 @@
                     </strong>
                   </b-form-group>
                 </b-col>
+              </b-row>
 
+              <b-row>
                 <b-col md="12">
                   <b-form-group label="Google pam location">
                     <b-form-input min="1" v-model="form.google_map_location" class="form-control" type="text"
@@ -237,9 +253,7 @@
                     </strong>
                   </b-form-group>
                 </b-col>
-              </b-row>
 
-              <b-row>
                 <b-col md="12">
                   <b-form-group label="Address">
                     <b-form-textarea id="address" placeholder="Address" rows="3" v-model="form.address"
@@ -393,6 +407,7 @@ export default {
         thana_id: '',
         district_id: '',
         division_id: '',
+        area_id: '',
         address: '',
         google_map_location: '',
         description: '',
@@ -426,6 +441,7 @@ export default {
         this.form.utilities = JSON.parse(response.data.property.utilities);
         this.facilities = response.data.facilities;
         this.form.facilitie_ids = JSON.parse(response.data.property.facilitie_ids);
+        this.areas = response.data.areas;
 
         let images = response.data.propertyImages;
         this.form.oldImages = [];
@@ -446,15 +462,33 @@ export default {
         alert(error);
       });
   },
+  computed: {
+    propertyCategory() {
+      return this.form.property_category == 1 ? 'Shop Number': 'Holding Number';
+    }
+  },
   methods: {
-    async getDistricts(division_id) {
-      this.thanas = '';
-      let district = await this.$axios.$post('settings/districts', { divisionId: division_id });
-      this.districts = district.data;
+    async getDistricts(event) {
+      let value = event.target.value;
+
+      await this.$axios.$post('areas/get-districts', { divisionId: value })
+        .then(response => {
+          this.districts = '';
+          this.districts = response.data.districts;
+        }).catch(error => {
+          alert(error);
+        });
     },
-    async getThanas(district_id) {
-      let thanas = await this.$axios.$post('settings/thanas', { districtId: district_id });
-      this.thanas = thanas.data;
+    async getThanas(event) {
+      let value = event.target.value;
+
+      await this.$axios.$post('areas/get-thanas', { thanaId: value })
+        .then(response => {
+          this.thanas = '';
+          this.thanas = response.data.thanas;
+        }).catch(error => {
+          alert(error);
+        });
     },
     processFile(file) {
       this.form.images = [];
