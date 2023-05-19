@@ -272,6 +272,12 @@
                     </nuxt-link>
                   </li>
                 </b-collapse>
+                <li>
+                  <nuxt-link :to="{ name: 'subscriptions' }">
+                    <font-awesome-icon icon="fa-solid fa-right-long" />
+                    Subscriptions
+                  </nuxt-link>
+                </li>
               </b-collapse>
               <!--./ Settings -->
             </b-list-group>
