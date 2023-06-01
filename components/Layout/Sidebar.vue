@@ -137,6 +137,12 @@
               </b-list-group-item>
               <b-collapse id="pages" class="dropdown-container dropdown-list-item m-2">
                 <li>
+                  <nuxt-link :to="{ name: 'pages-home' }">
+                    <font-awesome-icon icon="fa-solid fa-right-long" />
+                    Home page
+                  </nuxt-link>
+                </li>
+                <li>
                   <a href="#" v-b-toggle.pages-property>
                     <font-awesome-icon icon="fa-solid fa-right-long" />
                     Property
