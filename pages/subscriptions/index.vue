@@ -5,12 +5,7 @@
     </div>
     <div v-else class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="card-title m-0">Property List</h5>
-
-        <nuxt-link :to="{ name: 'properties-create' }" class="btn btn-sm btn-info">
-          <font-awesome-icon icon="fa-solid fa-plus" />
-          Add Property
-        </nuxt-link>
+        <h5 class="card-title m-0">Subscribers</h5>
       </div>
 
       <div class="card-body">
@@ -25,28 +20,17 @@
             </select>
           </div>
         </div>
-        <DataTable id="dataTable" :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy"
-          class="">
+        <DataTable id="dataTable" :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy" class="">
           <tbody>
             <tr v-for="(value, i) in values" :key="value.id">
-              <td>{{ i+ 1}}</td>
-              <td>{{ value.name }}</td>
-              <td>{{ value.address }}</td>
+              <td>{{ i + 1 }}</td>
+              <td>{{ value.email }}</td>
               <td>
-                <b-button size="sm" @click="statusChange({ id: value.id, status: value.status })"
-                  :class="value.status == 1 ? 'btn-info' : 'btn-danger'">
+                <b-button size="sm" :class="value.status == 1 ? 'btn-info' : 'btn-danger'">
                   {{ value.status == 1 ? 'Active' : 'Inactive' }}
                 </b-button>
               </td>
               <td>
-                <nuxt-link :to="{ name: 'properties-id-show', params: { id: value.id } }" rel="tooltip"
-                  class="btn btn-sm btn-info btn-simple" title="View">
-                  <font-awesome-icon icon="fa-solid fa-eye" />
-                </nuxt-link>
-                <nuxt-link :to="{ name: 'properties-id-edit', params: { id: value.id } }" rel="tooltip"
-                  class="btn btn-sm btn-success btn-simple" title="Edit">
-                  <font-awesome-icon icon="fa-solid fa-edit" />
-                </nuxt-link>
                 <b-button class="btn btn-sm btn-danger" @click="deleteItem(value.id)">
                   <font-awesome-icon icon="fa-solid fa-trash" />
                 </b-button>
@@ -68,8 +52,8 @@
 import DataTable from "@/components/Datatable/DataTable";
 import Pagination from "@/components/Datatable/Pagination";
 
-export default {
-  name: "index",
+export default ({
+  name: "subscriber-index",
   components: { Pagination, DataTable },
   created() {
     this.getData();
@@ -78,9 +62,8 @@ export default {
     let sortOrders = {};
     let columns = [
       { width: '', label: 'Sl', name: 'id' },
-      { width: '', label: 'Name', name: 'name' },
-      { width: '', label: 'Address', name: 'address' },
-      { width: '', label: 'Status', name: '' },
+      { width: '', label: 'Email', name: 'email' },
+      { width: '', label: 'Status', name: 'status' },
       { width: '', label: 'Action', name: '' },
     ];
     columns.forEach((column) => {
@@ -114,49 +97,20 @@ export default {
     }
   },
   methods: {
-    getData(url = '/property/list') {
+    getData(url = 'subscription-lists') {
       this.tableData.draw++;
       this.$axios.post(url, { params: this.tableData })
-        .then(response => {
+        .then((response) => {
           let data = response.data;
           if (this.tableData.draw == data.draw) {
             this.values = data.data.data;
             this.configPagination(data.data);
           }
           this.isloading = false;
-        }).catch(error => {
-          alert(error);
-        });
-    },
-    async statusChange(params) {
-      await this.$axios.$post('property/change-status/' + params.id, params)
-        .then(response => {
-          this.$izitoast.success({
-            title: 'Success !!',
-            message: 'Property status updated successfully!'
-          });
-          this.getData()
-        }).catch(error => {
-          alert(error);
         })
-    },
-    async deleteItem(id) {
-      let result = confirm("Want to delete?");
-
-      if (result) {
-        await this.$axios.$post('property/delete/' + id)
-          .then(response => {
-            if (id) {
-              this.values.splice(this.values.indexOf(id), 1);
-            }
-            this.$izitoast.success({
-              title: 'Success !!',
-              message: 'Property deleted successfully!'
-            });
-          }).catch(error => {
-            alert(error);
-          })
-      }
+        .catch((error) => {
+          console.error(error)
+        })
     },
     configPagination(data) {
       this.pagination.lastPage = data.last_page;
@@ -178,6 +132,23 @@ export default {
     getIndex(array, key, value) {
       return array.findIndex(i => i[key] == value)
     },
+    async deleteItem(id) {
+      let result = confirm("Want to delete?");
+
+      if (result) {
+        await this.$axios.$delete('subscription-delete/' + id)
+          .then((response) => {
+            this.getData()
+            this.$izitoast.success({
+              title: 'Success !!',
+              message: response.message
+            })
+          })
+          .catch((error) => {
+            console.error(error)
+          })
+      }
+    }
   }
-}
+})
 </script>
